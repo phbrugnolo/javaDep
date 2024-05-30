@@ -1,11 +1,11 @@
 package models;
 
 public class Pessoa {
-    private String nome;
-    private String sobrenome;
-    private int idade;
-    private String endereco;
-    private String cpf;
+    protected String nome;
+    protected String sobrenome;
+    protected int idade;
+    protected String endereco;
+    protected String cpf;
 
     public Pessoa(String nome, String sobrenome, int idade, String endereco, String cpf) {
         this.nome = nome;
@@ -14,6 +14,8 @@ public class Pessoa {
         this.endereco = endereco;
         this.cpf = cpf;
     }
+
+    public Pessoa() {}
 
     public String getNome() {
         return nome;
