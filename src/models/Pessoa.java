@@ -1,11 +1,11 @@
 package models;
 
 public class Pessoa {
-    protected String nome;
-    protected String sobrenome;
-    protected int idade;
-    protected String endereco;
-    protected String cpf;
+    private String nome;
+    private String sobrenome;
+    private int idade;
+    private String endereco;
+    private String cpf;
 
     public Pessoa(String nome, String sobrenome, int idade, String endereco, String cpf) {
         this.nome = nome;
