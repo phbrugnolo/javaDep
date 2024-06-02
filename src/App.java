@@ -1,20 +1,20 @@
-package views;
-
 import java.util.Scanner;
-import controller.CriarLista;
 import java.util.List;
+import controller.*;
 import models.*;
-import util.Log;
+import views.*;
+
 
 public class App {
-    List<Pessoa> pessoas = CriarLista.criarLista();
-    List<Funcionario> funcionarios = CriarLista.criarLista();
-    List<Departamento> departamentos = CriarLista.criarLista();
-
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         int option;
         int subOption;
+
+        List<Pessoa> pessoas = CriarLista.criarLista();
+        List<Funcionario> funcionarios = CriarLista.criarLista();
+        List<Departamento> departamentos = CriarLista.criarLista();
+        Empresa empresa = new Empresa("Teste", pessoas, funcionarios, departamentos);
 
         do {
             System.out.println("Menu Principal:");
@@ -37,24 +37,29 @@ public class App {
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
                         subOption = scanner.nextInt();
+                        scanner.nextLine(); 
 
                         switch (subOption) {
                             case 1:
-                                // Código para cadastrar uma pessoa
-                                Log.logAction("Pessoa cadastrada");
+                                _Pessoa.cadastroPessoa(empresa, scanner);
                                 break;
+
                             case 2:
-                                // Código para buscar uma pessoa
+                                _Pessoa.buscaPessoa(empresa, scanner);
                                 break;
+
                             case 3:
                                 // Código para atualizar uma pessoa
                                 break;
+
                             case 4:
-                                // Código para deletar uma pessoa
+                                _Pessoa.removePessoa(empresa, scanner);
                                 break;
+
                             case 0:
                                 System.out.println("Voltando ao menu principal...");
                                 break;
+
                             default:
                                 System.out.println("Opção inválida!");
                                 break;
@@ -72,24 +77,28 @@ public class App {
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
                         subOption = scanner.nextInt();
+                        scanner.nextLine(); 
 
                         switch (subOption) {
                             case 1:
-                                // Código para cadastrar um funcionário
-                                Log.logAction("Funcionário cadastrado");
+                                _Funcionario.cadastroFuncionario(empresa, scanner);
                                 break;
                             case 2:
-                                // Código para buscar um funcionário
+                               _Funcionario.buscaFuncionario(empresa, scanner);
                                 break;
                             case 3:
                                 // Código para atualizar um funcionário
+                                // Pode ser implementado de forma semelhante ao cadastrar
                                 break;
+
                             case 4:
-                                // Código para deletar um funcionário
+                                _Funcionario.removeFuncionario(empresa, scanner);
                                 break;
+
                             case 0:
                                 System.out.println("Voltando ao menu principal...");
                                 break;
+
                             default:
                                 System.out.println("Opção inválida!");
                                 break;
@@ -107,24 +116,30 @@ public class App {
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
                         subOption = scanner.nextInt();
+                        scanner.nextLine(); 
 
                         switch (subOption) {
                             case 1:
-                                // Código para cadastrar um departamento
-                                Log.logAction("Departamento cadastrado");
+                                _Departamento.cadastroDepartamento(empresa, scanner);
                                 break;
+
                             case 2:
-                                // Código para buscar um departamento
+                                _Departamento.buscaDepartamento(empresa, scanner);
                                 break;
+
                             case 3:
                                 // Código para atualizar um departamento
+                                // Pode ser implementado de forma semelhante ao cadastrar
                                 break;
+
                             case 4:
-                                // Código para deletar um departamento
+                                _Departamento.removeDepartamento(empresa, scanner);
                                 break;
+
                             case 0:
                                 System.out.println("Voltando ao menu principal...");
                                 break;
+
                             default:
                                 System.out.println("Opção inválida!");
                                 break;
@@ -133,39 +148,12 @@ public class App {
                     break;
 
                 case 4:
-                    do {
-                        System.out.println("Menu Empresa:");
-                        System.out.println("[1] Cadastrar Empresa");
-                        System.out.println("[2] Buscar Empresa");
-                        System.out.println("[3] Atualizar Empresa");
-                        System.out.println("[4] Deletar Empresa");
-                        System.out.println("[0] Voltar");
-                        System.out.print("Escolha uma opção: ");
-                        subOption = scanner.nextInt();
-
-                        switch (subOption) {
-                            case 1:
-                                // Código para cadastrar uma empresa
-                                Log.logAction("Empresa cadastrada");
-                                break;
-                            case 2:
-                                // Código para buscar uma empresa
-                                break;
-                            case 3:
-                                // Código para atualizar uma empresa
-                                break;
-                            case 4:
-                                // Código para deletar uma empresa
-                                break;
-                            case 0:
-                                System.out.println("Voltando ao menu principal...");
-                                break;
-                            default:
-                                System.out.println("Opção inválida!");
-                                break;
-                        }
-                    } while (subOption != 0);
+                    System.out.println("Empresa " + empresa.getNome() + ":");
+                    System.out.println("Lista de Pessoas: " + empresa.listaPessoas());
+                    System.out.println("Lista de Funcionários: " + empresa.listaFuncionarios());
+                    System.out.println("Lista de Departamentos: " + empresa.listaDepartamentos());
                     break;
+
                 case 0:
                     System.out.println("Saindo...");
                     scanner.close();

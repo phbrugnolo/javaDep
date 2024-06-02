@@ -1,13 +1,24 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import models.*;
 
 public class Empresa {
-    private List<Pessoa> pessoas = new ArrayList<>();
-    private List<Funcionario> funcionarios = new ArrayList<>();
-    private List<Departamento> departamentos = new ArrayList<>();
+    private String nome;
+    private List<Pessoa> pessoas; 
+    private List<Funcionario> funcionarios;
+    private List<Departamento> departamentos;
+
+    public Empresa(String nome, List<Pessoa> pessoas, List<Funcionario> funcionarios, List<Departamento> departamentos) {
+        this.nome = nome;
+        this.pessoas = pessoas;
+        this.funcionarios = funcionarios;
+        this.departamentos = departamentos;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 
     public Pessoa buscaPessoa(String nome) throws Exception {
         return pessoas.stream()
@@ -51,12 +62,9 @@ public class Empresa {
         }
     }
 
-    public void removeFuncionario(Funcionario funcionario) throws Exception {
-        if (funcionario != null) {
-            funcionarios.remove(funcionario);
-        } else {
-            throw new Exception("Funcionário não encontrado");
-        }
+    public void removeFuncionario(int id) throws Exception {
+        Funcionario f = buscaFuncionario(id);
+        funcionarios.remove(f);
     }
 
     public List<Funcionario> listaFuncionarios() {
@@ -98,12 +106,5 @@ public class Empresa {
 
     public List<Departamento> listaDepartamentos() {
         return departamentos;
-    }
-
-    public Funcionario criaFuncionarioSePessoaExistir(String nomePessoa, String cargo, double salario, String email) throws Exception {
-        Pessoa pessoa = buscaPessoa(nomePessoa);
-        Funcionario funcionario = new Funcionario(pessoa.getNome(), pessoa.getSobrenome(), pessoa.getIdade(), pessoa.getEndereco(), pessoa.getCpf(), cargo, salario, email);
-        adicionaFuncionario(funcionario);
-        return funcionario;
     }
 }

@@ -6,6 +6,7 @@ public class Pessoa {
     private int idade;
     private String endereco;
     private String cpf;
+    private boolean trabalhando;
 
     public Pessoa(String nome, String sobrenome, int idade, String endereco, String cpf) {
         this.nome = nome;
@@ -13,6 +14,7 @@ public class Pessoa {
         this.idade = idade;
         this.endereco = endereco;
         this.cpf = cpf;
+        this.trabalhando = false;
     }
 
     public Pessoa() {}
@@ -57,5 +59,17 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
+    public boolean isTrabalhando() {
+        return trabalhando;
+    }
 
+    public void setTrabalhando(boolean trabalhando) {
+        this.trabalhando = trabalhando;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa [nome=" + nome + ", sobrenome=" + sobrenome + ", idade=" + idade + ", endereco=" + endereco
+                + ", cpf=" + cpf + ", trabalhando=" + trabalhando + "]";
+    }
 }
