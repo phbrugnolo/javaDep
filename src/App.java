@@ -49,7 +49,7 @@ public class App {
                                 break;
 
                             case 3:
-                                // Código para atualizar uma pessoa
+                                _Pessoa.editaPessoa(empresa, scanner);
                                 break;
 
                             case 4:

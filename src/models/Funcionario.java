@@ -46,4 +46,10 @@ public class Funcionario extends Pessoa {
     public static void setNextId(int nextId) {
         Funcionario.nextId = nextId;
     }
+
+    @Override
+    public String exibiPessoa() {
+        return "Nome: " + getNome() + ", Sobrenome: " + getSobrenome() + ", Idade: " + getIdade() + ", Endereço: " + getEndereco()
+                + ", CPF: " + getCpf() + ", Status de Trabalho: " + isTrabalhando() + ". Email: " + email + ", Cargo: " + cargo + ", Salário: " + salario + ", ID: " + id + ".";
+    }
 }

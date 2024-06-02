@@ -20,11 +20,24 @@ public class Empresa {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public Pessoa buscaPessoa(String nome) throws Exception {
         return pessoas.stream()
                 .filter(p -> p.getNome().equalsIgnoreCase(nome))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Pessoa não encontrada"));
+    }
+
+
+    public void editaPessoa(String nome, String novoNome, String novoSobrenome, int novaIdade, String novoEndereco) throws Exception {
+        Pessoa pessoa = buscaPessoa(nome);
+        pessoa.setNome(novoNome);
+        pessoa.setSobrenome(novoSobrenome);
+        pessoa.setIdade(novaIdade);
+        pessoa.setEndereco(novoEndereco);
     }
 
     public void adicionaPessoa(Pessoa pessoa) throws Exception {

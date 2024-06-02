@@ -17,4 +17,10 @@ package models;
         this.nome = nome;
     }
 
+    @Override
+    public String toString() {
+        return "Departamento " + nome + ":";
+    }
+
+    
 }

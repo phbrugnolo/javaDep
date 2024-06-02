@@ -67,9 +67,8 @@ public class Pessoa {
         this.trabalhando = trabalhando;
     }
 
-    @Override
-    public String toString() {
-        return "Pessoa [nome=" + nome + ", sobrenome=" + sobrenome + ", idade=" + idade + ", endereco=" + endereco
-                + ", cpf=" + cpf + ", trabalhando=" + trabalhando + "]";
+    public String exibiPessoa() {
+        return "Nome: " + nome + ", Sobrenome: " + sobrenome + ", Idade: " + idade + ", Endereço: " + endereco
+                + ", CPF: " + cpf + ", Status de Trabalho: " + trabalhando + ".";
     }
 }
