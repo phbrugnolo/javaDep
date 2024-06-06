@@ -1,19 +1,20 @@
 package controller;
 
 import java.util.List;
-import models.*;
 
-public class Empresa {
+import model.*;
+
+public class Empresa extends CriarLista {
     private String nome;
-    private List<Pessoa> pessoas; 
+    private List<Pessoa> pessoas;
     private List<Funcionario> funcionarios;
     private List<Departamento> departamentos;
 
-    public Empresa(String nome, List<Pessoa> pessoas, List<Funcionario> funcionarios, List<Departamento> departamentos) {
+    public Empresa(String nome) {
         this.nome = nome;
-        this.pessoas = pessoas;
-        this.funcionarios = funcionarios;
-        this.departamentos = departamentos;
+        this.pessoas = CriarLista.criarListaPessoa();
+        this.funcionarios = CriarLista.criarListaFuncionario();
+        this.departamentos = CriarLista.criarListaDepartamento();
     }
 
     public String getNome() {
@@ -24,100 +25,42 @@ public class Empresa {
         this.nome = nome;
     }
 
-    public Pessoa buscaPessoa(String nome) throws Exception {
-        return pessoas.stream()
-                .filter(p -> p.getNome().equalsIgnoreCase(nome))
-                .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não encontrada"));
-    }
-
-
-    public void editaPessoa(String nome, String novoNome, String novoSobrenome, int novaIdade, String novoEndereco) throws Exception {
-        Pessoa pessoa = buscaPessoa(nome);
-        pessoa.setNome(novoNome);
-        pessoa.setSobrenome(novoSobrenome);
-        pessoa.setIdade(novaIdade);
-        pessoa.setEndereco(novoEndereco);
-    }
-
-    public void adicionaPessoa(Pessoa pessoa) throws Exception {
-        try {
-            Pessoa existente = buscaPessoa(pessoa.getNome());
-            throw new Exception("Pessoa já cadastrada no sistema");
-        } catch (Exception e) {
-            if (e.getMessage().equals("Pessoa não encontrada")) {
-                pessoas.add(pessoa);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    public void removePessoa(String nome) throws Exception {
-        Pessoa pessoa = buscaPessoa(nome);
-        pessoas.remove(pessoa);
-    }
-
-    public List<Pessoa> listaPessoas() {
+    public List<Pessoa> getPessoas() {
         return pessoas;
     }
 
-    public void adicionaFuncionario(Funcionario funcionario) throws Exception {
-        try {
-            Funcionario existente = buscaFuncionario(funcionario.getId());
-            throw new Exception("Funcionario já cadastrado no sistema");
-        } catch (Exception e) {
-            if (e.getMessage().equals("Nao existe um funcionario com este ID.")) {
-                funcionarios.add(funcionario);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    public void removeFuncionario(int id) throws Exception {
-        Funcionario f = buscaFuncionario(id);
-        funcionarios.remove(f);
-    }
-
-    public List<Funcionario> listaFuncionarios() {
+    public List<Funcionario> getFuncionarios() {
         return funcionarios;
     }
 
-    public Funcionario buscaFuncionario(String nome) throws Exception {
-        return funcionarios.stream().filter(f -> f.getNome().equals(nome)).findFirst().orElseThrow(() -> new Exception("Nao existe um funcionario com este nome."));
-    }
-
-    public Funcionario buscaFuncionario(int id) throws Exception {
-        return funcionarios.stream().filter(f -> f.getId() == id).findFirst().orElseThrow(() -> new Exception("Nao existe um funcionario com este ID."));
-    }
-
-    public Departamento buscaDepartamento(String nome) throws Exception {
-        return departamentos.stream()
-                .filter(d -> d.getNome().equalsIgnoreCase(nome))
-                .findFirst()
-                .orElseThrow(() -> new Exception("Departamento não encontrado"));
-    }
-
-    public void adicionaDepartamento(Departamento departamento) throws Exception {
-        try {
-            Departamento existente = buscaDepartamento(departamento.getNome());
-            throw new Exception("Departamento já cadastrado no sistema");
-        } catch (Exception e) {
-            if (e.getMessage().equals("Departamento não encontrado")) {
-                departamentos.add(departamento);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    public void removeDepartamento(String nome) throws Exception {
-        Departamento departamento = buscaDepartamento(nome);
-        departamentos.remove(departamento);
-    }
-
-    public List<Departamento> listaDepartamentos() {
+    public List<Departamento> getDepartamentos() {
         return departamentos;
+    }
+
+
+    public void relatorioFolhaSalarial() {
+        // List<Funcionario> sortedFuncionarios = new ArrayList<>();
+        // sortedFuncionarios.addAll(funcionarios);
+        // Collections.sort(sortedFuncionarios);
+
+        // System.out.println("Relatório de Folha Salarial:");
+        // for (Funcionario f : sortedFuncionarios) {
+        //     System.out.println(f.exibiPessoa());
+        // }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Empresa: ").append(nome).append("\n\n");
+
+        for (Departamento d : departamentos) {
+            sb.append("Departamento: ").append(d.getNome()).append("\n");
+            for (Funcionario f : d.getFuncionarios()) {
+                sb.append("\t").append(f.exibiPessoa()).append("\n");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

@@ -1,6 +1,8 @@
-package models;
+package model;
 
-public class Pessoa {
+import java.io.Serializable;
+
+public class Pessoa implements Serializable{
     private String nome;
     private String sobrenome;
     private int idade;
@@ -17,7 +19,9 @@ public class Pessoa {
         this.trabalhando = false;
     }
 
-    public Pessoa() {}
+    public static Pessoa criarPessoa(String nome, String sobrenome, int idade, String endereco, String cpf) {
+        return new Pessoa(nome, sobrenome, idade, endereco, cpf);
+    }
 
     public String getNome() {
         return nome;
@@ -69,6 +73,6 @@ public class Pessoa {
 
     public String exibiPessoa() {
         return "Nome: " + nome + ", Sobrenome: " + sobrenome + ", Idade: " + idade + ", Endereço: " + endereco
-                + ", CPF: " + cpf + ", Status de Trabalho: " + trabalhando + ".";
+                + ", CPF: " + cpf + ", Status de Trabalho: " + (trabalhando? "Ativa" : "Inativa") + ".";
     }
 }
