@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import model.Departamento;
-import util.Ser;
+import util.*;
 
 public class DepartamentoController {
 
@@ -38,27 +38,27 @@ public class DepartamentoController {
         Departamento d = buscaDepartamento(departamento.getNome()).orElse(null);
         if (d == null) {
             departamentos.add(departamento);
-        } else {
-            throw new Exception("Departamento já cadastrado no sistema");
-        }
+            Log.logAction("Departamento cadastrado " + departamento.getNome() + " com sucesso");
+        } 
+        throw new Exception("Departamento já cadastrado no sistema");
     }
 
     public void editaDepartamento(String nome, String novoNome) throws Exception {
         Departamento d = buscaDepartamento(nome).orElse(null);
         if (d != null) {
             d.setNome(novoNome);
-        } else {
-            throw new Exception("Departamento não encontrado");
+            Log.logAction("Departamento editado " + d.getNome() + " com sucesso");
         }
+        throw new Exception("Departamento não encontrado");
     }
 
     public void removeDepartamento(String nome) throws Exception {
         Departamento d = buscaDepartamento(nome).orElse(null);
         if (d == null) {
             throw new Exception("Departamento não encontrado");
-        } else {
-            departamentos.remove(d);
         }
+        departamentos.remove(d);
+        Log.logAction("Departamento removido " + d.getNome() + " com sucesso");   
     }
 
     public void salvarDados() throws Exception {

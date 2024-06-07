@@ -2,14 +2,12 @@ package view;
 
 import java.util.Scanner;
 
-import controller.DepartamentoController;
-import controller.FuncionarioController;
-import controller.PessoaController;
+import controller.*;
 import model.*;
 
 public class FuncionarioView {
 
-    public static void cadastroFuncionario(FuncionarioController fController,PessoaController pController, DepartamentoController dController, Scanner scanner){
+    public static void cadastroFuncionario(FuncionarioController fController,PessoaController pController, DepartamentoController dController, Empresa emp, Scanner scanner){
         System.out.print("Digite o nome da Pessoa: ");
         String nome = scanner.nextLine();
         System.out.print("Cargo: ");
@@ -25,10 +23,10 @@ public class FuncionarioView {
             
             Pessoa p = pController.buscaPessoa(nome).orElseThrow(() -> new Exception("Pessoa não encontrada"));
             Departamento d = dController.buscaDepartamento(nomeDep).orElseThrow(()-> new Exception("Departamento não encontrado"));
-            String email = p.getNome().toLowerCase() + "." + p.getSobrenome().toLowerCase() + "@" + d.getNome() + ".com";
+            String email = p.getNome().toLowerCase() + "." + p.getSobrenome().toLowerCase() + "@" + emp.getNome() + ".com";
             p.setTrabalhando(true);
 
-            Funcionario f = Funcionario.criarFuncionario(p.getNome(), p.getSobrenome(), p.getIdade(), p.getEndereco(), p.getCpf(), cargo, salario, email, d);
+            Funcionario f = Funcionario.criarFuncionario(p.getNome(), p.getSobrenome(), p.getDataNasc(), p.getEndereco(), p.getCpf(), cargo, salario, email, d);
             System.out.println("Funcionário cadastrado com sucesso!");
 
             fController.adicionaFuncionario(f);
@@ -50,7 +48,7 @@ public class FuncionarioView {
                 String nome = scanner.nextLine();
                 try {
                     fController.buscaFuncionario(nome).ifPresentOrElse(
-                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario),
+                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
                         () -> System.out.println("Funcionário não encontrado."));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());

@@ -33,9 +33,9 @@ public abstract class Ser {
                 ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(ARQUIVOP));
 
                 return (List<Pessoa>) ois.readObject();
-            }else{
-                throw new Exception("Arquivo inválido"); 
             }
+            throw new Exception("Arquivo inválido"); 
+            
             
         } catch (Exception e) {
             throw new Exception("Não foi possível ler o arquivo");
@@ -60,9 +60,9 @@ public abstract class Ser {
                 ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(ARQUIVOF));
 
                 return (List<Funcionario>) ois.readObject();
-            }else{
-                throw new Exception("Arquivo inválido"); 
             }
+            throw new Exception("Arquivo inválido"); 
+            
             
         } catch (Exception e) {
             throw new Exception("Não foi possível ler o arquivo");
@@ -87,9 +87,9 @@ public abstract class Ser {
                 ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(ARQUIVOD));
 
                 return (List<Departamento>) ois.readObject();
-            }else{
-                throw new Exception("Arquivo inválido"); 
             }
+            throw new Exception("Arquivo inválido"); 
+            
             
         } catch (Exception e) {
             throw new Exception("Não foi possível ler o arquivo");

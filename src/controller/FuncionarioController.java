@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import model.Funcionario;
-import util.Ser;
+import util.*;
 
 public class FuncionarioController {
 
@@ -37,19 +37,18 @@ public class FuncionarioController {
         if(f == null){
             funcionario.setId(criarId());
             funcionarios.add(funcionario);
-        }else {
-            throw new Exception("Funcionário já cadastrado no sistema");
+            Log.logAction("Funcionário cadastrado " + funcionario.getNome() + " com sucesso");
         }
+        throw new Exception("Funcionário já cadastrado no sistema");
     }
 
     public void removeFuncionario(int id) throws Exception {
         Funcionario f = buscaFuncionario(id).orElse(null);
         if(f == null){
             throw new Exception("Funcionário não encontrado");
-        }else {
-            funcionarios.remove(f);      
         }
-  
+        funcionarios.remove(f);      
+        Log.logAction("Funcionário removido " + f.getNome() + " com sucesso");
     }
 
     public void editaFuncionario(int id, double novoSalario, String novoCargo) throws Exception {
@@ -57,9 +56,9 @@ public class FuncionarioController {
         if(f != null){
             f.setSalario(novoSalario);
             f.setCargo(novoCargo);
-        }else {
-            throw new Exception("Funcionário não encontrado");
+            Log.logAction("Funcionário editado " + f.getNome() + " com sucesso");
         }
+        throw new Exception("Funcionário não encontrado");
     }
 
     public Optional<Funcionario> buscaFuncionario(String nome) throws Exception {
