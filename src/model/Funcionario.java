@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Funcionario extends Pessoa implements Comparable<Funcionario> {
     private String cargo;
     private double salario;
@@ -7,18 +9,18 @@ public class Funcionario extends Pessoa implements Comparable<Funcionario> {
     private Departamento departamento;
     private int id;
 
-    public Funcionario(String nome, String sobrenome, int idade, String endereco, String cpf, String cargo,
+    public Funcionario(String nome, String sobrenome, LocalDate dataNasc, String endereco, String cpf, String cargo,
             double salario, String email, Departamento departamento) {
-        super(nome, sobrenome, idade, endereco, cpf);
+        super(nome, sobrenome, dataNasc, endereco, cpf);
         this.cargo = cargo;
         this.salario = salario;
         this.email = email;
         this.departamento = departamento;
     }
 
-    public static Funcionario criarFuncionario(String nome, String sobrenome, int idade, String endereco, String cpf,
+    public static Funcionario criarFuncionario(String nome, String sobrenome, LocalDate dataNasc, String endereco, String cpf,
             String cargo, double salario, String email, Departamento departamento) {
-        return new Funcionario(nome, sobrenome, idade, endereco, cpf, cargo, salario, email, departamento);
+        return new Funcionario(nome, sobrenome, dataNasc, endereco, cpf, cargo, salario, email, departamento);
     }
 
     public String getCargo() {

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import model.*;
@@ -39,28 +41,21 @@ public class Empresa extends CriarLista {
 
 
     public void relatorioFolhaSalarial() {
-        // List<Funcionario> sortedFuncionarios = new ArrayList<>();
-        // sortedFuncionarios.addAll(funcionarios);
-        // Collections.sort(sortedFuncionarios);
+        List<Funcionario> sortedFuncionarios = new ArrayList<>();
+        sortedFuncionarios.addAll(funcionarios);
+        Collections.sort(sortedFuncionarios);
 
-        // System.out.println("Relatório de Folha Salarial:");
-        // for (Funcionario f : sortedFuncionarios) {
-        //     System.out.println(f.exibiPessoa());
-        // }
+        System.out.println("Relatório de Folha Salarial:");
+        for (Funcionario f : sortedFuncionarios) {
+            System.out.println(f.exibiPessoa());
+        }
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Empresa: ").append(nome).append("\n\n");
-
-        for (Departamento d : departamentos) {
-            sb.append("Departamento: ").append(d.getNome()).append("\n");
-            for (Funcionario f : d.getFuncionarios()) {
-                sb.append("\t").append(f.exibiPessoa()).append("\n");
-            }
-            sb.append("\n");
-        }
-        return sb.toString();
+        return "Empresa [nome=" + nome + ", pessoas=" + pessoas + ", funcionarios=" + funcionarios + ", departamentos="
+                + departamentos + "]";
     }
+
+    
 }

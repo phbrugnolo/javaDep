@@ -16,8 +16,8 @@ public class App{
         do {
             System.out.println("Menu Principal:");
             System.out.println("[1] Pessoa");
-            System.out.println("[2] Funcionário");
-            System.out.println("[3] Departamento");
+            System.out.println("[2] Departamento");
+            System.out.println("[3] Funcionário");
             System.out.println("[4] Empresa");
             System.out.println("[0] Sair");
             System.out.print("Escolha uma opção: ");
@@ -65,77 +65,76 @@ public class App{
                     break;
 
                 case 2:
-                    do {
-                        System.out.println("Menu Funcionário:");
-                        System.out.println("[1] Cadastrar Funcionário");
-                        System.out.println("[2] Buscar Funcionário");
-                        System.out.println("[3] Atualizar Funcionário");
-                        System.out.println("[4] Deletar Funcionário");
-                        System.out.println("[0] Voltar");
-                        System.out.print("Escolha uma opção: ");
-                        subOption = scanner.nextInt();
-                        scanner.nextLine(); 
+                do {
+                    System.out.println("Menu Departamento:");
+                    System.out.println("[1] Cadastrar Departamento");
+                    System.out.println("[2] Buscar Departamento");
+                    System.out.println("[3] Atualizar Departamento");
+                    System.out.println("[4] Deletar Departamento");
+                    System.out.println("[0] Voltar");
+                    System.out.print("Escolha uma opção: ");
+                    subOption = scanner.nextInt();
+                    scanner.nextLine(); 
 
-                        switch (subOption) {
-                            case 1:
-                                FuncionarioView.cadastroFuncionario(funcionarioController, pessoaController, departamentoController, scanner);
-                                break;
-                            case 2:
-                               FuncionarioView.buscaFuncionario(funcionarioController, scanner);
-                                break;
-                            case 3:
-                                FuncionarioView.editaFuncionario(funcionarioController, scanner);
-                                break;
-
-                            case 4:
-                                FuncionarioView.removeFuncionario(funcionarioController, scanner);
-                                break;
-
-                            case 0:
-                                System.out.println("Voltando ao menu principal...");
-                                break;
-
-                            default:
-                                System.out.println("Opção inválida!");
-                                break;
-                        }
-                    } while (subOption != 0);
-                    break;
-
+                    switch (subOption) {
+                        case 1:
+                            DepartamentoView.cadastroDepartamento(departamentoController, empresa, scanner);
+                            break;
+                        case 2:
+                            DepartamentoView.buscaDepartamento(departamentoController, scanner);
+                            break;
+                        case 3:
+                            DepartamentoView.editaDepartamento(departamentoController, scanner);
+                            break;
+                        case 4:
+                            DepartamentoView.removeDepartamento(departamentoController, scanner);
+                            break;
+                        case 0:
+                            System.out.println("Voltando ao menu principal...");
+                            break;
+                        default:
+                            System.out.println("Opção inválida!");
+                            break;
+                    }
+                } while (subOption != 0);
+                break;
                 case 3:
-                    do {
-                        System.out.println("Menu Departamento:");
-                        System.out.println("[1] Cadastrar Departamento");
-                        System.out.println("[2] Buscar Departamento");
-                        System.out.println("[3] Atualizar Departamento");
-                        System.out.println("[4] Deletar Departamento");
-                        System.out.println("[0] Voltar");
-                        System.out.print("Escolha uma opção: ");
-                        subOption = scanner.nextInt();
-                        scanner.nextLine(); 
+                do {
+                    System.out.println("Menu Funcionário:");
+                    System.out.println("[1] Cadastrar Funcionário");
+                    System.out.println("[2] Buscar Funcionário");
+                    System.out.println("[3] Atualizar Funcionário");
+                    System.out.println("[4] Deletar Funcionário");
+                    System.out.println("[0] Voltar");
+                    System.out.print("Escolha uma opção: ");
+                    subOption = scanner.nextInt();
+                    scanner.nextLine(); 
 
-                        switch (subOption) {
-                            case 1:
-                                DepartamentoView.cadastroDepartamento(departamentoController, empresa, scanner);
-                                break;
-                            case 2:
-                                DepartamentoView.buscaDepartamento(departamentoController, scanner);
-                                break;
-                            case 3:
-                                DepartamentoView.editaDepartamento(departamentoController, scanner);
-                                break;
-                            case 4:
-                                DepartamentoView.removeDepartamento(departamentoController, scanner);
-                                break;
-                            case 0:
-                                System.out.println("Voltando ao menu principal...");
-                                break;
-                            default:
-                                System.out.println("Opção inválida!");
-                                break;
-                        }
-                    } while (subOption != 0);
-                    break;
+                    switch (subOption) {
+                        case 1:
+                            FuncionarioView.cadastroFuncionario(funcionarioController, pessoaController, departamentoController, empresa, scanner);
+                            break;
+                        case 2:
+                           FuncionarioView.buscaFuncionario(funcionarioController, scanner);
+                            break;
+                        case 3:
+                            FuncionarioView.editaFuncionario(funcionarioController, scanner);
+                            break;
+
+                        case 4:
+                            FuncionarioView.removeFuncionario(funcionarioController, scanner);
+                            break;
+
+                        case 0:
+                            System.out.println("Voltando ao menu principal...");
+                            break;
+
+                        default:
+                            System.out.println("Opção inválida!");
+                            break;
+                    }
+                } while (subOption != 0);
+                break;
                 case 4:
                     System.out.println("Menu da Empresa: " + empresa.getNome() + ":");
                     System.out.println("[1] Lista geral da Empresa");
@@ -154,7 +153,7 @@ public class App{
                                 System.out.println(empresa);
                                 break;
                             case 2:
-                                //Codigo folha salarial
+                                empresa.relatorioFolhaSalarial();
                                 break;
                             case 3:
                                 System.out.println(empresa.getDepartamentos());
