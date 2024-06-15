@@ -10,8 +10,8 @@ public class FuncionarioController {
 
     private List<Funcionario> funcionarios;
 
-    public FuncionarioController(List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
+    public FuncionarioController() {
+        this.funcionarios = CriarLista.criarListaFuncionario();
 
         try {
             carregarDados();
@@ -33,32 +33,28 @@ public class FuncionarioController {
     }
 
     public void adicionaFuncionario(Funcionario funcionario) throws Exception {
-        Funcionario f = buscaFuncionario(funcionario.getId()).orElse(null);
-        if(f == null){
-            funcionario.setId(criarId());
-            funcionarios.add(funcionario);
-            Log.logAction("Funcionário cadastrado " + funcionario.getNome() + " com sucesso");
-        }
-        throw new Exception("Funcionário já cadastrado no sistema");
+        buscaFuncionario(funcionario.getId()).orElseThrow(() -> new Exception("Funcionário já cadastrado no sistema"));
+        funcionario.setId(criarId());
+        funcionarios.add(funcionario);
+        Log.logAction("Funcionário cadastrado " + funcionario.getNome() + " com sucesso");
+        salvarDados();
+
     }
 
     public void removeFuncionario(int id) throws Exception {
-        Funcionario f = buscaFuncionario(id).orElse(null);
-        if(f == null){
-            throw new Exception("Funcionário não encontrado");
-        }
+        Funcionario f = buscaFuncionario(id).orElseThrow(() -> new Exception("Funcionário não encontrado"));
         funcionarios.remove(f);      
         Log.logAction("Funcionário removido " + f.getNome() + " com sucesso");
+        salvarDados();
     }
 
     public void editaFuncionario(int id, double novoSalario, String novoCargo) throws Exception {
-        Funcionario f = buscaFuncionario(id).orElse(null);
-        if(f != null){
-            f.setSalario(novoSalario);
-            f.setCargo(novoCargo);
-            Log.logAction("Funcionário editado " + f.getNome() + " com sucesso");
-        }
-        throw new Exception("Funcionário não encontrado");
+        Funcionario f = buscaFuncionario(id).orElseThrow(() -> new Exception("Funcionário não encontrado"));
+        f.setSalario(novoSalario);
+        f.setCargo(novoCargo);
+        Log.logAction("Funcionário editado " + f.getNome() + " com sucesso");
+        salvarDados();
+
     }
 
     public Optional<Funcionario> buscaFuncionario(String nome) throws Exception {
@@ -68,6 +64,7 @@ public class FuncionarioController {
     public Optional<Funcionario> buscaFuncionario(int id) throws Exception {
         return funcionarios.stream().filter(f -> f.getId() == id).findFirst();
     }
+    
 
     public void salvarDados() throws Exception {
         Ser.salvarFuncionario(funcionarios);

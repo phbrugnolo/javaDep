@@ -39,8 +39,8 @@ public class PessoaView {
         Pessoa p = Pessoa.criarPessoa(nome, sobrenome, dataNascimento, endereco, cpf);
 
         try {
-            System.out.println("Pessoa cadastrada com sucesso!");
             pController.adicionaPessoa(p);
+            System.out.println("Pessoa cadastrada com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

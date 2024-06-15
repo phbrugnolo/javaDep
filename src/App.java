@@ -8,10 +8,10 @@ public class App{
         int option;
         int subOption;
 
-        Empresa empresa = new Empresa("NoxEnterprises");
-        PessoaController pessoaController = new PessoaController(empresa.getPessoas());
-        DepartamentoController departamentoController = new DepartamentoController(empresa.getDepartamentos());
-        FuncionarioController funcionarioController = new FuncionarioController(empresa.getFuncionarios());
+        PessoaController pessoaController = new PessoaController();
+        DepartamentoController departamentoController = new DepartamentoController();
+        FuncionarioController funcionarioController = new FuncionarioController();
+        Empresa empresa = new Empresa("NoxEnterprises", departamentoController, funcionarioController, pessoaController);
 
         do {
             System.out.println("Menu Principal:");
@@ -78,7 +78,8 @@ public class App{
 
                     switch (subOption) {
                         case 1:
-                            DepartamentoView.cadastroDepartamento(departamentoController, empresa, scanner);
+                            DepartamentoView.cadastroDepartamento(departamentoController, funcionarioController, scanner);
+                            System.out.println(departamentoController.getDepartamentos());
                             break;
                         case 2:
                             DepartamentoView.buscaDepartamento(departamentoController, scanner);
@@ -153,19 +154,18 @@ public class App{
                                 System.out.println(empresa);
                                 break;
                             case 2:
-                                empresa.relatorioFolhaSalarial();
+                                // empresa.relatorioFolhaSalarial();
                                 break;
                             case 3:
-                                System.out.println(empresa.getDepartamentos());
+                                // System.out.println(empresa.getDepartamentos());
                                 break;
                             case 4:
-
                                 break;
                             case 5:
-                                System.out.println(empresa.getFuncionarios());
+                                // System.out.println(empresa.getFuncionarios());
                                 break;
                             case 6:
-                                System.out.println(empresa.getPessoas());
+                                // System.out.println(empresa.getPessoas());
                                 break;
                             case 0:
                                 System.out.println("Voltando ao menu principal...");

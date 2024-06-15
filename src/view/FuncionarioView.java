@@ -17,16 +17,14 @@ public class FuncionarioView {
         scanner.nextLine();
         System.out.println("Digite o nome do Departamento: ");
         String nomeDep = scanner.nextLine();
-        
 
         try {
             
             Pessoa p = pController.buscaPessoa(nome).orElseThrow(() -> new Exception("Pessoa não encontrada"));
-            Departamento d = dController.buscaDepartamento(nomeDep).orElseThrow(()-> new Exception("Departamento não encontrado"));
             String email = p.getNome().toLowerCase() + "." + p.getSobrenome().toLowerCase() + "@" + emp.getNome() + ".com";
             p.setTrabalhando(true);
 
-            Funcionario f = Funcionario.criarFuncionario(p.getNome(), p.getSobrenome(), p.getDataNasc(), p.getEndereco(), p.getCpf(), cargo, salario, email, d);
+            Funcionario f = Funcionario.criarFuncionario(p.getNome(), p.getSobrenome(), p.getDataNasc(), p.getEndereco(), p.getCpf(), cargo, salario, email);
             System.out.println("Funcionário cadastrado com sucesso!");
 
             fController.adicionaFuncionario(f);

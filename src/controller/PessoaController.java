@@ -11,8 +11,8 @@ public class PessoaController {
 
     private List<Pessoa> pessoas;
 
-    public PessoaController(List<Pessoa> pessoas) {
-        this.pessoas = pessoas;
+    public PessoaController() {
+        this.pessoas = CriarLista.criarListaPessoa();
 
         try {
             carregarDados();
@@ -37,32 +37,25 @@ public class PessoaController {
 
     public void editaPessoa(String nome, String novoNome, String novoSobrenome, LocalDate novaIdade, String novoEndereco, String novoCpf)
             throws Exception {
-        Pessoa p = buscaPessoa(nome).orElse(null);
-        if (p != null) {
-            p.setNome(novoNome);
-            p.setSobrenome(novoSobrenome);
-            p.setDataNasc(novaIdade);
-            p.setEndereco(novoEndereco);
-            p.setCpf(novoCpf);
-            Log.logAction("Pessoa " + p.getNome() + " editada com sucesso");
-        }
-        throw new Exception("Pessoa não encontrada");
+        Pessoa p = buscaPessoa(nome).orElseThrow(() -> new Exception("Pessoa não encontrada"));
+        p.setNome(novoNome);
+        p.setSobrenome(novoSobrenome);
+        p.setDataNasc(novaIdade);
+        p.setEndereco(novoEndereco);
+        p.setCpf(novoCpf);
+        Log.logAction("Pessoa " + p.getNome() + " editada com sucesso");
+
     }
 
     public void adicionaPessoa(Pessoa pessoa) throws Exception {
-        Pessoa p = buscaPessoa(pessoa.getNome()).orElse(null);
-        if (p == null) {
-            pessoas.add(pessoa);
-            Log.logAction("Pessoa " + pessoa.getNome() + " cadastrada com sucesso");
-        }
-        throw new Exception("Pessoa já cadastrada no sistema");
+        buscaPessoa(pessoa.getNome()).orElseThrow(() -> new Exception("Pessoa já cadastrada no sistema"));
+        pessoas.add(pessoa);
+        Log.logAction("Pessoa " + pessoa.getNome() + " cadastrada com sucesso");
+      
     }
 
     public void removePessoa(String nome) throws Exception {
-        Pessoa p = buscaPessoa(nome).orElse(null);
-        if (p == null) {
-            throw new Exception("Pessoa não encontrada");
-        }
+        Pessoa p = buscaPessoa(nome).orElseThrow(() -> new Exception("Pessoa não encontrada"));
         Log.logAction("Pessoa " + p.getNome() + " removida com sucesso");
         pessoas.remove(p);
     }

@@ -1,22 +1,24 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+// import java.util.ArrayList;
+// import java.util.Collections;
+// import java.util.List;
 
 import model.*;
 
-public class Empresa extends CriarLista {
-    private String nome;
-    private List<Pessoa> pessoas;
-    private List<Funcionario> funcionarios;
-    private List<Departamento> departamentos;
 
-    public Empresa(String nome) {
+public class Empresa {
+    private String nome;
+    private DepartamentoController departamentoController;
+    private FuncionarioController funcionarioController;
+    private PessoaController pessoaController;
+
+    public Empresa(String nome, DepartamentoController departamentoController,
+            FuncionarioController funcionarioController, PessoaController pessoaController) {
         this.nome = nome;
-        this.pessoas = CriarLista.criarListaPessoa();
-        this.funcionarios = CriarLista.criarListaFuncionario();
-        this.departamentos = CriarLista.criarListaDepartamento();
+        this.departamentoController = departamentoController;
+        this.funcionarioController = funcionarioController;
+        this.pessoaController = pessoaController;
     }
 
     public String getNome() {
@@ -27,34 +29,53 @@ public class Empresa extends CriarLista {
         this.nome = nome;
     }
 
-    public List<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
-
-    public List<Departamento> getDepartamentos() {
-        return departamentos;
+    public void adicionarFuncionario(Funcionario funcionario, Departamento departamento) throws Exception{
+       Departamento d =  departamentoController.buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        d.adicionarFuncionario(funcionario);
     }
 
 
-    public void relatorioFolhaSalarial() {
-        List<Funcionario> sortedFuncionarios = new ArrayList<>();
-        sortedFuncionarios.addAll(funcionarios);
-        Collections.sort(sortedFuncionarios);
+    // public void relatorioFolhaSalarial() {
+    //     List<Funcionario> sortedFuncionarios = new ArrayList<>();
+    //     sortedFuncionarios.addAll(funcionarios);
+    //     Collections.sort(sortedFuncionarios);
 
-        System.out.println("Relatório de Folha Salarial:");
-        for (Funcionario f : sortedFuncionarios) {
-            System.out.println(f.exibiPessoa());
+    //     System.out.println("Relatório de Folha Salarial:");
+    //     for (Funcionario f : sortedFuncionarios) {
+    //         System.out.println(f.exibiPessoa());
+    //     }
+    // }
+
+    public String listarDepartamentos() {
+        StringBuilder sb = new StringBuilder("Departamentos:\n");
+        for (Departamento d : departamentoController.getDepartamentos()) {
+            sb.append(d).append("\n");
         }
+        return sb.toString();
     }
 
-    @Override
-    public String toString() {
-        return "Empresa [nome=" + nome + ", pessoas=" + pessoas + ", funcionarios=" + funcionarios + ", departamentos="
-                + departamentos + "]";
+    public String listarFuncionarios() {
+        StringBuilder sb = new StringBuilder("Funcionários:\n");
+        for (Funcionario f : funcionarioController.getFuncionarios()) {
+            sb.append(f.exibiPessoa()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String listarPessoas() {
+        StringBuilder sb = new StringBuilder("Pessoas:\n");
+        for (Pessoa p : pessoaController.getPessoas()) {
+            sb.append(p.exibiPessoa()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    
+    public String listaGeral() {
+        return "Empresa: " + nome + "\n" +
+               listarDepartamentos() + "\n" +
+               listarFuncionarios() + "\n" +
+               listarPessoas();
     }
 
     

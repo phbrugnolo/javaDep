@@ -1,3 +1,14 @@
 Pessoa cadastrada teste com sucesso
 Departamento cadastrado ti com sucesso
 Funcionário cadastrado teste com sucesso
+Pessoa lique cadastrada com sucesso
+Departamento cadastrado ti com sucesso
+Pessoa lique cadastrada com sucesso
+Departamento cadastrado ti com sucesso
+Funcionário cadastrado lique com sucesso
+Pessoa Henrique cadastrada com sucesso
+Departamento cadastrado ti com sucesso
+Funcionário cadastrado Henrique com sucesso
+Pessoa Henrique cadastrada com sucesso
+Pessoa Pedro cadastrada com sucesso
+Departamento cadastrado ti com sucesso
