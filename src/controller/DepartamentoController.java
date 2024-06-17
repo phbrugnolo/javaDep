@@ -56,7 +56,7 @@ public class DepartamentoController {
     public void removeDepartamento(String nome) throws Exception {
         Departamento d = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
         departamentos.remove(d);
-        Log.logAction("Departamento removido " + d.getNome() + " com sucesso");]
+        Log.logAction("Departamento removido " + d.getNome() + " com sucesso");
         salvarDados();
     }
 
