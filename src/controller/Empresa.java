@@ -1,24 +1,19 @@
 package controller;
 
-// import java.util.ArrayList;
-// import java.util.Collections;
-// import java.util.List;
-
 import model.*;
-
 
 public class Empresa {
     private String nome;
     private DepartamentoController departamentoController;
     private FuncionarioController funcionarioController;
-    private PessoaController pessoaController;
+    private FornecedorController fornecedorController;
 
     public Empresa(String nome, DepartamentoController departamentoController,
-            FuncionarioController funcionarioController, PessoaController pessoaController) {
+            FuncionarioController funcionarioController, FornecedorController fornecedorController) {
         this.nome = nome;
         this.departamentoController = departamentoController;
         this.funcionarioController = funcionarioController;
-        this.pessoaController = pessoaController;
+        this.fornecedorController = fornecedorController;
     }
 
     public String getNome() {
@@ -33,18 +28,6 @@ public class Empresa {
        Departamento d =  departamentoController.buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
         d.adicionarFuncionario(funcionario);
     }
-
-
-    // public void relatorioFolhaSalarial() {
-    //     List<Funcionario> sortedFuncionarios = new ArrayList<>();
-    //     sortedFuncionarios.addAll(funcionarios);
-    //     Collections.sort(sortedFuncionarios);
-
-    //     System.out.println("Relatório de Folha Salarial:");
-    //     for (Funcionario f : sortedFuncionarios) {
-    //         System.out.println(f.exibiPessoa());
-    //     }
-    // }
 
     public String listarDepartamentos() {
         StringBuilder sb = new StringBuilder("Departamentos:\n");
@@ -62,21 +45,18 @@ public class Empresa {
         return sb.toString();
     }
 
-    public String listarPessoas() {
-        StringBuilder sb = new StringBuilder("Pessoas:\n");
-        for (Pessoa p : pessoaController.getPessoas()) {
-            sb.append(p.exibiPessoa()).append("\n");
+    public String listarFornecedores() {
+        StringBuilder sb = new StringBuilder("Fornecedores:\n");
+        for (Fornecedor f : fornecedorController.getFornecedores()) {
+            sb.append(f.exibiPessoa()).append("\n");
         }
         return sb.toString();
     }
 
-    
     public String listaGeral() {
         return "Empresa: " + nome + "\n" +
                listarDepartamentos() + "\n" +
                listarFuncionarios() + "\n" +
-               listarPessoas();
+               listarFornecedores() + "\n";
     }
-
-    
 }

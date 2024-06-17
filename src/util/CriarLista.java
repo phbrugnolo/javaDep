@@ -1,4 +1,4 @@
-package controller;
+package util;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public abstract class CriarLista {
         return new ArrayList<Funcionario>();
     }
 
-    public static List<Pessoa> criarListaPessoa() {
-        return new ArrayList<Pessoa>();
+    public static List<Fornecedor> criarListaFornecedor() {
+        return new ArrayList<Fornecedor>();
     }
 }

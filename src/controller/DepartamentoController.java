@@ -69,13 +69,7 @@ public class DepartamentoController {
         }
     }
 
-    // public String listarFuncionarios() {
-    //     StringBuilder sb = new StringBuilder("Funcionários do Departamento: " + nome + "\n");
-    //     for (Funcionario f : funcionarioController.getFuncionarios()) {
-    //         sb.append(f.exibiPessoa()).append("\n");
-    //     }
-    //     return sb.toString();
-    // }
+
 
     public void salvarDados() throws Exception {
         Ser.salvarDepartamento(departamentos);
