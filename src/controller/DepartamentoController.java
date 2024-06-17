@@ -4,20 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import model.Departamento;
+import model.Funcionario;
 import util.*;
 
 public class DepartamentoController {
 
     private List<Departamento> departamentos;
 
-    public DepartamentoController(List<Departamento> departamentos) {
-        this.departamentos = departamentos;
-
-        try {
-            carregarDados();
-        } catch (Exception e) {
-            System.out.println("Erro ao carregar dados");
-        }
+    public DepartamentoController() {
+        this.departamentos = CriarLista.criarListaDepartamento();
+        carregarDados();
     }
 
     public List<Departamento> getDepartamentos() {
@@ -28,44 +24,49 @@ public class DepartamentoController {
         this.departamentos = departamentos;
     }
 
-    public Optional<Departamento> buscaDepartamento(String nome) throws Exception {
+    public Optional<Departamento> buscaDepartamento(String nome) {
         return departamentos.stream()
-                .filter(d -> d.getNome().equalsIgnoreCase(nome))
+                .filter(departamento -> departamento.getNome().equalsIgnoreCase(nome))
                 .findFirst();
     }
 
     public void adicionaDepartamento(Departamento departamento) throws Exception {
-        Departamento d = buscaDepartamento(departamento.getNome()).orElse(null);
-        if (d == null) {
-            departamentos.add(departamento);
-            Log.logAction("Departamento cadastrado " + departamento.getNome() + " com sucesso");
-        } 
-        throw new Exception("Departamento já cadastrado no sistema");
+        if (buscaDepartamento(departamento.getNome()).isPresent()) throw new Exception("Departamento já cadastrado");
+        departamentos.add(departamento);
+        Log.logAction("Departamento cadastrado " + departamento.getNome() + " com sucesso");
+        salvarDados();
     }
 
     public void editaDepartamento(String nome, String novoNome) throws Exception {
-        Departamento d = buscaDepartamento(nome).orElse(null);
-        if (d != null) {
-            d.setNome(novoNome);
-            Log.logAction("Departamento editado " + d.getNome() + " com sucesso");
-        }
-        throw new Exception("Departamento não encontrado");
+        Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        departamento.setNome(novoNome);
+        Log.logAction("Departamento editado " + departamento.getNome() + " com sucesso");
+        salvarDados();
     }
 
     public void removeDepartamento(String nome) throws Exception {
-        Departamento d = buscaDepartamento(nome).orElse(null);
-        if (d == null) {
-            throw new Exception("Departamento não encontrado");
-        }
-        departamentos.remove(d);
-        Log.logAction("Departamento removido " + d.getNome() + " com sucesso");   
+        Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        departamentos.remove(departamento);
+        Log.logAction("Departamento removido " + departamento.getNome() + " com sucesso");
+        salvarDados();
+    }
+
+    public void adicionarFuncionario(Funcionario funcionario, String nomeDepartamento) throws Exception {
+        Departamento departamento = buscaDepartamento(nomeDepartamento).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        departamento.adicionarFuncionario(funcionario);
+        Log.logAction(funcionario.getNome() + " adicionado no " + nomeDepartamento + " com sucesso");
+        salvarDados();
     }
 
     public void salvarDados() throws Exception {
         Ser.salvarDepartamento(departamentos);
     }
 
-    private void carregarDados() throws Exception {
-        departamentos = Ser.lerDepartamentos();
+    private void carregarDados() {
+        try {
+            departamentos = Ser.lerDepartamentos();
+        } catch (Exception e) {
+            System.out.println("Erro ao carregar dados");
+        }
     }
 }

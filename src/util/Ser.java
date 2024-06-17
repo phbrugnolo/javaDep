@@ -10,11 +10,11 @@ import java.util.List;
 import model.*;
 
 public abstract class Ser {
-    private static final File ARQUIVOP = new File("src/obj/pessoa.ser");
+    private static final File ARQUIVOP = new File("src/obj/fornecedor.ser");
     private static final File ARQUIVOD= new File("src/obj/departamento.ser");
     private static final File ARQUIVOF = new File("src/obj/funcionario.ser");
 
-    public static void salvarPessoa(List<Pessoa> lista) throws Exception{
+    public static void salvarFornecedor(List<Fornecedor> lista) throws Exception{
         try {
             ARQUIVOP.getParentFile().mkdirs();
 
@@ -27,12 +27,12 @@ public abstract class Ser {
         }
     }
 
-    public static List<Pessoa> lerPessoas() throws Exception{
+    public static List<Fornecedor> lerFornecedores() throws Exception{
         try {
             if (ARQUIVOP.exists() && ARQUIVOP.isFile()) {
                 ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(ARQUIVOP));
 
-                return (List<Pessoa>) ois.readObject();
+                return (List<Fornecedor>) ois.readObject();
             }
             throw new Exception("Arquivo inválido"); 
             
@@ -41,6 +41,7 @@ public abstract class Ser {
             throw new Exception("Não foi possível ler o arquivo");
         }
     }
+    
     public static void salvarFuncionario(List<Funcionario> lista) throws Exception{
         try {
             ARQUIVOF.getParentFile().mkdirs();

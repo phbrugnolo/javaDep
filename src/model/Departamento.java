@@ -3,24 +3,20 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 
+import controller.FuncionarioController;
+
 public class Departamento implements Serializable{
     
     private String nome;
-    private List<Funcionario> funcionarios;
+    private FuncionarioController funcionarioController;
 
-    public Departamento(String nome, List<Funcionario> funcionarios){
+    public Departamento(String nome, FuncionarioController funcionarioController){
         this.nome = nome;
-        this.funcionarios = funcionarios;
+        this.funcionarioController = funcionarioController;
     }
 
-    public static Departamento criarDepartamento(String nome, List<Funcionario> funcionarios){
-        return new Departamento(nome, funcionarios);
-    }
-
-    
-    public Departamento(String nome){
-        this.nome = nome;
-
+    public static Departamento criarDepartamento(String nome, FuncionarioController funcionarioController){
+        return new Departamento(nome, funcionarioController);
     }
 
     public String getNome(){
@@ -32,16 +28,21 @@ public class Departamento implements Serializable{
     }
 
     public List<Funcionario> getFuncionarios(){
-        return funcionarios;
+        return funcionarioController.getFuncionarios();
     }
 
     public void setFuncionarios(List<Funcionario> funcionarios){
-        this.funcionarios = funcionarios;
+        funcionarioController.setFuncionarios(funcionarios);
     }
 
-    @Override
-    public String toString(){
-        return "Departamento: " + nome + "\nFuncionarios: " + funcionarios;
+
+    public void adicionarFuncionario(Funcionario funcionario) throws Exception{
+        funcionarioController.adicionaFuncionario(funcionario);
     }
+
+    // @Override
+    // public String toString() {
+    //     return "Departamento: " + nome + "\n" + listarFuncionarios();
+    // }
     
 }

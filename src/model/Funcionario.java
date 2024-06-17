@@ -6,21 +6,20 @@ public class Funcionario extends Pessoa implements Comparable<Funcionario> {
     private String cargo;
     private double salario;
     private String email;
-    private Departamento departamento;
     private int id;
 
-    public Funcionario(String nome, String sobrenome, LocalDate dataNasc, String endereco, String cpf, String cargo,
-            double salario, String email, Departamento departamento) {
-        super(nome, sobrenome, dataNasc, endereco, cpf);
+    public Funcionario(String nome, String sobrenome, LocalDate dataNasc, String cpf, String cargo,
+            double salario, String email) {
+        super(nome, sobrenome, dataNasc, cpf);
         this.cargo = cargo;
         this.salario = salario;
         this.email = email;
-        this.departamento = departamento;
+
     }
 
-    public static Funcionario criarFuncionario(String nome, String sobrenome, LocalDate dataNasc, String endereco, String cpf,
-            String cargo, double salario, String email, Departamento departamento) {
-        return new Funcionario(nome, sobrenome, dataNasc, endereco, cpf, cargo, salario, email, departamento);
+    public static Funcionario criarFuncionario(String nome, String sobrenome, LocalDate dataNasc, String cpf,
+            String cargo, double salario, String email) {
+        return new Funcionario(nome, sobrenome, dataNasc, cpf, cargo, salario, email);
     }
 
     public String getCargo() {
@@ -53,14 +52,6 @@ public class Funcionario extends Pessoa implements Comparable<Funcionario> {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Departamento getDepartamento() {
-        return departamento;
-    }
-
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
     }
 
     @Override

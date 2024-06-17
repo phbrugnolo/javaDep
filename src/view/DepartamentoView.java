@@ -1,23 +1,23 @@
 package view;
 
 import controller.DepartamentoController;
-import controller.Empresa;
+import controller.FuncionarioController;
 import model.Departamento;
 
 import java.util.Scanner;
 
 public class DepartamentoView {
 
-    public static void cadastroDepartamento(DepartamentoController depController,Empresa emp, Scanner scanner) {
+    public static void cadastroDepartamento(DepartamentoController depController, FuncionarioController funcionarioController,Scanner scanner) {
         System.out.print("Nome do Departamento: ");
-        String nome = scanner.nextLine();
+        String nome = scanner.nextLine().trim();
 
         if (nome.isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
 
-        Departamento d = Departamento.criarDepartamento(nome, emp.getFuncionarios());
+        Departamento d = Departamento.criarDepartamento(nome, funcionarioController);
         try {
             depController.adicionaDepartamento(d);
             System.out.println("Departamento cadastrado com sucesso.");
