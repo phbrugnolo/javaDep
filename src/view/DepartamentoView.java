@@ -10,7 +10,7 @@ public class DepartamentoView {
 
     public static void cadastroDepartamento(DepartamentoController depController, FuncionarioController funcionarioController,Scanner scanner) {
         System.out.print("Nome do Departamento: ");
-        String nome = scanner.nextLine();
+        String nome = scanner.nextLine().trim();
 
         if (nome.isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");

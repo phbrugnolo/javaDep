@@ -8,18 +8,18 @@ public class Funcionario extends Pessoa implements Comparable<Funcionario> {
     private String email;
     private int id;
 
-    public Funcionario(String nome, String sobrenome, LocalDate dataNasc, String endereco, String cpf, String cargo,
+    public Funcionario(String nome, String sobrenome, LocalDate dataNasc, String cpf, String cargo,
             double salario, String email) {
-        super(nome, sobrenome, dataNasc, endereco, cpf);
+        super(nome, sobrenome, dataNasc, cpf);
         this.cargo = cargo;
         this.salario = salario;
         this.email = email;
 
     }
 
-    public static Funcionario criarFuncionario(String nome, String sobrenome, LocalDate dataNasc, String endereco, String cpf,
+    public static Funcionario criarFuncionario(String nome, String sobrenome, LocalDate dataNasc, String cpf,
             String cargo, double salario, String email) {
-        return new Funcionario(nome, sobrenome, dataNasc, endereco, cpf, cargo, salario, email);
+        return new Funcionario(nome, sobrenome, dataNasc, cpf, cargo, salario, email);
     }
 
     public String getCargo() {

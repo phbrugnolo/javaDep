@@ -1,5 +1,8 @@
 package view;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import controller.*;
@@ -7,27 +10,50 @@ import model.*;
 
 public class FuncionarioView {
 
-    public static void cadastroFuncionario(FuncionarioController fController,PessoaController pController, DepartamentoController dController, Empresa emp, Scanner scanner){
-        System.out.print("Digite o nome da Pessoa: ");
-        String nome = scanner.nextLine();
+    public static void cadastroFuncionario(FuncionarioController fController,DepartamentoController dController, Empresa empresa, Scanner scanner){
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine().trim();
+        System.out.print("Sobrenome: ");
+        String sobrenome = scanner.nextLine().trim();
+        System.out.print("Data de Nascimento (dd/MM/yyyy): ");
+        String dataNascimentoStr = scanner.nextLine().trim();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine().trim();
         System.out.print("Cargo: ");
-        String cargo = scanner.nextLine();
+        String cargo = scanner.nextLine().trim();
         System.out.print("Salário: ");
         double salario = scanner.nextDouble();
         scanner.nextLine();
-        System.out.println("Digite o nome do Departamento: ");
-        String nomeDep = scanner.nextLine();
+        System.out.println("Nome do Departamento: ");
+        String nomeDepartamento = scanner.nextLine();
+
+        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || salario == 0 || nomeDepartamento.isEmpty()) {
+            System.out.println("Todos os campos devem ser preenchidos.");
+            return;
+        }
+
+        LocalDate dataNascimento;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Data de nascimento no formato inválido.");
+            return;
+        }
 
         try {
-            
-            Pessoa p = pController.buscaPessoa(nome).orElseThrow(() -> new Exception("Pessoa não encontrada"));
-            String email = p.getNome().toLowerCase() + "." + p.getSobrenome().toLowerCase() + "@" + emp.getNome() + ".com";
-            p.setTrabalhando(true);
+            dController.buscaDepartamento(nomeDepartamento);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
 
-            Funcionario f = Funcionario.criarFuncionario(p.getNome(), p.getSobrenome(), p.getDataNasc(), p.getEndereco(), p.getCpf(), cargo, salario, email);
-            System.out.println("Funcionário cadastrado com sucesso!");
+        String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
 
-            fController.adicionaFuncionario(f);
+        Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
+
+        try {
+            dController.adicionarFuncionario(funcionario, nomeDepartamento);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -88,13 +114,38 @@ public class FuncionarioView {
         int id = scanner.nextInt();
         scanner.nextLine();
 
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine().trim();
+        System.out.print("Sobrenome: ");
+        String sobrenome = scanner.nextLine().trim();
+        System.out.print("Data de Nascimento (dd/MM/yyyy): ");
+        String dataNascimentoStr = scanner.nextLine().trim();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine().trim();
         System.out.print("Cargo: ");
-        String cargo = scanner.nextLine();
+        String cargo = scanner.nextLine().trim();
         System.out.print("Salário: ");
         double salario = scanner.nextDouble();
         scanner.nextLine();
+        System.out.println("Nome do Departamento: ");
+        String nomeDepartamento = scanner.nextLine();
+
+        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || salario == 0) {
+            System.out.println("Todos os campos devem ser preenchidos.");
+            return;
+        }
+
+        LocalDate dataNascimento;
         try {
-            fController.editaFuncionario(id, salario, cargo);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Data de nascimento no formato inválido.");
+            return;
+        }
+
+        try {
+            fController.editaFuncionario(nomeDepartamento, nome, sobrenome, dataNascimento, cpf, cargo, id);
             System.out.println("Funcionário editado com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());

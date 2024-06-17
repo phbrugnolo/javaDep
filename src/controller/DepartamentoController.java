@@ -31,15 +31,13 @@ public class DepartamentoController {
 
     public Optional<Departamento> buscaDepartamento(String nome) throws Exception {
         return departamentos.stream()
-                .filter(d -> d.getNome().equalsIgnoreCase(nome))
+                .filter(departamento -> departamento.getNome().equalsIgnoreCase(nome))
                 .findFirst();
     }
 
     public void adicionaDepartamento(Departamento departamento) throws Exception {
         Optional<Departamento> departamentoBuscado = buscaDepartamento(departamento.getNome());
-        if(departamentoBuscado.isPresent()) {
-            throw new Exception("Departamento já cadastrado");
-        }
+        if(departamentoBuscado.isPresent()) throw new Exception("Departamento já cadastrado");
         departamentos.add(departamento);
         Log.logAction("Departamento cadastrado " + departamento.getNome() + " com sucesso");
         salvarDados();
@@ -47,16 +45,16 @@ public class DepartamentoController {
     }
 
     public void editaDepartamento(String nome, String novoNome) throws Exception {
-        Departamento d = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
-        d.setNome(novoNome);
-        Log.logAction("Departamento editado " + d.getNome() + " com sucesso");
+        Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        departamento.setNome(novoNome);
+        Log.logAction("Departamento editado " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
 
     public void removeDepartamento(String nome) throws Exception {
-        Departamento d = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
-        departamentos.remove(d);
-        Log.logAction("Departamento removido " + d.getNome() + " com sucesso");
+        Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        departamentos.remove(departamento);
+        Log.logAction("Departamento removido " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
 
@@ -64,12 +62,12 @@ public class DepartamentoController {
         try {
             Departamento departamento = buscaDepartamento(nomeDepartamento).orElseThrow(() -> new Exception("Departamento não encontrado"));
             departamento.adicionarFuncionario(funcionario);
+            Log.logAction(funcionario.getNome() + " adicionado no " + nomeDepartamento +   " com sucesso");
+            salvarDados();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-
-
 
     public void salvarDados() throws Exception {
         Ser.salvarDepartamento(departamentos);

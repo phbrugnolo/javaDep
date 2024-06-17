@@ -8,21 +8,19 @@ public class Pessoa implements Serializable{
     private String nome;
     private String sobrenome;
     private LocalDate dataNasc;
-    private String endereco;
     private String cpf;
     private boolean trabalhando;
 
-    public Pessoa(String nome, String sobrenome, LocalDate dataNasc, String endereco, String cpf) {
+    public Pessoa(String nome, String sobrenome, LocalDate dataNasc, String cpf) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNasc = dataNasc;
-        this.endereco = endereco;
         this.cpf = cpf;
         this.trabalhando = false;
     }
 
-    public static Pessoa criarPessoa(String nome, String sobrenome, LocalDate dataNasc, String endereco, String cpf) {
-        return new Pessoa(nome, sobrenome, dataNasc, endereco, cpf);
+    public static Pessoa criarPessoa(String nome, String sobrenome, LocalDate dataNasc, String cpf) {
+        return new Pessoa(nome, sobrenome, dataNasc, cpf);
     }
 
     public String getNome() {
@@ -53,14 +51,6 @@ public class Pessoa implements Serializable{
         return Period.between(dataNasc, LocalDate.now()).getYears();
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public String getCpf() {
         return cpf;
     }
@@ -78,7 +68,7 @@ public class Pessoa implements Serializable{
     }
 
     public String exibiPessoa() {
-        return "Nome: " + nome + ", Sobrenome: " + sobrenome + ", Idade: " + getIdade() + ", Endereço: " + endereco
-                + ", CPF: " + cpf + ", Status de Trabalho: " + (trabalhando? "Ativo" : "Inativo") + ".";
+        return "Nome: " + nome + ", Sobrenome: " + sobrenome + ", Idade: " + getIdade() + 
+        ", CPF: " + cpf + ", Status de Trabalho: " + (trabalhando? "Ativo" : "Inativo") + ".";
     }
 }

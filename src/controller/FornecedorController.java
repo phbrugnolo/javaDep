@@ -31,36 +31,38 @@ public class FornecedorController {
 
     public Optional<Fornecedor> buscaFornecedor(String nome){
         return fornecedores.stream()
-                .filter(f -> f.getNome().equalsIgnoreCase(nome))
+                .filter(fornecedor -> fornecedor.getNome().equalsIgnoreCase(nome))
                 .findFirst();
     }
 
-    public void editaFornecedor(String nome, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoEndereco, String novoCpf, String novaEmpresa)
+    private int criarId() {
+        return fornecedores.stream().mapToInt(Fornecedor::getId).max().orElse(0) + 1;
+    }
+
+    public void editaFornecedor(String nome, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novaEmpresa)
             throws Exception {
-        Fornecedor f = buscaFornecedor(nome).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
-        f.setNome(novoNome);
-        f.setSobrenome(novoSobrenome);
-        f.setDataNasc(novaDataNasc);
-        f.setEndereco(novoEndereco);
-        f.setCpf(novoCpf);
-        f.setEmpresa(novaEmpresa);
-        Log.logAction("Fornecedor " + f.getNome() + " editado com sucesso");
+        Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
+        fornecedor.setNome(novoNome);
+        fornecedor.setSobrenome(novoSobrenome);
+        fornecedor.setDataNasc(novaDataNasc);
+        fornecedor.setCpf(novoCpf);
+        fornecedor.setNomeEmpresa(novaEmpresa);
+        Log.logAction("Fornecedor " + fornecedor.getNome() + " editado com sucesso");
         salvarDados();
     }
 
     public void adicionaFornecedor(Fornecedor fornecedor) throws Exception {
-        if (buscaFornecedor(fornecedor.getNome()).isPresent()) {
-            throw new Exception("Fornecedor já cadastrado no sistema");
-        }
+        if (buscaFornecedor(fornecedor.getNome()).isPresent()) throw new Exception("Fornecedor já cadastrado no sistema");
         fornecedores.add(fornecedor);
+        fornecedor.setId(criarId());
         Log.logAction("Fornecedor " + fornecedor.getNome() + " cadastrado com sucesso");
         salvarDados();
     }
 
     public void removeFornecedor(String nome) throws Exception {
-        Fornecedor f = buscaFornecedor(nome).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
-        fornecedores.remove(f);
-        Log.logAction("Fornecedor " + f.getNome() + " removido com sucesso");
+        Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
+        fornecedores.remove(fornecedor);
+        Log.logAction("Fornecedor " + fornecedor.getNome() + " removido com sucesso");
         salvarDados();
     }
 
