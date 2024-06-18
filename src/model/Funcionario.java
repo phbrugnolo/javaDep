@@ -1,8 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Funcionario extends Pessoa implements Comparable<Funcionario> {
+public class Funcionario extends Pessoa implements Comparable<Funcionario>, Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String cargo;
     private double salario;
     private String email;

@@ -1,10 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fornecedor extends Pessoa {
+public class Fornecedor extends Pessoa implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     private String nomeEmpresa;	
     private int id;
     private List<String> produtosFornecidos;

@@ -6,7 +6,8 @@ import java.util.List;
 import controller.FuncionarioController;
 
 public class Departamento implements Serializable{
-    
+    private static final long serialVersionUID = 1L;
+   
     private String nome;
     private FuncionarioController funcionarioController;
 
@@ -39,7 +40,7 @@ public class Departamento implements Serializable{
     public void adicionarFuncionario(Funcionario funcionario) throws Exception{
         funcionarioController.adicionaFuncionario(funcionario);
     }
-    
+
     public String nomeDoDepartamento(){
         return nome;
     }

@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +8,8 @@ import java.util.Optional;
 import model.Funcionario;
 import util.*;
 
-public class FuncionarioController {
+public class FuncionarioController implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     private List<Funcionario> funcionarios;
 
