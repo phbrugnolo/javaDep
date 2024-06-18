@@ -44,7 +44,7 @@ public class DepartamentoView {
 
         try {
             depController.buscaDepartamento(nome).ifPresentOrElse(
-                departamento -> System.out.println("Departamento encontrado: " + departamento),
+                departamento -> System.out.println("Departamento encontrado: " + departamento.nomeDoDepartamento()),
                 () -> System.out.println("Departamento não encontrado."));
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao buscar o departamento: " + e.getMessage());

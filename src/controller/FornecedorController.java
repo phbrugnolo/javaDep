@@ -13,12 +13,7 @@ public class FornecedorController {
 
     public FornecedorController() {
         this.fornecedores = CriarLista.criarListaFornecedor();
-
-        try {
-            carregarDados();
-        } catch (Exception e) {
-            System.out.println("Erro ao carregar dados");
-        }
+        carregarDados();
     }
 
     public List<Fornecedor> getFornecedores() {
@@ -70,7 +65,11 @@ public class FornecedorController {
         Ser.salvarFornecedor(fornecedores);
     }
 
-    private void carregarDados() throws Exception {
-        fornecedores = Ser.lerFornecedores();
+    private void carregarDados() {
+        try {
+            fornecedores = Ser.lerFornecedores();
+        } catch (Exception e) {
+            System.out.println("Erro ao carregar dados");
+        }
     }
 }

@@ -12,3 +12,9 @@ Funcionário cadastrado Henrique com sucesso
 Pessoa Henrique cadastrada com sucesso
 Pessoa Pedro cadastrada com sucesso
 Departamento cadastrado ti com sucesso
+Departamento cadastrado TI com sucesso
+Departamento cadastrado TI com sucesso
+Departamento cadastrado ti2 com sucesso
+Departamento editado Comercial com sucesso
+Departamento removido ti2 com sucesso
+Departamento cadastrado TI com sucesso

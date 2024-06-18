@@ -39,10 +39,8 @@ public class Departamento implements Serializable{
     public void adicionarFuncionario(Funcionario funcionario) throws Exception{
         funcionarioController.adicionaFuncionario(funcionario);
     }
-
-    // @Override
-    // public String toString() {
-    //     return "Departamento: " + nome + "\n" + listarFuncionarios();
-    // }
     
+    public String nomeDoDepartamento(){
+        return nome;
+    }
 }

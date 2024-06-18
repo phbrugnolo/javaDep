@@ -97,11 +97,11 @@ public class App {
                     break;
                 case 3:
                     do {
-                        System.out.println("Menu Pessoa:");
-                        System.out.println("[1] Cadastrar Pessoa");
-                        System.out.println("[2] Buscar Pessoa");
-                        System.out.println("[3] Atualizar Pessoa");
-                        System.out.println("[4] Deletar Pessoa");
+                        System.out.println("Menu Fornecedor:");
+                        System.out.println("[1] Cadastrar Fornecedor");
+                        System.out.println("[2] Buscar Fornecedor");
+                        System.out.println("[3] Atualizar Fornecedor");
+                        System.out.println("[4] Deletar Fornecedor");
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
                         subOption = scanner.nextInt();
@@ -137,7 +137,7 @@ public class App {
                     System.out.println("[3] Lista de Departamento");
                     System.out.println("[4] Lista de Funcionários em um Departamento");
                     System.out.println("[5] Lista de Funcionários");
-                    System.out.println("[6] Lista de Pessoas");
+                    System.out.println("[6] Lista de Fornecedors");
                     System.out.println("[0] Voltar");
                     System.out.println("Escolha uma opção: ");
                     subOption = scanner.nextInt();
@@ -145,21 +145,21 @@ public class App {
                     do {
                         switch (subOption) {
                             case 1:
-                                System.out.println(empresa);
+                                System.out.println(empresa.listaGeral());
                                 break;
                             case 2:
-                                // empresa.relatorioFolhaSalarial();
+                                System.out.println(empresa.calcularFolhaSalarial());
                                 break;
                             case 3:
-                                // System.out.println(empresa.getDepartamentos());
+                                System.out.println(empresa.listarDepartamentos());
                                 break;
                             case 4:
                                 break;
                             case 5:
-                                // System.out.println(empresa.getFuncionarios());
+                                System.out.println(empresa.listarFuncionarios());
                                 break;
                             case 6:
-                                // System.out.println(empresa.getPessoas());
+                                System.out.println(empresa.listarFornecedores());
                                 break;
                             case 0:
                                 System.out.println("Voltando ao menu principal...");

@@ -54,6 +54,7 @@ public class FuncionarioView {
 
         try {
             dController.adicionarFuncionario(funcionario, nomeDepartamento);
+            System.out.println("Funcionário cadastrado com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

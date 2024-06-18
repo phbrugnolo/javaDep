@@ -6,94 +6,58 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
-
 import model.*;
 
 public abstract class Ser {
-    private static final File ARQUIVOP = new File("src/obj/fornecedor.ser");
-    private static final File ARQUIVOD= new File("src/obj/departamento.ser");
-    private static final File ARQUIVOF = new File("src/obj/funcionario.ser");
+    private static final File ARQUIVO_FORNECEDOR = new File("src/obj/fornecedor.ser");
+    private static final File ARQUIVO_DERPATAMENTO = new File("src/obj/departamento.ser");
+    private static final File ARQUIVO_FUNCIONARIO = new File("src/obj/funcionario.ser");
 
-    public static void salvarFornecedor(List<Fornecedor> lista) throws Exception{
+    public static <T> void salvar(List<T> lista, File arquivo) throws Exception {
         try {
-            ARQUIVOP.getParentFile().mkdirs();
-
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARQUIVOP));
-            oos.writeObject(lista);
-            oos.close();
-
-        } catch (Exception e) {
-            throw new Exception("Não foi possível salvar o arquivo");
-        }
-    }
-
-    public static List<Fornecedor> lerFornecedores() throws Exception{
-        try {
-            if (ARQUIVOP.exists() && ARQUIVOP.isFile()) {
-                ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(ARQUIVOP));
-
-                return (List<Fornecedor>) ois.readObject();
+            arquivo.getParentFile().mkdirs();
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
+                oos.writeObject(lista);
             }
-            throw new Exception("Arquivo inválido"); 
-            
-            
         } catch (Exception e) {
-            throw new Exception("Não foi possível ler o arquivo");
-        }
-    }
-    
-    public static void salvarFuncionario(List<Funcionario> lista) throws Exception{
-        try {
-            ARQUIVOF.getParentFile().mkdirs();
-
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARQUIVOF));
-            oos.writeObject(lista);
-            oos.close();
-
-        } catch (Exception e) {
-            throw new Exception("Não foi possível salvar o arquivo");
+            throw new Exception("Não foi possível salvar o arquivo", e);
         }
     }
 
-    public static List<Funcionario> lerFuncionarios() throws Exception{
+    public static <T> List<T> ler(File arquivo) throws Exception {
         try {
-            if (ARQUIVOF.exists() && ARQUIVOF.isFile()) {
-                ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(ARQUIVOF));
-
-                return (List<Funcionario>) ois.readObject();
+            if (arquivo.exists() && arquivo.isFile()) {
+                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
+                    return (List<T>) ois.readObject();
+                }
             }
-            throw new Exception("Arquivo inválido"); 
-            
-            
+            throw new Exception("Arquivo inválido");
         } catch (Exception e) {
-            throw new Exception("Não foi possível ler o arquivo");
-        }
-    }
-    public static void salvarDepartamento(List<Departamento> lista) throws Exception{
-        try {
-            ARQUIVOD.getParentFile().mkdirs();
-
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARQUIVOD));
-            oos.writeObject(lista);
-            oos.close();
-
-        } catch (Exception e) {
-            throw new Exception("Não foi possível salvar o arquivo");
+            throw new Exception("Não foi possível ler o arquivo", e);
         }
     }
 
-    public static List<Departamento> lerDepartamentos() throws Exception{
-        try {
-            if (ARQUIVOD.exists() && ARQUIVOD.isFile()) {
-                ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(ARQUIVOD));
+    public static void salvarFornecedor(List<Fornecedor> lista) throws Exception {
+        salvar(lista, ARQUIVO_FORNECEDOR);
+    }
 
-                return (List<Departamento>) ois.readObject();
-            }
-            throw new Exception("Arquivo inválido"); 
-            
-            
-        } catch (Exception e) {
-            throw new Exception("Não foi possível ler o arquivo");
-        }
+    public static List<Fornecedor> lerFornecedores() throws Exception {
+        return ler(ARQUIVO_FORNECEDOR);
+    }
+
+    public static void salvarFuncionario(List<Funcionario> lista) throws Exception {
+        salvar(lista, ARQUIVO_FUNCIONARIO);
+    }
+
+    public static List<Funcionario> lerFuncionarios() throws Exception {
+        return ler(ARQUIVO_FUNCIONARIO);
+    }
+
+    public static void salvarDepartamento(List<Departamento> lista) throws Exception {
+        salvar(lista, ARQUIVO_DERPATAMENTO);
+    }
+
+    public static List<Departamento> lerDepartamentos() throws Exception {
+        return ler(ARQUIVO_DERPATAMENTO);
     }
 }
