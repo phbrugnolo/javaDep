@@ -88,21 +88,23 @@ public class Empresa implements IEmpresa {
         }
         return sb.toString();
     }
-
+    
     @Override
     public String listarFuncionariosEmDepartamento(String departamentoNome) {
-
-        Optional<Departamento> departamentoBuscado  = departamentoController.buscaDepartamento(departamentoNome);
-
+        Optional<Departamento> departamentoBuscado = departamentoController.buscaDepartamento(departamentoNome);
+        
         if (departamentoBuscado.isPresent()) {
             Departamento departamento = departamentoBuscado.get();
             StringBuilder sb = new StringBuilder("Funcionários do Departamento " + departamentoNome + ":\n");
+            
             for (Funcionario f : departamento.getFuncionarios()) {
                 sb.append(f.exibiPessoa()).append("\n");
             }
+            
             return sb.toString();
         } else {
             return "Departamento " + departamentoNome + " não encontrado.\n";
         }
     }
+    
 }

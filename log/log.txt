@@ -24,3 +24,5 @@ Departamento cadastrado TI com sucesso
 Departamento cadastrado TI com sucesso
 Departamento cadastrado TI com sucesso
 Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso

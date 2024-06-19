@@ -79,6 +79,7 @@ public class App {
                                 break;
                             case 2:
                                 FuncionarioView.buscaFuncionario(funcionarioController, scanner);
+                                System.out.println(funcionarioController.getFuncionarios());
                                 break;
                             case 3:
                                 FuncionarioView.editaFuncionario(funcionarioController, scanner);
@@ -145,21 +146,22 @@ public class App {
                     do {
                         switch (subOption) {
                             case 1:
-                                System.out.println(empresa.listaGeral());
+                                EmpresaView.listaGeral(empresa);
                                 break;
                             case 2:
-                                System.out.println(empresa.calcularFolhaSalarial());
+                                EmpresaView.folhaSalarial(empresa);
                                 break;
                             case 3:
-                                System.out.println(empresa.listarDepartamentos());
+                                EmpresaView.listaDepartamento(empresa);
                                 break;
                             case 4:
+                                EmpresaView.listaFuncionariosEmUmDepartamento(empresa, scanner);
                                 break;
                             case 5:
-                                System.out.println(empresa.listarFuncionarios());
+                                EmpresaView.listaFuncionarios(empresa);
                                 break;
                             case 6:
-                                System.out.println(empresa.listarFornecedores());
+                                EmpresaView.listaFornecedores(empresa);
                                 break;
                             case 0:
                                 System.out.println("Voltando ao menu principal...");

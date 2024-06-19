@@ -12,16 +12,15 @@ public class Funcionario extends Pessoa implements Comparable<Funcionario>, Seri
     private int id;
 
     public Funcionario(String nome, String sobrenome, LocalDate dataNasc, String cpf, String cargo,
-            double salario, String email) {
+                       double salario, String email) {
         super(nome, sobrenome, dataNasc, cpf);
         this.cargo = cargo;
         this.salario = salario;
         this.email = email;
-
     }
 
     public static Funcionario criarFuncionario(String nome, String sobrenome, LocalDate dataNasc, String cpf,
-            String cargo, double salario, String email) {
+                                               String cargo, double salario, String email) {
         return new Funcionario(nome, sobrenome, dataNasc, cpf, cargo, salario, email);
     }
 
@@ -59,8 +58,7 @@ public class Funcionario extends Pessoa implements Comparable<Funcionario>, Seri
 
     @Override
     public String exibiPessoa() {
-        return super.exibiPessoa() + " Email: " + email + ", Cargo: " + cargo + ", Salário: " + salario + ", ID: " + id
-                + ".";
+        return super.exibiPessoa() + " Email: " + email + ", Cargo: " + cargo + ", Salário: " + salario + ", ID: " + id + ".";
     }
 
     @Override

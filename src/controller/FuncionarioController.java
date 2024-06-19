@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
 import model.Funcionario;
 import util.*;
 
-public class FuncionarioController implements Serializable{
+public class FuncionarioController implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private List<Funcionario> funcionarios;
@@ -31,7 +30,9 @@ public class FuncionarioController implements Serializable{
     }
 
     public void adicionaFuncionario(Funcionario funcionario) throws Exception {
-        if (buscaFuncionario(funcionario.getId()).isPresent()) throw new Exception("Funcionário já cadastrado no sistema");
+        if (buscaFuncionario(funcionario.getId()).isPresent())
+            throw new Exception("Funcionário já cadastrado no sistema");
+
         funcionario.setId(criarId());
         funcionarios.add(funcionario);
         Log.logAction("Funcionário cadastrado " + funcionario.getNome() + " com sucesso");
@@ -39,15 +40,17 @@ public class FuncionarioController implements Serializable{
     }
 
     public void removeFuncionario(int id) throws Exception {
-        Funcionario funcionario = buscaFuncionario(id).orElseThrow(() -> new Exception("Funcionário não encontrado"));
-        funcionarios.remove(funcionario);      
+        Funcionario funcionario = buscaFuncionario(id)
+                .orElseThrow(() -> new Exception("Funcionário não encontrado"));
+        funcionarios.remove(funcionario);
         Log.logAction("Funcionário removido " + funcionario.getNome() + " com sucesso");
         salvarDados();
     }
 
     public void editaFuncionario(String nome, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novoCargo, double novoSalario)
             throws Exception {
-        Funcionario funcionario = buscaFuncionario(nome).orElseThrow(() -> new Exception("Funcionário não encontrado"));
+        Funcionario funcionario = buscaFuncionario(nome)
+                .orElseThrow(() -> new Exception("Funcionário não encontrado"));
         funcionario.setNome(novoNome);
         funcionario.setSobrenome(novoSobrenome);
         funcionario.setDataNasc(novaDataNasc);
@@ -59,11 +62,15 @@ public class FuncionarioController implements Serializable{
     }
 
     public Optional<Funcionario> buscaFuncionario(String nome) {
-        return funcionarios.stream().filter(funcionario -> funcionario.getNome().equalsIgnoreCase(nome)).findFirst();
+        return funcionarios.stream()
+                .filter(funcionario -> funcionario.getNome().equalsIgnoreCase(nome))
+                .findFirst();
     }
 
     public Optional<Funcionario> buscaFuncionario(int id) {
-        return funcionarios.stream().filter(funcionario -> funcionario.getId() == id).findFirst();
+        return funcionarios.stream()
+                .filter(funcionario -> funcionario.getId() == id)
+                .findFirst();
     }
 
     public void salvarDados() throws Exception {
