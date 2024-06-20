@@ -35,7 +35,7 @@ public class DepartamentoController implements Serializable {
         if (buscaDepartamento(departamento.getNome()).isPresent()) throw new Exception("Departamento já cadastrado");
 
         departamentos.add(departamento);
-        Log.logAction("Departamento cadastrado " + departamento.getNome() + " com sucesso");
+        Log.escreverNoLog("Departamento cadastrado " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
 
@@ -44,7 +44,7 @@ public class DepartamentoController implements Serializable {
                 .orElseThrow(() -> new Exception("Departamento não encontrado"));
 
         departamento.setNome(novoNome);
-        Log.logAction("Departamento editado " + departamento.getNome() + " com sucesso");
+        Log.escreverNoLog("Departamento editado " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
 
@@ -53,7 +53,7 @@ public class DepartamentoController implements Serializable {
                 .orElseThrow(() -> new Exception("Departamento não encontrado"));
 
         departamentos.remove(departamento);
-        Log.logAction("Departamento removido " + departamento.getNome() + " com sucesso");
+        Log.escreverNoLog("Departamento removido " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
 
@@ -62,7 +62,7 @@ public class DepartamentoController implements Serializable {
                 .orElseThrow(() -> new Exception("Departamento não encontrado"));
 
         departamento.adicionarFuncionario(funcionario);
-        Log.logAction(funcionario.getNome() + " adicionado no " + nomeDepartamento + " com sucesso");
+        Log.escreverNoLog(funcionario.getNome() + " adicionado no " + nomeDepartamento + " com sucesso");
         salvarDados();
     }
 

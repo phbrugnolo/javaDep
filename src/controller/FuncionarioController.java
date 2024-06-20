@@ -34,7 +34,7 @@ public class FuncionarioController implements Serializable {
 
         funcionario.setId(criarId());
         funcionarios.add(funcionario);
-        Log.logAction("Funcionário cadastrado " + funcionario.getNome() + " com sucesso");
+        Log.escreverNoLog("Funcionário cadastrado " + funcionario.getNome() + " com sucesso");
         salvarDados();
     }
 
@@ -42,7 +42,7 @@ public class FuncionarioController implements Serializable {
         Funcionario funcionario = buscaFuncionario(id)
                 .orElseThrow(() -> new Exception("Funcionário não encontrado"));
         funcionarios.remove(funcionario);
-        Log.logAction("Funcionário removido " + funcionario.getNome() + " com sucesso");
+        Log.escreverNoLog("Funcionário removido " + funcionario.getNome() + " com sucesso");
         salvarDados();
     }
 
@@ -56,7 +56,7 @@ public class FuncionarioController implements Serializable {
         funcionario.setCpf(novoCpf);
         funcionario.setCargo(novoCargo);
         funcionario.setSalario(novoSalario);
-        Log.logAction("Funcionário editado " + funcionario.getNome() + " com sucesso");
+        Log.escreverNoLog("Funcionário editado " + funcionario.getNome() + " com sucesso");
         salvarDados();
     }
 

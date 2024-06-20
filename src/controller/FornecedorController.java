@@ -44,7 +44,7 @@ public class FornecedorController implements Serializable{
         fornecedor.setDataNasc(novaDataNasc);
         fornecedor.setCpf(novoCpf);
         fornecedor.setNomeEmpresa(novaEmpresa);
-        Log.logAction("Fornecedor " + fornecedor.getNome() + " editado com sucesso");
+        Log.escreverNoLog("Fornecedor " + fornecedor.getNome() + " editado com sucesso");
         salvarDados();
     }
 
@@ -52,21 +52,21 @@ public class FornecedorController implements Serializable{
         if (buscaFornecedor(fornecedor.getNome()).isPresent()) throw new Exception("Fornecedor já cadastrado no sistema");
         fornecedores.add(fornecedor);
         fornecedor.setId(criarId());
-        Log.logAction("Fornecedor " + fornecedor.getNome() + " cadastrado com sucesso");
+        Log.escreverNoLog("Fornecedor " + fornecedor.getNome() + " cadastrado com sucesso");
         salvarDados();
     }
 
     public void removeFornecedor(String nome) throws Exception {
         Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
         fornecedores.remove(fornecedor);
-        Log.logAction("Fornecedor " + fornecedor.getNome() + " removido com sucesso");
+        Log.escreverNoLog("Fornecedor " + fornecedor.getNome() + " removido com sucesso");
         salvarDados();
     }
 
     public void registrarFornecimento(String nomeFornecedor, List<String> produtos) throws Exception {
         Fornecedor fornecedor = buscaFornecedor(nomeFornecedor).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
         fornecedor.registrarFornecimento(produtos);
-        Log.logAction("Fornecimento registrado para o fornecedor " + fornecedor.getNome() + " com produtos: " + produtos);
+        Log.escreverNoLog("Fornecimento registrado para o fornecedor " + fornecedor.getNome() + " com produtos: " + produtos);
         salvarDados();
     }
 

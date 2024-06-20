@@ -9,42 +9,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Log {
-    private static final String LOG_DIRECTORY = "log";
-    private static final String LOG_FILE = LOG_DIRECTORY + "/log.txt";
-    private static boolean isLogDirectoryCreated = false;
+    private static final String DIRETORIO_LOG = "log";
+    private static final String ARQUIVO_LOG = DIRETORIO_LOG + "/log.txt";
+    private static boolean diretorioLogFoiInicializado = false;
 
-    private static void createLogDirectory() {
-        File logDir = new File(LOG_DIRECTORY);
+    private static void criarDiretorioLog() {
+        File logDir = new File(DIRETORIO_LOG);
         if (!logDir.exists()) {
             logDir.mkdir();
         }
-        isLogDirectoryCreated = true;
+        diretorioLogFoiInicializado = true;
     }
 
-    private static List<String> readFile() {
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(LOG_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
+    private static List<String> lerArquivo() {
+        List<String> linhas = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(ARQUIVO_LOG))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                linhas.add(linha);
             }
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo de log: " + e.getMessage());
         }
-        return lines;
+        return linhas;
     }
 
-    public static void logAction(String message) {
-        if (!isLogDirectoryCreated) {
-            createLogDirectory();
+    public static void escreverNoLog(String mensagem) {
+        if (!diretorioLogFoiInicializado) {
+            criarDiretorioLog();
         }
 
-        List<String> lines = readFile();
-        lines.add(message);
+        List<String> linhas = lerArquivo();
+        linhas.add(mensagem);
 
-        try (FileWriter writer = new FileWriter(LOG_FILE)) {
-            for (String line : lines) {
-                writer.write(line + "\n");
+        try (FileWriter writer = new FileWriter(ARQUIVO_LOG)) {
+            for (String linha : linhas) {
+                writer.write(linha + "\n");
             }
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo de log: " + e.getMessage());
