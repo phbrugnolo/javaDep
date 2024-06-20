@@ -33,3 +33,9 @@ Fornecedor teste cadastrado com sucesso
 Departamento cadastrado TI com sucesso
 Funcionário cadastrado teste com sucesso
 teste adicionado no TI com sucesso
+Departamento cadastrado TI com sucesso
+Departamento editado Ti2 com sucesso
+Departamento removido Ti2 com sucesso
+Departamento cadastrado ti com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso

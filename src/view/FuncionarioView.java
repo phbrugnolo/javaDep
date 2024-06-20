@@ -10,7 +10,7 @@ import model.*;
 
 public class FuncionarioView {
 
-    public static void cadastroFuncionario(FuncionarioController fController,DepartamentoController dController, Empresa empresa, Scanner scanner){
+    public static void cadastroFuncionario(FuncionarioController fController, DepartamentoController dController, Empresa empresa, Scanner scanner) {
         System.out.print("Nome: ");
         String nome = scanner.nextLine().trim();
         System.out.print("Sobrenome: ");
@@ -50,12 +50,13 @@ public class FuncionarioView {
 
         String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
 
-        Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
-
         try {
+            Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
             dController.adicionarFuncionario(funcionario, nomeDepartamento);
             fController.adicionaFuncionario(funcionario);
             System.out.println("Funcionário cadastrado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -86,7 +87,7 @@ public class FuncionarioView {
                 try {
                     scanner.nextLine();
                     fController.buscaFuncionario(id).ifPresentOrElse(
-                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario),
+                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
                         () -> System.out.println("Funcionário não encontrado."));
                    
                 } catch (Exception e) {
@@ -132,7 +133,7 @@ public class FuncionarioView {
         System.out.println("Nome do Departamento: ");
         String nomeDepartamento = scanner.nextLine();
 
-        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || salario == 0) {
+        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || salario == 0 && salario > 0 || nomeDepartamento.isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }

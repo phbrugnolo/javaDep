@@ -79,8 +79,6 @@ public class App {
                                 break;
                             case 2:
                                 FuncionarioView.buscaFuncionario(funcionarioController, scanner);
-                                System.out.println(funcionarioController.getFuncionarios());
-                                System.out.println(departamentoController.getDepartamentos());
                                 break;
                             case 3:
                                 FuncionarioView.editaFuncionario(funcionarioController, scanner);
@@ -104,6 +102,7 @@ public class App {
                         System.out.println("[2] Buscar Fornecedor");
                         System.out.println("[3] Atualizar Fornecedor");
                         System.out.println("[4] Deletar Fornecedor");
+                        System.out.println("[5] Registrar um Forneciemento");
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
                         subOption = scanner.nextInt();
@@ -122,6 +121,8 @@ public class App {
                                 break;
                             case 4:
                                 FornecedorView.removeFornecedor(fornecedorController, scanner);
+                                break;
+                            case 5:
                                 break;
                             case 0:
                                 System.out.println("Voltando ao menu principal...");

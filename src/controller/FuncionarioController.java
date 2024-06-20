@@ -30,8 +30,7 @@ public class FuncionarioController implements Serializable {
     }
 
     public void adicionaFuncionario(Funcionario funcionario) throws Exception {
-        if (buscaFuncionario(funcionario.getId()).isPresent())
-            throw new Exception("Funcionário já cadastrado no sistema");
+        if (buscaFuncionario(funcionario.getId()).isPresent()) throw new Exception("Funcionário já cadastrado no sistema");
 
         funcionario.setId(criarId());
         funcionarios.add(funcionario);

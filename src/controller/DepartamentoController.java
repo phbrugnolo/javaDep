@@ -32,8 +32,7 @@ public class DepartamentoController implements Serializable {
     }
 
     public void adicionaDepartamento(Departamento departamento) throws Exception {
-        if (buscaDepartamento(departamento.getNome()).isPresent()) 
-            throw new Exception("Departamento já cadastrado");
+        if (buscaDepartamento(departamento.getNome()).isPresent()) throw new Exception("Departamento já cadastrado");
 
         departamentos.add(departamento);
         Log.logAction("Departamento cadastrado " + departamento.getNome() + " com sucesso");

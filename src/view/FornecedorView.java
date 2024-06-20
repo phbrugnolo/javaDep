@@ -3,6 +3,7 @@ package view;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 import controller.*;
@@ -52,8 +53,8 @@ public class FornecedorView {
         String nome = scanner.nextLine();
         try {
             fController.buscaFornecedor(nome).ifPresentOrElse(
-                fornecedor -> System.out.println("Fornecedor encontrado: " + fornecedor.exibiPessoa()),
-                () -> System.out.println("Fornecedor não encontrado."));
+                    fornecedor -> System.out.println("Fornecedor encontrado: " + fornecedor.exibiPessoa()),
+                    () -> System.out.println("Fornecedor não encontrado."));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -81,7 +82,8 @@ public class FornecedorView {
         System.out.print("Nova Data de Nascimento (dd/MM/yyyy): ");
         String novaDataNascimentoStr = scanner.nextLine().trim();
         System.out.print("Novo CPF: ");
-        String novoCpf = scanner.nextLine().trim();;
+        String novoCpf = scanner.nextLine().trim();
+        ;
         System.out.print("Nova Empresa: ");
         String novaEmpresa = scanner.nextLine().trim();
 
@@ -102,6 +104,22 @@ public class FornecedorView {
         try {
             fController.editaFornecedor(nome, novoNome, novoSobrenome, novaDataNascimento, novoCpf, novaEmpresa);
             System.out.println("Fornecedor editado com sucesso!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void registrarFornecimento(FornecedorController fController, Scanner scanner) {
+        System.out.print("Nome do fornecedor: ");
+        String nomeFornecedor = scanner.nextLine().trim();
+
+        System.out.println("Digite os produtos fornecidos separados por vírgula:");
+        String produtosStr = scanner.nextLine().trim();
+        List<String> produtos = List.of(produtosStr.split("\\s*,\\s*"));
+
+        try {
+            fController.registrarFornecimento(nomeFornecedor, produtos);
+            System.out.println("Fornecimento registrado com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

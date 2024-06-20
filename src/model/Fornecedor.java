@@ -17,7 +17,6 @@ public class Fornecedor extends Pessoa implements Serializable{
         super(nome, sobrenome, dataNasc, cpf);
         this.nomeEmpresa = nomeEmpresa;
         this.produtosFornecidos = new ArrayList<>();
-        this.dataUltimoFornecimento = LocalDate.now();
     }
 
     public static Fornecedor criarFornecedor(String nome, String sobrenome, LocalDate dataNasc, String cpf, String nomeEmpresa) {
@@ -59,5 +58,10 @@ public class Fornecedor extends Pessoa implements Serializable{
     @Override
     public String exibiPessoa() {
         return super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + produtosFornecidos + ", Data do Último Fornecimento: " + dataUltimoFornecimento + ", ID: " + id + ".";
+    }
+
+    public void registrarFornecimento(List<String> novosProdutos) {
+        this.produtosFornecidos.addAll(novosProdutos);
+        this.dataUltimoFornecimento = LocalDate.now();
     }
 }
