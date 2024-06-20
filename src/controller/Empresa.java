@@ -30,13 +30,13 @@ public class Empresa implements IEmpresa {
 
     @Override
     public String listarDepartamentos() {
-        StringBuilder sb = new StringBuilder("Departamentos:\n");
+        StringBuilder sb = new StringBuilder("\nDepartamentos:\n");
         for (Departamento d : departamentoController.getDepartamentos()) {
             sb.append(d).append("\n");
         }
         return sb.toString();
     }
-
+    
     @Override
     public String listarFuncionarios() {
         StringBuilder sb = new StringBuilder("Funcionários:\n");

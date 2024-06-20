@@ -6,13 +6,10 @@ import controller.Empresa;
 
 public class EmpresaView {
     public static void listaGeral(Empresa empresa){
-
-        System.out.println("Nome: " + empresa.getNome());
         System.out.println(empresa.listaGeral());
     }
 
     public static void listaDepartamento(Empresa empresa){
-        System.out.println("Departamentos: ");
         System.out.println(empresa.listarDepartamentos());
     }
 
@@ -24,17 +21,14 @@ public class EmpresaView {
     }
 
     public static void folhaSalarial(Empresa empresa){
-        System.out.println("Folha Salarial: ");
         System.out.println(empresa.calcularFolhaSalarial());
     }
 
     public static void listaFuncionarios(Empresa empresa){
-        System.out.println("Funcionários: ");
         System.out.println(empresa.listarFuncionarios());
     }
 
     public static void listaFornecedores(Empresa empresa){
-        System.out.println("Fornecedores: ");
         System.out.println(empresa.listarFornecedores());
     }
 }

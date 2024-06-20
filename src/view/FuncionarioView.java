@@ -3,6 +3,7 @@ package view;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import controller.*;
@@ -10,7 +11,8 @@ import model.*;
 
 public class FuncionarioView {
 
-    public static void cadastroFuncionario(FuncionarioController fController, DepartamentoController dController, Empresa empresa, Scanner scanner) {
+    public static void cadastroFuncionario(FuncionarioController fController, DepartamentoController dController,
+            Empresa empresa, Scanner scanner) {
         System.out.print("Nome: ");
         String nome = scanner.nextLine().trim();
         System.out.print("Sobrenome: ");
@@ -25,9 +27,10 @@ public class FuncionarioView {
         double salario = scanner.nextDouble();
         scanner.nextLine();
         System.out.println("Nome do Departamento: ");
-        String nomeDepartamento = scanner.nextLine();
+        String nomeDepartamento = scanner.nextLine().trim();
 
-        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || salario == 0 || nomeDepartamento.isEmpty()) {
+        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || salario == 0
+                || nomeDepartamento.isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
@@ -41,19 +44,13 @@ public class FuncionarioView {
             return;
         }
 
-        try {
-            dController.buscaDepartamento(nomeDepartamento);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-
-        String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
+        String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase()
+                + ".com";
 
         try {
-            Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
+            Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario,
+                    email);
             dController.adicionarFuncionario(funcionario, nomeDepartamento);
-            fController.adicionaFuncionario(funcionario);
             System.out.println("Funcionário cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -75,8 +72,8 @@ public class FuncionarioView {
                 String nome = scanner.nextLine();
                 try {
                     fController.buscaFuncionario(nome).ifPresentOrElse(
-                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
-                        () -> System.out.println("Funcionário não encontrado."));
+                            funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
+                            () -> System.out.println("Funcionário não encontrado."));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -87,9 +84,9 @@ public class FuncionarioView {
                 try {
                     scanner.nextLine();
                     fController.buscaFuncionario(id).ifPresentOrElse(
-                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
-                        () -> System.out.println("Funcionário não encontrado."));
-                   
+                            funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
+                            () -> System.out.println("Funcionário não encontrado."));
+
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -112,7 +109,8 @@ public class FuncionarioView {
         }
     }
 
-    public static void editaFuncionario(FuncionarioController fController, Scanner scanner) {
+    public static void editaFuncionario(FuncionarioController fController, DepartamentoController dController,
+            Scanner scanner) {
         System.out.println("Digite o ID do funcionário que deseja editar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -131,9 +129,10 @@ public class FuncionarioView {
         double salario = scanner.nextDouble();
         scanner.nextLine();
         System.out.println("Nome do Departamento: ");
-        String nomeDepartamento = scanner.nextLine();
+        String nomeDepartamento = scanner.nextLine().trim();
 
-        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || salario == 0 && salario > 0 || nomeDepartamento.isEmpty()) {
+        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || salario == 0
+                || nomeDepartamento.isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
@@ -148,10 +147,51 @@ public class FuncionarioView {
         }
 
         try {
-            fController.editaFuncionario(nomeDepartamento, nome, sobrenome, dataNascimento, cpf, cargo, id);
+            // Busca o funcionário pelo ID
+            Optional<Funcionario> optionalFuncionario = fController.buscaFuncionario(id);
+            if (!optionalFuncionario.isPresent()) {
+                System.out.println("Funcionário não encontrado.");
+                return;
+            }
+
+            Funcionario funcionario = optionalFuncionario.get();
+
+            // Atualiza os dados do funcionário
+            funcionario.setNome(nome);
+            funcionario.setSobrenome(sobrenome);
+            funcionario.setDataNasc(dataNascimento);
+            funcionario.setCpf(cpf);
+            funcionario.setCargo(cargo);
+            funcionario.setSalario(salario);
+
+            // Verifica se o departamento mudou
+            Optional<Departamento> departamentoAtual = dController.getDepartamentos().stream()
+                    .filter(d -> d.getFuncionarios().contains(funcionario))
+                    .findFirst();
+
+            if (!departamentoAtual.isPresent()) {
+                System.out.println("Departamento atual do funcionário não encontrado.");
+                return;
+            }
+
+            if (!departamentoAtual.get().getNome().equalsIgnoreCase(nomeDepartamento)) {
+                // Remove o funcionário do departamento atual
+                departamentoAtual.get().getFuncionarios().remove(funcionario);
+
+                // Adiciona o funcionário ao novo departamento
+                Optional<Departamento> novoDepartamento = dController.buscaDepartamento(nomeDepartamento);
+                if (!novoDepartamento.isPresent()) {
+                    System.out.println("Novo departamento não encontrado.");
+                    return;
+                }
+
+                novoDepartamento.get().adicionarFuncionario(funcionario);
+            }
+
             System.out.println("Funcionário editado com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
+
 }

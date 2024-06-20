@@ -1,22 +1,22 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import controller.FuncionarioController;
 
 public class Departamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String nome;
-    private FuncionarioController funcionarioController;
+    private List<Funcionario> funcionarios;
 
-    public Departamento(String nome, FuncionarioController funcionarioController) {
+    public Departamento(String nome) {
         this.nome = nome;
-        this.funcionarioController = funcionarioController;
+        this.funcionarios = new ArrayList<>();
     }
 
-    public static Departamento criarDepartamento(String nome, FuncionarioController funcionarioController) {
-        return new Departamento(nome, funcionarioController);
+    public static Departamento criarDepartamento(String nome) {
+        return new Departamento(nome);
     }
 
     public String getNome() {
@@ -28,18 +28,24 @@ public class Departamento implements Serializable {
     }
 
     public List<Funcionario> getFuncionarios() {
-        return funcionarioController.getFuncionarios();
+        return funcionarios;
     }
 
     public void setFuncionarios(List<Funcionario> funcionarios) {
-        funcionarioController.setFuncionarios(funcionarios);
+        this.funcionarios = funcionarios;
     }
 
     public void adicionarFuncionario(Funcionario funcionario) throws Exception {
-        funcionarioController.adicionaFuncionario(funcionario);
+        if (!funcionarios.contains(funcionario)) {
+            funcionarios.add(funcionario);
+        }
     }
 
-    public String nomeDoDepartamento() {
-        return nome;
+    @Override
+    public String toString() {
+        return "Departamento{" +
+                "nome='" + nome + '\'' +
+                ", funcionarios=" + funcionarios.size() +
+                '}';
     }
 }

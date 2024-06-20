@@ -1,23 +1,22 @@
 package view;
 
 import controller.DepartamentoController;
-import controller.FuncionarioController;
 import model.Departamento;
 
 import java.util.Scanner;
 
 public class DepartamentoView {
 
-    public static void cadastroDepartamento(DepartamentoController depController, FuncionarioController funcionarioController,Scanner scanner) {
+    public static void cadastroDepartamento(DepartamentoController depController, Scanner scanner) {
         System.out.print("Nome do Departamento: ");
         String nome = scanner.nextLine().trim();
-
+    
         if (nome.isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
-
-        Departamento d = Departamento.criarDepartamento(nome, funcionarioController);
+    
+        Departamento d = Departamento.criarDepartamento(nome);
         try {
             depController.adicionaDepartamento(d);
             System.out.println("Departamento cadastrado com sucesso.");
@@ -25,6 +24,7 @@ public class DepartamentoView {
             System.out.println(e.getMessage());
         }
     }
+    
 
     public static void removeDepartamento(DepartamentoController depController, Scanner scanner) {
         System.out.print("Nome do Departamento: ");
@@ -44,7 +44,7 @@ public class DepartamentoView {
 
         try {
             depController.buscaDepartamento(nome).ifPresentOrElse(
-                departamento -> System.out.println("Departamento encontrado: " + departamento.nomeDoDepartamento()),
+                departamento -> System.out.println("Departamento encontrado: " + departamento),
                 () -> System.out.println("Departamento não encontrado."));
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao buscar o departamento: " + e.getMessage());

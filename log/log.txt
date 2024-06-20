@@ -39,3 +39,29 @@ Departamento removido Ti2 com sucesso
 Departamento cadastrado ti com sucesso
 Funcionário cadastrado Pedro com sucesso
 Pedro adicionado no TI com sucesso
+Departamento cadastrado ti2 com sucesso
+Departamento editado TI com sucesso
+Departamento cadastrado Comercial com sucesso
+Departamento cadastrado teste com sucesso
+Departamento removido teste com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Funcionário cadastrado Henrique com sucesso
+Henrique adicionado no TI com sucesso
+Funcionário cadastrado Henrique com sucesso
+Funcionário cadastrado Cesar com sucesso
+Cesar adicionado no Comercial com sucesso
+Funcionário cadastrado Cesar com sucesso
+Funcionário cadastrado teste com sucesso
+teste adicionado no Comercial com sucesso
+Funcionário cadastrado teste com sucesso
+Funcionário removido teste com sucesso
+Departamento cadastrado TI com sucesso
+Departamento cadastrado Com com sucesso
+Funcionário cadastrado teste com sucesso
+teste adicionado no TI com sucesso
+Departamento cadastrado ti com sucesso
+teste adicionado no ti com sucesso
+Departamento cadastrado Com com sucesso
+Fornecedor teste2 cadastrado com sucesso

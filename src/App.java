@@ -39,8 +39,7 @@ public class App {
 
                         switch (subOption) {
                             case 1:
-                                DepartamentoView.cadastroDepartamento(departamentoController, funcionarioController,
-                                        scanner);
+                                DepartamentoView.cadastroDepartamento(departamentoController, scanner);
                                 break;
                             case 2:
                                 DepartamentoView.buscaDepartamento(departamentoController, scanner);
@@ -74,14 +73,13 @@ public class App {
 
                         switch (subOption) {
                             case 1:
-                                FuncionarioView.cadastroFuncionario(funcionarioController,
-                                        departamentoController, empresa, scanner);
+                                FuncionarioView.cadastroFuncionario(funcionarioController, departamentoController, empresa, scanner);
                                 break;
                             case 2:
                                 FuncionarioView.buscaFuncionario(funcionarioController, scanner);
                                 break;
                             case 3:
-                                FuncionarioView.editaFuncionario(funcionarioController, scanner);
+                                FuncionarioView.editaFuncionario(funcionarioController, departamentoController, scanner);
                                 break;
                             case 4:
                                 FuncionarioView.removeFuncionario(funcionarioController, scanner);
@@ -112,7 +110,6 @@ public class App {
                             case 1:
                                 FornecedorView.cadastroFornecedor(fornecedorController, scanner);
                                 break;
-
                             case 2:
                                 FornecedorView.buscaFornecedor(fornecedorController, scanner);
                                 break;
@@ -134,18 +131,19 @@ public class App {
                     } while (subOption != 0);
                     break;
                 case 4:
-                    System.out.println("Menu da Empresa: " + empresa.getNome() + ":");
-                    System.out.println("[1] Lista geral da Empresa");
-                    System.out.println("[2] Relatório de Folha Salarial");
-                    System.out.println("[3] Lista de Departamento");
-                    System.out.println("[4] Lista de Funcionários em um Departamento");
-                    System.out.println("[5] Lista de Funcionários");
-                    System.out.println("[6] Lista de Fornecedors");
-                    System.out.println("[0] Voltar");
-                    System.out.println("Escolha uma opção: ");
-                    subOption = scanner.nextInt();
-                    scanner.nextLine();
                     do {
+                        System.out.println("Menu da Empresa: " + empresa.getNome() + ":");
+                        System.out.println("[1] Lista geral da Empresa");
+                        System.out.println("[2] Relatório de Folha Salarial");
+                        System.out.println("[3] Lista de Departamentos");
+                        System.out.println("[4] Lista de Funcionários em um Departamento");
+                        System.out.println("[5] Lista de Funcionários");
+                        System.out.println("[6] Lista de Fornecedors");
+                        System.out.println("[0] Voltar");
+                        System.out.print("Escolha uma opção: ");
+                        subOption = scanner.nextInt();
+                        scanner.nextLine();
+
                         switch (subOption) {
                             case 1:
                                 EmpresaView.listaGeral(empresa);
@@ -178,7 +176,6 @@ public class App {
                     System.out.println("Saindo...");
                     scanner.close();
                     break;
-
                 default:
                     System.out.println("Opção inválida!");
                     break;
