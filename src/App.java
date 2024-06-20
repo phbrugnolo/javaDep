@@ -80,6 +80,7 @@ public class App {
                             case 2:
                                 FuncionarioView.buscaFuncionario(funcionarioController, scanner);
                                 System.out.println(funcionarioController.getFuncionarios());
+                                System.out.println(departamentoController.getDepartamentos());
                                 break;
                             case 3:
                                 FuncionarioView.editaFuncionario(funcionarioController, scanner);

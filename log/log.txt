@@ -26,3 +26,10 @@ Departamento cadastrado TI com sucesso
 Departamento cadastrado TI com sucesso
 Funcionário cadastrado Pedro com sucesso
 Pedro adicionado no TI com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Fornecedor teste cadastrado com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado teste com sucesso
+teste adicionado no TI com sucesso
