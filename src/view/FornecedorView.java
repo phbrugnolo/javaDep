@@ -53,8 +53,8 @@ public class FornecedorView {
         String nome = scanner.nextLine();
         try {
             fController.buscaFornecedor(nome).ifPresentOrElse(
-                    fornecedor -> System.out.println("Fornecedor encontrado: " + fornecedor.exibiPessoa()),
-                    () -> System.out.println("Fornecedor não encontrado."));
+                fornecedor -> System.out.println("Fornecedor encontrado: " + fornecedor.exibiPessoa()),
+                () -> System.out.println("Fornecedor não encontrado."));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -55,13 +55,13 @@ public class Fornecedor extends Pessoa implements Serializable{
         this.id = id;
     }
 
-    @Override
-    public String exibiPessoa() {
-        return super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + produtosFornecidos + ", Data do Último Fornecimento: " + dataUltimoFornecimento + ", ID: " + id + ".";
-    }
-
     public void registrarFornecimento(List<String> novosProdutos) {
         this.produtosFornecidos.addAll(novosProdutos);
         this.dataUltimoFornecimento = LocalDate.now();
+    }
+
+    @Override
+    public String exibiPessoa() {
+        return super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + (produtosFornecidos == null ? " Nenhum produto Fornecido" : produtosFornecidos)  + ", Data do Último Fornecimento: " + dataUltimoFornecimento + ", ID: " + id + ".";
     }
 }

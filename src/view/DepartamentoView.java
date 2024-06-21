@@ -38,7 +38,6 @@ public class DepartamentoView {
     }
 
     public static void buscaDepartamento(DepartamentoController depController, Scanner scanner) {
-
         System.out.print("Nome do Departamento: ");
         String nome = scanner.nextLine();
 

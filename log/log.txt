@@ -68,3 +68,24 @@ Fornecedor teste2 cadastrado com sucesso
 Departamento cadastrado TI com sucesso
 Departamento cadastrado ti com sucesso
 teste adicionado no ti com sucesso
+Departamento cadastrado ti com sucesso
+pedro adicionado no Ti com sucesso
+Fornecedor teste cadastrado com sucesso
+Departamento cadastrado ti com sucesso
+teste adicionado no ti com sucesso
+Departamento cadastrado ti com sucesso
+teste adicionado no ti com sucesso
+Erro ao carregar funcionários salvos. Iniciando com uma nova lista.
+Departamento cadastrado 1 com sucesso
+teste adicionado no 1 com sucesso
+Departamento cadastrado TI com sucesso
+teste adicionado no ti com sucesso
+Departamento cadastrado ti com sucesso
+teste adicionado no ti com sucesso
+Departamento cadastrado TI com sucesso
+TESTE adicionado no ti com sucesso
+Departamento cadastrado ti com sucesso
+teste adicionado no ti com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Teste com sucesso
+Teste adicionado no TI com sucesso

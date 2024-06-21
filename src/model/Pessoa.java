@@ -74,29 +74,29 @@ public class Pessoa {
         }
 
         try {
-            int[] digits = new int[11];
+            int[] digitos = new int[11];
             for (int i = 0; i < 11; i++) {
-                digits[i] = Integer.parseInt(cpf.substring(i, i + 1));
+                digitos[i] = Integer.parseInt(cpf.substring(i, i + 1));
             }
 
-            int sum = 0;
+            int soma = 0;
             for (int i = 0; i < 9; i++) {
-                sum += digits[i] * (10 - i);
+                soma += digitos[i] * (10 - i);
             }
-            int checkDigit1 = 11 - (sum % 11);
-            if (checkDigit1 == 10 || checkDigit1 == 11) {
-                checkDigit1 = 0;
+            int digitoVerificador1 = 11 - (soma % 11);
+            if (digitoVerificador1 == 10 || digitoVerificador1 == 11) {
+                digitoVerificador1 = 0;
             }
-            sum = 0;
+            soma = 0;
             for (int i = 0; i < 10; i++) {
-                sum += digits[i] * (11 - i);
+                soma += digitos[i] * (11 - i);
             }
-            int checkDigit2 = 11 - (sum % 11);
-            if (checkDigit2 == 10 || checkDigit2 == 11) {
-                checkDigit2 = 0;
+            int digitoVerificador2 = 11 - (soma % 11);
+            if (digitoVerificador2 == 10 || digitoVerificador2 == 11) {
+                digitoVerificador2 = 0;
             }
 
-            return checkDigit1 == digits[9] && checkDigit2 == digits[10];
+            return digitoVerificador1 == digitos[9] && digitoVerificador2 == digitos[10];
         } catch (NumberFormatException e) {
             return false;
         }

@@ -15,11 +15,13 @@ public abstract class Ser {
 
     public static <T> void salvar(List<T> lista, File arquivo) throws Exception {
         try {
+            System.out.println("Salvando em" + arquivo.getAbsolutePath());
             arquivo.getParentFile().mkdirs();
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
                 oos.writeObject(lista);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new Exception("Não foi possível salvar o arquivo", e);
         }
     }

@@ -36,9 +36,14 @@ public class Departamento implements Serializable {
     }
 
     public void adicionarFuncionario(Funcionario funcionario) throws Exception {
-        if (!funcionarios.contains(funcionario)) {
-            funcionarios.add(funcionario);
-        }
+
+        funcionarios.stream()
+            .filter(f -> f.getCpf().equals(funcionario.getCpf()) && f.getId() == funcionario.getId())
+            .findFirst()
+            .ifPresentOrElse(
+                f -> { throw new RuntimeException("Funcionario ja cadastrado neste Departamento"); },
+                () -> funcionarios.add(funcionario)
+            );     
     }
 
     @Override

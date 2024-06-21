@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
 import model.Fornecedor;
 import util.*;
 
@@ -26,18 +25,17 @@ public class FornecedorController implements Serializable{
         this.fornecedores = fornecedores;
     }
 
+    private int criarId() {
+        return fornecedores.stream().mapToInt(Fornecedor::getId).max().orElse(0) + 1;
+    }
+
     public Optional<Fornecedor> buscaFornecedor(String nome){
         return fornecedores.stream()
                 .filter(fornecedor -> fornecedor.getNome().equalsIgnoreCase(nome))
                 .findFirst();
     }
 
-    private int criarId() {
-        return fornecedores.stream().mapToInt(Fornecedor::getId).max().orElse(0) + 1;
-    }
-
-    public void editaFornecedor(String nome, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novaEmpresa)
-            throws Exception {
+    public void editaFornecedor(String nome, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novaEmpresa) throws Exception {
         Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
         fornecedor.setNome(novoNome);
         fornecedor.setSobrenome(novoSobrenome);
@@ -50,6 +48,7 @@ public class FornecedorController implements Serializable{
 
     public void adicionaFornecedor(Fornecedor fornecedor) throws Exception {
         if (buscaFornecedor(fornecedor.getNome()).isPresent()) throw new Exception("Fornecedor já cadastrado no sistema");
+
         fornecedores.add(fornecedor);
         fornecedor.setId(criarId());
         Log.escreverNoLog("Fornecedor " + fornecedor.getNome() + " cadastrado com sucesso");

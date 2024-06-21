@@ -9,12 +9,11 @@ import util.*;
 
 public class FuncionarioController implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private List<Funcionario> funcionarios;
 
     public FuncionarioController() {
-        this.funcionarios = CriarLista.criarListaFuncionario();
         carregarDados();
+        if(funcionarios == null) this.funcionarios = CriarLista.criarListaFuncionario();
     }
 
     public List<Funcionario> getFuncionarios() {
@@ -29,38 +28,6 @@ public class FuncionarioController implements Serializable {
         return funcionarios.stream().mapToInt(Funcionario::getId).max().orElse(0) + 1;
     }
 
-    public void adicionaFuncionario(Funcionario funcionario) throws Exception {
-        if (buscaFuncionario(funcionario.getId()).isPresent()) throw new Exception("Funcionário já cadastrado no sistema");
-
-        funcionario.setId(criarId());
-        funcionarios.add(funcionario);
-        Log.escreverNoLog("Funcionário cadastrado " + funcionario.getNome() + " com sucesso");
-        salvarDados();
-    }
-
-    public void removeFuncionario(int id) throws Exception {
-        Funcionario funcionario = buscaFuncionario(id)
-                .orElseThrow(() -> new Exception("Funcionário não encontrado"));
-        funcionarios.remove(funcionario);
-        Log.escreverNoLog("Funcionário removido " + funcionario.getNome() + " com sucesso");
-        salvarDados();
-    }
-
-    public void editaFuncionario(int id, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novoCargo, double novoSalario, String novoEmail)
-            throws Exception {
-        Funcionario funcionario = buscaFuncionario(id)
-                .orElseThrow(() -> new Exception("Funcionário não encontrado"));
-        funcionario.setNome(novoNome);
-        funcionario.setSobrenome(novoSobrenome);
-        funcionario.setDataNasc(novaDataNasc);
-        funcionario.setCpf(novoCpf);
-        funcionario.setCargo(novoCargo);
-        funcionario.setSalario(novoSalario);
-        funcionario.setEmail(novoEmail);
-        Log.escreverNoLog("Funcionário editado " + funcionario.getNome() + " com sucesso");
-        salvarDados();
-    }
-
     public Optional<Funcionario> buscaFuncionario(String nome) {
         return funcionarios.stream()
                 .filter(funcionario -> funcionario.getNome().equalsIgnoreCase(nome))
@@ -73,13 +40,42 @@ public class FuncionarioController implements Serializable {
                 .findFirst();
     }
 
+    public void adicionaFuncionario(Funcionario funcionario) throws Exception {
+        if (buscaFuncionario(funcionario.getId()).isPresent()) throw new Exception("Funcionário já cadastrado no sistema");
+
+        funcionario.setId(criarId());
+        funcionarios.add(funcionario);
+        Log.escreverNoLog("Funcionário cadastrado " + funcionario.getNome() + " com sucesso");
+        salvarDados();
+    }
+
+    public void removeFuncionario(int id) throws Exception {
+        Funcionario funcionario = buscaFuncionario(id).orElseThrow(() -> new Exception("Funcionário não encontrado"));
+        funcionarios.remove(funcionario);
+        Log.escreverNoLog("Funcionário removido " + funcionario.getNome() + " com sucesso");
+        salvarDados();
+    }
+
+    public void editaFuncionario(int id, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novoCargo, double novoSalario, String novoEmail) throws Exception {
+        Funcionario funcionario = buscaFuncionario(id).orElseThrow(() -> new Exception("Funcionário não encontrado"));
+        funcionario.setNome(novoNome);
+        funcionario.setSobrenome(novoSobrenome);
+        funcionario.setDataNasc(novaDataNasc);
+        funcionario.setCpf(novoCpf);
+        funcionario.setCargo(novoCargo);
+        funcionario.setSalario(novoSalario);
+        funcionario.setEmail(novoEmail);
+        Log.escreverNoLog("Funcionário editado " + funcionario.getNome() + " com sucesso");
+        salvarDados();
+    }
+
     public void salvarDados() throws Exception {
         Ser.salvarFuncionario(funcionarios);
     }
 
     private void carregarDados() {
         try {
-            funcionarios = Ser.lerFuncionarios();
+            this.funcionarios = Ser.lerFuncionarios();
         } catch (Exception e) {
             System.out.println("Erro ao carregar dados");
         }

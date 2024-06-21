@@ -10,8 +10,7 @@ import model.*;
 
 public class FuncionarioView {
 
-    public static void cadastroFuncionario(FuncionarioController fController, DepartamentoController dController,
-            Empresa empresa, Scanner scanner) {
+    public static void cadastroFuncionario(FuncionarioController fController, DepartamentoController dController, Empresa empresa, Scanner scanner) {
         System.out.print("Nome: ");
         String nome = scanner.nextLine().trim();
         System.out.print("Sobrenome: ");
@@ -47,12 +46,11 @@ public class FuncionarioView {
             return;
         }
 
-        String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase()
-                + ".com";
+        String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
 
         try {
-            Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario,
-                    email);
+            Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
+            fController.adicionaFuncionario(funcionario);
             dController.adicionarFuncionario(funcionario, nomeDepartamento);
             System.out.println("Funcionário cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
@@ -75,8 +73,8 @@ public class FuncionarioView {
                 String nome = scanner.nextLine();
                 try {
                     fController.buscaFuncionario(nome).ifPresentOrElse(
-                            funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
-                            () -> System.out.println("Funcionário não encontrado."));
+                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
+                        () -> System.out.println("Funcionário não encontrado."));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -87,9 +85,8 @@ public class FuncionarioView {
                 try {
                     scanner.nextLine();
                     fController.buscaFuncionario(id).ifPresentOrElse(
-                            funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
-                            () -> System.out.println("Funcionário não encontrado."));
-
+                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
+                        () -> System.out.println("Funcionário não encontrado."));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -152,8 +149,7 @@ public class FuncionarioView {
             return;
         }
 
-        String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase()
-                + ".com";
+        String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
 
         try {
             fController.editaFuncionario(id, nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
