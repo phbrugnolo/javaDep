@@ -83,6 +83,7 @@ public class FornecedorView {
         String novaDataNascimentoStr = scanner.nextLine().trim();
         System.out.print("Novo CPF: ");
         String novoCpf = scanner.nextLine().trim();
+        ;
         System.out.print("Nova Empresa: ");
         String novaEmpresa = scanner.nextLine().trim();
 

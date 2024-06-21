@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
 import model.Fornecedor;
 import util.*;
 
@@ -13,8 +14,8 @@ public class FornecedorController implements Serializable{
     private List<Fornecedor> fornecedores;
 
     public FornecedorController() {
+        this.fornecedores = CriarLista.criarListaFornecedor();
         carregarDados();
-        if(fornecedores == null) this.fornecedores = CriarLista.criarListaFornecedor();
     }
 
     public List<Fornecedor> getFornecedores() {

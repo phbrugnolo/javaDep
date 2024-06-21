@@ -13,8 +13,8 @@ public class FuncionarioController implements Serializable {
     private List<Funcionario> funcionarios;
 
     public FuncionarioController() {
-       carregarDados();
-       if(funcionarios == null) this.funcionarios = CriarLista.criarListaFuncionario();
+        this.funcionarios = CriarLista.criarListaFuncionario();
+        carregarDados();
     }
 
     public List<Funcionario> getFuncionarios() {

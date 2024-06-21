@@ -13,8 +13,8 @@ public class DepartamentoController implements Serializable {
     private List<Departamento> departamentos;
 
     public DepartamentoController() {
+        this.departamentos = CriarLista.criarListaDepartamento();
         carregarDados();
-        if(departamentos == null) this.departamentos = CriarLista.criarListaDepartamento();
     }
 
     public List<Departamento> getDepartamentos() {
@@ -74,7 +74,6 @@ public class DepartamentoController implements Serializable {
         try {
             departamentos = Ser.lerDepartamentos();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             System.out.println("Erro ao carregar dados");
         }
     }
