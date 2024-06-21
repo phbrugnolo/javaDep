@@ -46,9 +46,9 @@ public class FuncionarioController implements Serializable {
         salvarDados();
     }
 
-    public void editaFuncionario(String nome, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novoCargo, double novoSalario)
+    public void editaFuncionario(int id, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novoCargo, double novoSalario, String novoEmail)
             throws Exception {
-        Funcionario funcionario = buscaFuncionario(nome)
+        Funcionario funcionario = buscaFuncionario(id)
                 .orElseThrow(() -> new Exception("Funcionário não encontrado"));
         funcionario.setNome(novoNome);
         funcionario.setSobrenome(novoSobrenome);
@@ -56,6 +56,7 @@ public class FuncionarioController implements Serializable {
         funcionario.setCpf(novoCpf);
         funcionario.setCargo(novoCargo);
         funcionario.setSalario(novoSalario);
+        funcionario.setEmail(novoEmail);
         Log.escreverNoLog("Funcionário editado " + funcionario.getNome() + " com sucesso");
         salvarDados();
     }

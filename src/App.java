@@ -79,7 +79,7 @@ public class App {
                                 FuncionarioView.buscaFuncionario(funcionarioController, scanner);
                                 break;
                             case 3:
-                                FuncionarioView.editaFuncionario(funcionarioController, departamentoController, scanner);
+                                FuncionarioView.editaFuncionario(funcionarioController, empresa, scanner);
                                 break;
                             case 4:
                                 FuncionarioView.removeFuncionario(funcionarioController, scanner);

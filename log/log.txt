@@ -66,3 +66,5 @@ teste adicionado no ti com sucesso
 Departamento cadastrado Com com sucesso
 Fornecedor teste2 cadastrado com sucesso
 Departamento cadastrado TI com sucesso
+Departamento cadastrado ti com sucesso
+teste adicionado no ti com sucesso

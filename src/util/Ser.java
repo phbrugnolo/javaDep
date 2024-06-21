@@ -45,13 +45,6 @@ public abstract class Ser {
         return ler(ARQUIVO_FORNECEDOR);
     }
 
-    public static void salvarFuncionario(List<Funcionario> lista) throws Exception {
-        salvar(lista, ARQUIVO_FUNCIONARIO);
-    }
-
-    public static List<Funcionario> lerFuncionarios() throws Exception {
-        return ler(ARQUIVO_FUNCIONARIO);
-    }
 
     public static void salvarDepartamento(List<Departamento> lista) throws Exception {
         salvar(lista, ARQUIVO_DERPATAMENTO);
@@ -59,5 +52,13 @@ public abstract class Ser {
 
     public static List<Departamento> lerDepartamentos() throws Exception {
         return ler(ARQUIVO_DERPATAMENTO);
+    }
+
+    public static void salvarFuncionario(List<Funcionario> lista) throws Exception {
+        salvar(lista, ARQUIVO_FUNCIONARIO);
+    }
+
+    public static List<Funcionario> lerFuncionarios() throws Exception {
+        return ler(ARQUIVO_FUNCIONARIO);
     }
 }
