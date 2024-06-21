@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import controller.*;
 import model.*;
+import util.ValidarCPF;
 
 public class FuncionarioView {
 
@@ -37,6 +38,11 @@ public class FuncionarioView {
             return;
         }
 
+        if (!ValidarCPF.validarCPF(cpf)) {
+            System.out.println("CPF inválido.");
+            return;
+        }
+
         LocalDate dataNascimento;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -47,7 +53,7 @@ public class FuncionarioView {
         }
 
         String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
-
+        
         try {
             Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
             fController.adicionaFuncionario(funcionario);
@@ -137,6 +143,11 @@ public class FuncionarioView {
 
         if(salario < 0){
             System.out.println("O salário deve ser maior que 0.");
+            return;
+        }
+
+        if (!ValidarCPF.validarCPF(cpf)) {
+            System.out.println("CPF inválido.");
             return;
         }
 

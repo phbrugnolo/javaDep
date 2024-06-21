@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
-
 import controller.*;
 import model.*;
+import util.ValidarCPF;
 
 public class FornecedorView {
 
@@ -34,6 +34,11 @@ public class FornecedorView {
             dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
         } catch (DateTimeParseException e) {
             System.out.println("Data de nascimento no formato inválido.");
+            return;
+        }
+
+        if(!ValidarCPF.validarCPF(cpf)){
+            System.out.println("CPF inválido.");
             return;
         }
 
@@ -88,6 +93,11 @@ public class FornecedorView {
 
         if (novoNome.isEmpty() || novoSobrenome.isEmpty() || novoCpf.isEmpty() || novaEmpresa.isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");
+            return;
+        }
+
+        if(!ValidarCPF.validarCPF(novoCpf)){
+            System.out.println("CPF inválido.");
             return;
         }
 

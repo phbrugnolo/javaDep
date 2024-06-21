@@ -1,18 +1,21 @@
 import java.util.Scanner;
-import controller.*;
+import controller.DepartamentoController;
+import controller.Empresa;
+import controller.FornecedorController;
+import controller.FuncionarioController;
 import view.*;
+import java.util.InputMismatchException;
 
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
-        int option;
-        int subOption;
+        int option = -1;
+        int subOption = -1;
 
         DepartamentoController departamentoController = new DepartamentoController();
         FuncionarioController funcionarioController = new FuncionarioController();
         FornecedorController fornecedorController = new FornecedorController();
-        Empresa empresa = new Empresa("NoxEnterprises", departamentoController, funcionarioController,
-                fornecedorController);
+        Empresa empresa = new Empresa("NoxEnterprises", departamentoController, funcionarioController, fornecedorController);
 
         do {
             System.out.println("Menu Principal:");
@@ -22,7 +25,13 @@ public class App {
             System.out.println("[4] Empresa");
             System.out.println("[0] Sair");
             System.out.print("Escolha uma opção: ");
-            option = scanner.nextInt();
+            try {
+                option = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Opção inválida! Por favor, insira um número.");
+                scanner.next();
+                continue;
+            }
 
             switch (option) {
                 case 1:
@@ -34,7 +43,13 @@ public class App {
                         System.out.println("[4] Deletar Departamento");
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
-                        subOption = scanner.nextInt();
+                        try {
+                            subOption = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Opção inválida! Por favor, insira um número.");
+                            scanner.next();
+                            continue;
+                        }
                         scanner.nextLine();
 
                         switch (subOption) {
@@ -68,7 +83,13 @@ public class App {
                         System.out.println("[4] Deletar Funcionário");
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
-                        subOption = scanner.nextInt();
+                        try {
+                            subOption = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Opção inválida! Por favor, insira um número.");
+                            scanner.next();
+                            continue;
+                        }
                         scanner.nextLine();
 
                         switch (subOption) {
@@ -103,7 +124,13 @@ public class App {
                         System.out.println("[5] Registrar um Forneciemento");
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
-                        subOption = scanner.nextInt();
+                        try {
+                            subOption = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Opção inválida! Por favor, insira um número.");
+                            scanner.next();
+                            continue;
+                        }
                         scanner.nextLine();
 
                         switch (subOption) {
@@ -138,10 +165,16 @@ public class App {
                         System.out.println("[3] Lista de Departamentos");
                         System.out.println("[4] Lista de Funcionários em um Departamento");
                         System.out.println("[5] Lista de Funcionários");
-                        System.out.println("[6] Lista de Fornecedors");
+                        System.out.println("[6] Lista de Fornecedores");
                         System.out.println("[0] Voltar");
                         System.out.print("Escolha uma opção: ");
-                        subOption = scanner.nextInt();
+                        try {
+                            subOption = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Opção inválida! Por favor, insira um número.");
+                            scanner.next();
+                            continue;
+                        }
                         scanner.nextLine();
 
                         switch (subOption) {
