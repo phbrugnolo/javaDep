@@ -26,14 +26,11 @@ public class FornecedorView {
         try {
             fController.adicionaFornecedor(fornecedor);
             System.out.println("Fornecedor cadastrado com sucesso!");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
-            return;
-        } catch (DateTimeParseException e) {
+        } catch (IllegalArgumentException | DateTimeParseException e) {
             System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
             return;
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
+            System.out.println("Ocorreu um erro inesperado ao cadastrar o fornecedor: " + e.getMessage());
         }
     }
 
@@ -47,7 +44,7 @@ public class FornecedorView {
         } catch (NoSuchElementException e) {
             System.out.println("Ocorreu um erro ao buscar o fornecedor: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao buscar o fornecedor: " + e.getMessage());
+            System.out.println("Ocorreu um erro inesperado ao buscar o fornecedor: " + e.getMessage());
         }
     }
 
@@ -60,7 +57,7 @@ public class FornecedorView {
         } catch (NoSuchElementException e) {
             System.out.println("Ocorreu um erro ao remover o fornecedor: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao remover o fornecedor: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao inesperado remover o fornecedor: " + e.getMessage());
         }
     }
 
@@ -83,12 +80,11 @@ public class FornecedorView {
         try {
             fController.editaFornecedor(nome, novoNome, novoSobrenome, novaDataNascimentoStr, novoCpf, novaEmpresa);
             System.out.println("Fornecedor editado com sucesso!");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NoSuchElementException e) {
             System.out.println("Ocorreu um erro ao editar o fornecedor: " + e.getMessage());
-        } catch (NoSuchElementException e) {
-            System.out.println("Ocorreu um erro ao editar o fornecedor: " + e.getMessage());
+            return;
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao editar o fornecedor: " + e.getMessage());
+            System.out.println("Ocorreu um erro inesperado ao editar o fornecedor: " + e.getMessage());
         }
     }
 
@@ -106,7 +102,7 @@ public class FornecedorView {
         } catch (NoSuchElementException e) {
             System.out.println("Ocorreu um erro ao registrar o fornecimento: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao registrar o fornecimento: " + e.getMessage());
+            System.out.println("Ocorreu um erro inesperado ao registrar o fornecimento: " + e.getMessage());
         }
     }
 }

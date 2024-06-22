@@ -64,11 +64,9 @@ public class DepartamentoView {
         try {
             depController.editaDepartamento(nome, novoNome);
             System.out.println("Departamento editado com sucesso.");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NoSuchElementException e) {
             System.out.println("Ocorreu um erro ao editar o departamento: " + e.getMessage());
             return;
-        } catch (NoSuchElementException e) {
-            System.out.println("Ocorreu um erro ao editar o departamento: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao editar o departamento: " + e.getMessage());
         }

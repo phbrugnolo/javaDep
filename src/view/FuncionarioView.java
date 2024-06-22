@@ -1,6 +1,7 @@
 package view;
 
 import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import controller.*;
@@ -19,9 +20,18 @@ public class FuncionarioView {
         String cpf = scanner.nextLine().trim();
         System.out.print("Cargo: ");
         String cargo = scanner.nextLine().trim();
-        System.out.print("Salário: ");
-        double salario = scanner.nextDouble();
-        scanner.nextLine();
+
+        double salario = 0;
+        try {
+            System.out.print("Salário: ");
+            salario = scanner.nextDouble();
+            scanner.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Ocorreu um erro: Salário deve ser um número.");
+            scanner.nextLine(); 
+            return;
+        }
+        
         System.out.print("Nome do Departamento: ");
         String nomeDepartamento = scanner.nextLine().trim();
 
@@ -32,13 +42,11 @@ public class FuncionarioView {
             fController.adicionaFuncionario(funcionario);
             dController.adicionarFuncionario(funcionario, nomeDepartamento);
             System.out.println("Funcionário cadastrado com sucesso!");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | DateTimeParseException | IllegalStateException e) {
             System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e.getMessage());
             return;
-        } catch (DateTimeParseException e) {
-            System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e.getMessage());
+            System.out.println("Ocorreu um erro inesperado ao cadastrar o funcionário: " + e.getMessage());
         }
     }
 
@@ -47,8 +55,18 @@ public class FuncionarioView {
         System.out.println("[1] Buscar por Nome");
         System.out.println("[2] Buscar por ID");
         System.out.print("Escolha uma opção: ");
-        int buscaOption = scanner.nextInt();
-        scanner.nextLine();
+
+        int buscaOption = 0;
+        try {
+            System.out.print("Escolha uma opção: ");
+            buscaOption = scanner.nextInt();
+            scanner.nextLine(); 
+        } catch (InputMismatchException e) {
+            System.out.println("Ocorreu um erro: Opção deve ser um número.");
+            scanner.nextLine();
+            return;
+        }
+
         switch (buscaOption) {
             case 1:
                 System.out.print("Nome do funcionário: ");
@@ -61,41 +79,53 @@ public class FuncionarioView {
                     System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
                 }
                 catch (Exception e) {
-                    System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
+                    System.out.println("Ocorreu um erro inesperado ao buscar o funcionário: " + e.getMessage());
                 }
                 break;
-            case 2:
-                System.out.print("ID do funcionário: ");
-                int id = scanner.nextInt();
-                try {
-                    scanner.nextLine();
-                    fController.buscaFuncionario(id).ifPresentOrElse(
-                        funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
-                        () -> System.out.println("Funcionário não encontrado."));
-                } catch (NoSuchElementException e) {
-                    System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
-                }
-                catch (Exception e) {
-                    System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
-                }
-                break;
-            default:
-                System.out.println("Opção inválida!");
-                break;
+                case 2:
+                    int id = 0;
+                    try {
+                        System.out.print("ID do funcionário: ");
+                        id = scanner.nextInt();
+                        scanner.nextLine(); // Clear the buffer
+                        fController.buscaFuncionario(id).ifPresentOrElse(
+                            funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
+                            () -> System.out.println("Funcionário não encontrado."));
+                    } catch (InputMismatchException e) {
+                        System.out.println("Ocorreu um erro: ID deve ser um número.");
+                        scanner.nextLine(); // Clear the buffer
+                    } catch (NoSuchElementException e) {
+                        System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
+                    }
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
         }
     }
 
     public static void removeFuncionario(FuncionarioController fController, Scanner scanner) {
-        System.out.print("Id do funcionário: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = 0;
+
+        try {
+            System.out.print("Id do funcionário: ");
+            id = scanner.nextInt();
+            scanner.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Ocorreu um erro: ID deve ser um número.");
+            scanner.nextLine(); 
+            return;
+        }
+
         try {
             fController.removeFuncionario(id);
             System.out.println("Funcionário removido com sucesso!");
         } catch (NoSuchElementException e) {
             System.out.println("Ocorreu um erro ao remover o funcionário: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao remover o funcionário: " + e.getMessage());
+            System.out.println("Ocorreu um erro inesperado ao remover o funcionário" + e.getMessage());
         }
     }
 
@@ -123,13 +153,11 @@ public class FuncionarioView {
         try {
             fController.editaFuncionario(id, nome, sobrenome, dataNascimentoStr, cpf, cargo, salario, email);
             System.out.println("Funcionário editado com sucesso!");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | DateTimeParseException e) {
             System.out.println("Ocorreu um erro ao editar o funcionário: " + e.getMessage());
             return;
-        } catch (DateTimeParseException e) {
-            System.out.println("Ocorreu um erro ao editar o funcionário: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao editar o funcionário: " + e.getMessage());
+            System.out.println("Ocorreu um erro inesperado ao editar o funcionário: " + e.getMessage());
         }
     }
 

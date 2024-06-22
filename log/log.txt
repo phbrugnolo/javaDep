@@ -128,3 +128,16 @@ Fornecedor WesllEY forneceu os seguintes produtos: Fone, Headset.
 Fornecedor WesllEY removido com sucesso
 Fornecedor Weslley cadastrado com sucesso
 Fornecedor Weslley forneceu os seguintes produtos: Teclado, Mouse
+Funcionário cadastrado Henrique com sucesso
+Henrique adicionado no TI com sucesso
+Funcionário removido Henrique com sucesso
+Funcionário cadastrado Henrique com sucesso
+Funcionário cadastrado Henrique com sucesso
+Henrique adicionado no TI com sucesso
+Funcionário removido Henrique com sucesso
+Funcionário cadastrado teste com sucesso
+teste adicionado no TI com sucesso
+Funcionário cadastrado Teste com sucesso
+Teste adicionado no Comercial com sucesso
+Funcionário removido Teste com sucesso
+Funcionário removido teste com sucesso

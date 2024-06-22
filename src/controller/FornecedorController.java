@@ -48,7 +48,7 @@ public class FornecedorController implements Serializable{
         if(novaDataNascimentoStr == null || novaDataNascimentoStr.trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
         if(novoCnpj == null || novoCnpj.trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
         if(novaEmpresa == null || novaEmpresa.trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
-        if(!ValidarCpfCnpj.validarCNPJ(novoCnpj.trim()))
+        if(!ValidarCpfCnpj.validarCNPJ(novoCnpj.trim())) throw new IllegalArgumentException("CNPJ inválido.");
         if(!FormataData.validarFormato(novaDataNascimentoStr)) 
 
         fornecedor.setNome(novoNome);

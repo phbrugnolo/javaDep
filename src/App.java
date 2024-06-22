@@ -7,6 +7,13 @@ import util.CriarLista;
 import view.*;
 import java.util.InputMismatchException;
 
+/* Sistema de Genernciamento de Departamentos
+ * 
+ * Pedro Henrique Brugnolo - RGM 34251154
+ * Henrique Gabriel Bispo Arcega - RGM 34600574
+ * RGM Cesar Augusto Castro dos Santos Filho - RGM 33016488 
+ */
+
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +40,6 @@ public class App {
                 scanner.next();
                 continue;
             }
-
             switch (option) {
                 case 1:
                     do {

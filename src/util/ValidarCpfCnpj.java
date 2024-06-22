@@ -6,41 +6,23 @@ public class ValidarCpfCnpj {
         cpf = cpf.replaceAll("\\D", "");
 
         if (cpf.length() != 11) {
-            throw new IllegalArgumentException("CPF inválido (Tamanho incopatível)");
+            throw new IllegalArgumentException("CPF inválido: Tamanho incorreto.");
         }
 
         if (todosDigitosIguais(cpf)) {
-            throw new IllegalArgumentException("CPF inválido (todos os dígitos são iguais)");
+            throw new IllegalArgumentException("CPF inválido: Todos os dígitos são iguais.");
         }
 
         try {
-            int[] digitos = new int[11];
-            for (int i = 0; i < 11; i++) {
-                digitos[i] = Integer.parseInt(cpf.substring(i, i + 1));
-            }
+            int[] digitos = obterDigitos(cpf, 11);
 
-            int soma = 0;
-            for (int i = 0; i < 9; i++) {
-                soma += digitos[i] * (10 - i);
-            }
-            int digitoVerificador1 = 11 - (soma % 11);
-            if (digitoVerificador1 == 10 || digitoVerificador1 == 11) {
-                digitoVerificador1 = 0;
-            }
-
-            soma = 0;
-            for (int i = 0; i < 10; i++) {
-                soma += digitos[i] * (11 - i);
-            }
-            int digitoVerificador2 = 11 - (soma % 11);
-            if (digitoVerificador2 == 10 || digitoVerificador2 == 11) {
-                digitoVerificador2 = 0;
-            }
+            int digitoVerificador1 = calcularDigitoVerificador(digitos, new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2}, 9);
+            int digitoVerificador2 = calcularDigitoVerificador(digitos, new int[]{11, 10, 9, 8, 7, 6, 5, 4, 3, 2}, 10);
 
             return digitoVerificador1 == digitos[9] && digitoVerificador2 == digitos[10];
 
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("CPF inválido");
+            throw new IllegalArgumentException("CPF inválido: Formato incorreto.");
         }
     }
 
@@ -48,53 +30,47 @@ public class ValidarCpfCnpj {
         cnpj = cnpj.replaceAll("\\D", "");
 
         if (cnpj.length() != 14) {
-            throw new IllegalArgumentException("CNPJ inválido (Tamanho incopatível)");
+            throw new IllegalArgumentException("CNPJ inválido: Tamanho incorreto.");
         }
 
         if (todosDigitosIguais(cnpj)) {
-            throw new IllegalArgumentException("CNPJ inválido (todos os dígitos são iguais)");
+            throw new IllegalArgumentException("CNPJ inválido: Todos os dígitos são iguais.");
         }
 
         try {
-            int[] digitos = new int[14];
-            for (int i = 0; i < 14; i++) {
-                digitos[i] = Integer.parseInt(cnpj.substring(i, i + 1));
-            }
+            int[] digitos = obterDigitos(cnpj, 14);
 
-            int[] pesos1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
-            int soma = 0;
-            for (int i = 0; i < 12; i++) {
-                soma += digitos[i] * pesos1[i];
-            }
-            int digitoVerificador1 = 11 - (soma % 11);
-            if (digitoVerificador1 == 10 || digitoVerificador1 == 11) {
-                digitoVerificador1 = 0;
-            }
-
-            int[] pesos2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
-            soma = 0;
-            for (int i = 0; i < 13; i++) {
-                soma += digitos[i] * pesos2[i];
-            }
-            int digitoVerificador2 = 11 - (soma % 11);
-            if (digitoVerificador2 == 10 || digitoVerificador2 == 11) {
-                digitoVerificador2 = 0;
-            }
+            int digitoVerificador1 = calcularDigitoVerificador(digitos, new int[]{5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2}, 12);
+            int digitoVerificador2 = calcularDigitoVerificador(digitos, new int[]{6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2}, 13);
 
             return digitoVerificador1 == digitos[12] && digitoVerificador2 == digitos[13];
 
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("CNPJ inválido");
+            throw new IllegalArgumentException("CNPJ inválido: Formato incorreto.");
         }
     }
 
-    private static boolean todosDigitosIguais(String documento) {
-        char firstDigit = documento.charAt(0);
-        for (int i = 1; i < documento.length(); i++) {
-            if (documento.charAt(i) != firstDigit) {
-                return false;
-            }
+    private static int[] obterDigitos(String documento, int tamanho) {
+        int[] digitos = new int[tamanho];
+        for (int i = 0; i < tamanho; i++) {
+            digitos[i] = Integer.parseInt(documento.substring(i, i + 1));
         }
-        return true;
+        return digitos;
+    }
+
+    private static int calcularDigitoVerificador(int[] digitos, int[] pesos, int tamanho) {
+        int soma = 0;
+        for (int i = 0; i < tamanho; i++) {
+            soma += digitos[i] * pesos[i];
+        }
+        int digitoVerificador = 11 - (soma % 11);
+        if (digitoVerificador == 10 || digitoVerificador == 11) {
+            digitoVerificador = 0;
+        }
+        return digitoVerificador;
+    }
+
+    private static boolean todosDigitosIguais(String documento) {
+        return documento.chars().distinct().count() == 1;
     }
 }

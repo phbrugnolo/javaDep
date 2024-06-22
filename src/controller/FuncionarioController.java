@@ -53,7 +53,7 @@ public class FuncionarioController implements Serializable {
         if(funcionario.getCpf() == null || funcionario.getCpf().trim().isEmpty()) throw new IllegalArgumentException("CPF do funcionário não pode ser vazio.");
         if(funcionario.getCargo() == null || funcionario.getCargo().trim().isEmpty()) throw new IllegalArgumentException("Cargo do funcionário não pode ser vazio.");
         if(funcionario.getSalario() <= 0) throw new IllegalArgumentException("Salário do funcionário não pode ser menor ou igual a zero.");
-        if(!ValidarCpfCnpj.validarCPF(funcionario.getCpf().trim())) 
+        if(!ValidarCpfCnpj.validarCPF(funcionario.getCpf().trim())) throw new IllegalArgumentException("CPF inválido.");
         if(!FormataData.validarFormato(funcionario.getDataNascimentoStr()))
         if(buscaFuncionario(funcionario.getId()).isPresent()) throw new IllegalArgumentException("Funcionário já cadastrado no sistema");
 

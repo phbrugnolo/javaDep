@@ -92,6 +92,6 @@ public class Pessoa implements Serializable{
     }
 
     public String exibiPessoa() {
-        return "Nome: " + nome + ", Sobrenome: " + sobrenome + ", Idade: " + getIdade() + (isCnpj ? ", CNPJ: " + cnpj : ", CPF: " + cpf) + ".";
+        return "Nome: " + nome + ", Sobrenome: " + sobrenome + ", Idade: " + getIdade() + (isCnpj ? ", CNPJ: " + cnpj : ", CPF: " + cpf);
     }
 }
