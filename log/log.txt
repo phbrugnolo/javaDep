@@ -116,3 +116,15 @@ Departamento cadastrado TI com sucesso
 Funcionário cadastrado Pedro com sucesso
 Pedro adicionado no TI com sucesso
 Fornecedor WesllEY cadastrado com sucesso
+Departamento cadastrado Com com sucesso
+Departamento removido Com com sucesso
+Departamento cadastrado Comm com sucesso
+Departamento editado Comercial com sucesso
+Funcionário cadastrado Nicolas com sucesso
+Nicolas adicionado no Comercial com sucesso
+Funcionário editado Nicolas com sucesso
+Fornecedor WesllEY editado com sucesso
+Fornecedor WesllEY forneceu os seguintes produtos: Fone, Headset.
+Fornecedor WesllEY removido com sucesso
+Fornecedor Weslley cadastrado com sucesso
+Fornecedor Weslley forneceu os seguintes produtos: Teclado, Mouse

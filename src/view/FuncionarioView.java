@@ -57,8 +57,11 @@ public class FuncionarioView {
                     fController.buscaFuncionario(nome).ifPresentOrElse(
                         funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
                         () -> System.out.println("Funcionário não encontrado."));
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                } catch (NoSuchElementException e) {
+                    System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
                 }
                 break;
             case 2:
@@ -70,7 +73,10 @@ public class FuncionarioView {
                         funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
                         () -> System.out.println("Funcionário não encontrado."));
                 } catch (NoSuchElementException e) {
-                    System.out.println(e.getMessage());
+                    System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println("Ocorreu um erro ao buscar o funcionário: " + e.getMessage());
                 }
                 break;
             default:
@@ -86,8 +92,10 @@ public class FuncionarioView {
         try {
             fController.removeFuncionario(id);
             System.out.println("Funcionário removido com sucesso!");
+        } catch (NoSuchElementException e) {
+            System.out.println("Ocorreu um erro ao remover o funcionário: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao remover o funcionário: " + e.getMessage());
         }
     }
 
@@ -114,10 +122,14 @@ public class FuncionarioView {
 
         try {
             fController.editaFuncionario(id, nome, sobrenome, dataNascimentoStr, cpf, cargo, salario, email);
+            System.out.println("Funcionário editado com sucesso!");
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao editar o funcionário: " + e.getMessage());
+            return;
+        } catch (DateTimeParseException e) {
+            System.out.println("Ocorreu um erro ao editar o funcionário: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao editar o funcionário: " + e.getMessage());
         }
     }
 
