@@ -2,6 +2,7 @@ package controller;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import model.Departamento;
 import model.Funcionario;
@@ -36,7 +37,7 @@ public class DepartamentoController implements Serializable {
     }
 
     public void adicionaDepartamento(Departamento departamento) throws Exception {
-        if (buscaDepartamento(departamento.getNome()).isPresent()) throw new Exception("Departamento já cadastrado");
+        if (buscaDepartamento(departamento.getNome()).isPresent()) throw new IllegalArgumentException("Departamento já cadastrado");
 
         departamentos.add(departamento);
         Log.escreverNoLog("Departamento cadastrado " + departamento.getNome() + " com sucesso");
@@ -44,21 +45,21 @@ public class DepartamentoController implements Serializable {
     }
 
     public void editaDepartamento(String nome, String novoNome) throws Exception {
-        Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new NoSuchElementException("Departamento não encontrado"));
         departamento.setNome(novoNome);
         Log.escreverNoLog("Departamento editado " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
 
     public void removeDepartamento(String nome) throws Exception {
-        Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new NoSuchElementException("Departamento não encontrado"));
         departamentos.remove(departamento);
         Log.escreverNoLog("Departamento removido " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
 
     public void adicionarFuncionario(Funcionario funcionario, String nomeDepartamento) throws Exception {
-        Departamento departamento = buscaDepartamento(nomeDepartamento).orElseThrow(() -> new Exception("Departamento não encontrado"));
+        Departamento departamento = buscaDepartamento(nomeDepartamento).orElseThrow(() -> new NoSuchElementException("Departamento não encontrado"));
         departamento.adicionarFuncionario(funcionario);
         Log.escreverNoLog(funcionario.getNome() + " adicionado no " + nomeDepartamento + " com sucesso");
         salvarDados();

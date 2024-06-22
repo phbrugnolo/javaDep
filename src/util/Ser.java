@@ -3,6 +3,7 @@ package util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
@@ -19,8 +20,8 @@ public abstract class Ser {
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
                 oos.writeObject(lista);
             }
-        } catch (Exception e) {
-            throw new Exception("Não foi possível salvar o arquivo", e);
+        } catch (IOException e) {
+            throw new IOException("Não foi possível salvar o arquivo", e);
         }
     }
 
@@ -31,10 +32,10 @@ public abstract class Ser {
                     return (List<T>) ois.readObject();
                 }
             }
-            throw new Exception("Arquivo inválido");
-        } catch (Exception e) {
+            throw new InvalidFileException("O arquivo fornecido é inválido.");
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-            throw new Exception("Não foi possível ler o arquivo", e);
+            throw new IOException("Não foi possível ler o arquivo", e);
         }
     }
 

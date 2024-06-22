@@ -3,6 +3,7 @@ package controller;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import model.Fornecedor;
 import util.*;
@@ -40,7 +41,7 @@ public class FornecedorController implements Serializable{
     }
 
     public void editaFornecedor(String nome, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novaEmpresa) throws Exception {
-        Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
+        Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new NoSuchElementException("Fornecedor não encontrado"));
         fornecedor.setNome(novoNome);
         fornecedor.setSobrenome(novoSobrenome);
         fornecedor.setDataNasc(novaDataNasc);
@@ -51,7 +52,7 @@ public class FornecedorController implements Serializable{
     }
 
     public void adicionaFornecedor(Fornecedor fornecedor) throws Exception {
-        if (buscaFornecedor(fornecedor.getNome()).isPresent()) throw new Exception("Fornecedor já cadastrado no sistema");
+        if (buscaFornecedor(fornecedor.getNome()).isPresent()) throw new IllegalArgumentException("Fornecedor já cadastrado no sistema");
 
         fornecedores.add(fornecedor);
         fornecedor.setId(criarId());
@@ -60,14 +61,14 @@ public class FornecedorController implements Serializable{
     }
 
     public void removeFornecedor(String nome) throws Exception {
-        Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
+        Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new NoSuchElementException("Fornecedor não encontrado"));
         fornecedores.remove(fornecedor);
         Log.escreverNoLog("Fornecedor " + fornecedor.getNome() + " removido com sucesso");
         salvarDados();
     }
 
     public void registrarFornecimento(String nomeFornecedor, List<String> produtos) throws Exception {
-        Fornecedor fornecedor = buscaFornecedor(nomeFornecedor).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
+        Fornecedor fornecedor = buscaFornecedor(nomeFornecedor).orElseThrow(() -> new NoSuchElementException("Fornecedor não encontrado"));
     
         fornecedor.registrarFornecimento(produtos);
         Log.escreverNoLog(String.format("Fornecedor %s forneceu os seguintes produtos: %s", fornecedor.getNome(), String.join(", ", produtos)));
