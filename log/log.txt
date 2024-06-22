@@ -89,3 +89,10 @@ teste adicionado no ti com sucesso
 Departamento cadastrado TI com sucesso
 Funcionário cadastrado Teste com sucesso
 Teste adicionado no TI com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no ti com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Fornecedor Nicolas cadastrado com sucesso

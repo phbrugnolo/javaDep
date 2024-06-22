@@ -19,6 +19,10 @@ public class Fornecedor extends Pessoa implements Serializable{
         this.produtosFornecidos = new ArrayList<>();
     }
 
+    public Fornecedor() {
+        super();
+    }
+
     public static Fornecedor criarFornecedor(String nome, String sobrenome, LocalDate dataNasc, String cpf, String nomeEmpresa) {
         return new Fornecedor(nome, sobrenome, dataNasc, cpf, nomeEmpresa);
     }

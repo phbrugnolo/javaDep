@@ -9,11 +9,16 @@ import util.*;
 
 public class FuncionarioController implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     private List<Funcionario> funcionarios;
 
-    public FuncionarioController() {
-        carregarDados();
-        if(funcionarios == null) this.funcionarios = CriarLista.criarListaFuncionario();
+    public FuncionarioController(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+        try {
+            carregarDados();
+        } catch (Exception e) {
+            System.err.println("ERRO AO CARREGAR DADOS");
+        }
     }
 
     public List<Funcionario> getFuncionarios() {
@@ -75,9 +80,9 @@ public class FuncionarioController implements Serializable {
 
     private void carregarDados() {
         try {
-            this.funcionarios = Ser.lerFuncionarios();
+            funcionarios = Ser.lerFuncionarios();
         } catch (Exception e) {
-            System.out.println("Erro ao carregar dados");
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
         }
     }
 }

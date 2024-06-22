@@ -10,18 +10,16 @@ import model.*;
 
 public abstract class Ser {
     private static final File ARQUIVO_FORNECEDOR = new File("src/obj/fornecedor.ser");
-    private static final File ARQUIVO_DERPATAMENTO = new File("src/obj/departamento.ser");
+    private static final File ARQUIVO_DEPARTAMENTO = new File("src/obj/departamento.ser");
     private static final File ARQUIVO_FUNCIONARIO = new File("src/obj/funcionario.ser");
 
     public static <T> void salvar(List<T> lista, File arquivo) throws Exception {
         try {
-            System.out.println("Salvando em" + arquivo.getAbsolutePath());
             arquivo.getParentFile().mkdirs();
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
                 oos.writeObject(lista);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new Exception("Não foi possível salvar o arquivo", e);
         }
     }
@@ -35,6 +33,7 @@ public abstract class Ser {
             }
             throw new Exception("Arquivo inválido");
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new Exception("Não foi possível ler o arquivo", e);
         }
     }
@@ -47,13 +46,12 @@ public abstract class Ser {
         return ler(ARQUIVO_FORNECEDOR);
     }
 
-
     public static void salvarDepartamento(List<Departamento> lista) throws Exception {
-        salvar(lista, ARQUIVO_DERPATAMENTO);
+        salvar(lista, ARQUIVO_DEPARTAMENTO);
     }
 
     public static List<Departamento> lerDepartamentos() throws Exception {
-        return ler(ARQUIVO_DERPATAMENTO);
+        return ler(ARQUIVO_DEPARTAMENTO);
     }
 
     public static void salvarFuncionario(List<Funcionario> lista) throws Exception {

@@ -3,6 +3,7 @@ import controller.DepartamentoController;
 import controller.Empresa;
 import controller.FornecedorController;
 import controller.FuncionarioController;
+import util.CriarLista;
 import view.*;
 import java.util.InputMismatchException;
 
@@ -12,9 +13,9 @@ public class App {
         int option = -1;
         int subOption = -1;
 
-        DepartamentoController departamentoController = new DepartamentoController();
-        FuncionarioController funcionarioController = new FuncionarioController();
-        FornecedorController fornecedorController = new FornecedorController();
+        DepartamentoController departamentoController = new DepartamentoController(CriarLista.criarListaDepartamento());
+        FuncionarioController funcionarioController = new FuncionarioController(CriarLista.criarListaFuncionario());
+        FornecedorController fornecedorController = new FornecedorController(CriarLista.criarListaFornecedor());
         Empresa empresa = new Empresa("NoxEnterprises", departamentoController, funcionarioController, fornecedorController);
 
         do {

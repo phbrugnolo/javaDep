@@ -12,9 +12,13 @@ public class FornecedorController implements Serializable{
 
     private List<Fornecedor> fornecedores;
 
-    public FornecedorController() {
-        this.fornecedores = CriarLista.criarListaFornecedor();
-        carregarDados();
+    public FornecedorController(List<Fornecedor> fornecedores) {
+        this.fornecedores = fornecedores;
+        try {
+            carregarDados();
+        } catch (Exception e) {
+            System.err.println("ERRO AO CARREGAR DADOS");
+        }
     }
 
     public List<Fornecedor> getFornecedores() {
@@ -77,7 +81,7 @@ public class FornecedorController implements Serializable{
         try {
             fornecedores = Ser.lerFornecedores();
         } catch (Exception e) {
-            System.out.println("Erro ao carregar dados");
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
         }
     }
 }

@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Funcionario extends Pessoa implements Serializable, Comparable<Funcionario> {
+    private static final long serialVersionUID = 1L;
 
     private String cargo;
     private double salario;
     private String email;
     private int id;
+
+    public Funcionario() {
+        super();
+    }
 
     public Funcionario(String nome, String sobrenome, LocalDate dataNasc, String cpf, String cargo, double salario, String email) {
         super(nome, sobrenome, dataNasc, cpf);

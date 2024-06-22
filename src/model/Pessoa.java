@@ -16,6 +16,8 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
+    public Pessoa() {}
+
     public static Pessoa criarPessoa(String nome, String sobrenome, LocalDate dataNasc, String cpf) {
         return new Pessoa(nome, sobrenome, dataNasc, cpf);
     }

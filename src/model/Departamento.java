@@ -15,6 +15,8 @@ public class Departamento implements Serializable {
         this.funcionarios = new ArrayList<>();
     }
 
+    public Departamento() {}
+
     public static Departamento criarDepartamento(String nome) {
         return new Departamento(nome);
     }
