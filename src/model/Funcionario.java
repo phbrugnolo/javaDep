@@ -57,7 +57,7 @@ public class Funcionario extends Pessoa implements Comparable<Funcionario> {
 
     @Override
     public String exibiPessoa() {
-        return "ID: " + id + " " + super.exibiPessoa() + " Email: " + email + ", Cargo: " + cargo + ", Salário: " + salario + ".";
+        return "ID: " + id + " " + super.exibiPessoa() + ", Cargo: " + cargo + ", Salário R$ " + salario + ", Email: " + email;
     }
 
     @Override
