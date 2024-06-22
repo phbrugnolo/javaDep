@@ -33,12 +33,12 @@ public class FuncionarioView {
             dController.adicionarFuncionario(funcionario, nomeDepartamento);
             System.out.println("Funcionário cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
-            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e.getMessage());
             return;
         } catch (DateTimeParseException e) {
-            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e.getMessage());
         }
     }
 

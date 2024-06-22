@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.Serializable;
-// import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -49,13 +48,14 @@ public class FornecedorController implements Serializable{
         if(novaDataNascimentoStr == null || novaDataNascimentoStr.trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
         if(novoCnpj == null || novoCnpj.trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
         if(novaEmpresa == null || novaEmpresa.trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
-        if(!ValidarCpfCnpj.validarCNPJ(novoCnpj.trim())) throw new IllegalArgumentException("CNPJ inválido.");
-     
+        if(!ValidarCpfCnpj.validarCNPJ(novoCnpj.trim()))
+        if(!FormataData.validarFormato(novaDataNascimentoStr)) 
 
         fornecedor.setNome(novoNome);
         fornecedor.setSobrenome(novoSobrenome);
         fornecedor.setDataNascimentoStr(novaDataNascimentoStr);
         fornecedor.setCnpj(novoCnpj);
+        fornecedor.setDataNascimento();
         fornecedor.setNomeEmpresa(novaEmpresa);
 
         Log.escreverNoLog("Fornecedor " + fornecedor.getNome() + " editado com sucesso");
@@ -68,7 +68,8 @@ public class FornecedorController implements Serializable{
         if(fornecedor.getDataNascimentoStr() == null || fornecedor.getDataNascimentoStr().trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
         if(fornecedor.getCnpj() == null || fornecedor.getCnpj().trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
         if(fornecedor.getNomeEmpresa() == null || fornecedor.getNomeEmpresa().trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
-        if(!ValidarCpfCnpj.validarCNPJ(fornecedor.getCnpj().trim())) throw new IllegalArgumentException("CNPJ inválido.");
+        if(!ValidarCpfCnpj.validarCNPJ(fornecedor.getCnpj().trim()))
+        if(!FormataData.validarFormato(fornecedor.getDataNascimentoStr()))
         if(buscaFornecedor(fornecedor.getNome()).isPresent()) throw new IllegalArgumentException("Fornecedor já cadastrado no sistema");
 
         fornecedores.add(fornecedor);

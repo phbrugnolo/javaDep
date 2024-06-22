@@ -112,3 +112,7 @@ Departamento cadastrado teste com sucesso
 Departamento removido teste com sucesso
 Fornecedor teste cadastrado com sucesso
 Fornecedor teste editado com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Fornecedor WesllEY cadastrado com sucesso

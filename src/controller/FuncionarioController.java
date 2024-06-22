@@ -53,7 +53,8 @@ public class FuncionarioController implements Serializable {
         if(funcionario.getCpf() == null || funcionario.getCpf().trim().isEmpty()) throw new IllegalArgumentException("CPF do funcionário não pode ser vazio.");
         if(funcionario.getCargo() == null || funcionario.getCargo().trim().isEmpty()) throw new IllegalArgumentException("Cargo do funcionário não pode ser vazio.");
         if(funcionario.getSalario() <= 0) throw new IllegalArgumentException("Salário do funcionário não pode ser menor ou igual a zero.");
-        if(!ValidarCpfCnpj.validarCPF(funcionario.getCpf().trim())) throw new IllegalArgumentException("CPF inválido.");
+        if(!ValidarCpfCnpj.validarCPF(funcionario.getCpf().trim())) 
+        if(!FormataData.validarFormato(funcionario.getDataNascimentoStr()))
         if(buscaFuncionario(funcionario.getId()).isPresent()) throw new IllegalArgumentException("Funcionário já cadastrado no sistema");
 
         funcionario.setId(criarId());
@@ -71,20 +72,21 @@ public class FuncionarioController implements Serializable {
 
     public void editaFuncionario(int id, String novoNome, String novoSobrenome, String novaDataNascimentoStr, String novoCpf, String novoCargo, double novoSalario, String novoEmail) throws Exception {
         
-        Funcionario funcionario = buscaFuncionario(id).orElseThrow(() -> new NoSuchElementException("Fornecedor não encontrado"));
+        Funcionario funcionario = buscaFuncionario(id).orElseThrow(() -> new NoSuchElementException("Funcionário não encontrado"));
 
-        if(novoNome == null || novoNome.trim().isEmpty()) throw new IllegalArgumentException("Nome do fornecedor não pode ser vazio.");
-        if(novoSobrenome == null || novoSobrenome.trim().isEmpty()) throw new IllegalArgumentException("Sobrenome do fornecedor não pode ser vazio.");
-        if(novaDataNascimentoStr == null || novaDataNascimentoStr.trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
-        if(novoCpf == null || novoCpf.trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
-        if(novoCargo == null || novoCargo.trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
-        if(novoSalario <= 0) throw new IllegalArgumentException("Salário do fornecedor não pode ser menor ou igual a zero.");
-        if(!ValidarCpfCnpj.validarCPF(novoCpf.trim())) throw new IllegalArgumentException("CNPJ inválido.");
+        if(novoNome == null || novoNome.trim().isEmpty()) throw new IllegalArgumentException("Nome do funcionário não pode ser vazio.");
+        if(novoSobrenome == null || novoSobrenome.trim().isEmpty()) throw new IllegalArgumentException("Sobrenome do funcionário não pode ser vazio.");
+        if(novaDataNascimentoStr == null || novaDataNascimentoStr.trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do funcionário não pode ser vazia.");
+        if(novoCpf == null || novoCpf.trim().isEmpty()) throw new IllegalArgumentException("CNPJ do funcionário não pode ser vazio.");
+        if(novoCargo == null || novoCargo.trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do funcionário não pode ser vazio.");
+        if(novoSalario <= 0) throw new IllegalArgumentException("Salário do funcionário não pode ser menor ou igual a zero.");
+        if(!ValidarCpfCnpj.validarCPF(novoCpf.trim()))
+        if(!FormataData.validarFormato(novaDataNascimentoStr))
      
-
         funcionario.setNome(novoNome);
         funcionario.setSobrenome(novoSobrenome);
         funcionario.setDataNascimentoStr(novaDataNascimentoStr);
+        funcionario.setDataNascimento();
         funcionario.setCpf(novoCpf);
         funcionario.setEmail(novoEmail);
         funcionario.setCargo(novoCargo);

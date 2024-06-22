@@ -31,6 +31,7 @@ public class FornecedorView {
             return;
         } catch (DateTimeParseException e) {
             System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
+            return;
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
         }

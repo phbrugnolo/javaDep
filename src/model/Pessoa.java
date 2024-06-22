@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeParseException;
 import util.FormataData;
 
 public class Pessoa implements Serializable{
@@ -21,7 +20,7 @@ public class Pessoa implements Serializable{
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimentoStr = dataNascimentoStr;
-        this.dataNascimento = validarEParseData(dataNascimentoStr);
+        this.dataNascimento = FormataData.parseData(dataNascimentoStr);
         this.cpf = cpf;
         this.cnpj = null;
         this.isCnpj = false;
@@ -31,7 +30,7 @@ public class Pessoa implements Serializable{
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimentoStr = dataNascimentoStr;
-        this.dataNascimento = validarEParseData(dataNascimentoStr);
+        this.dataNascimento = FormataData.parseData(dataNascimentoStr);
         this.cpf = null;
         this.cnpj = cnpj;
         this.isCnpj = isCnpj;
@@ -60,7 +59,7 @@ public class Pessoa implements Serializable{
     }
 
     public void setDataNascimento() {
-        this.dataNascimento = validarEParseData(getDataNascimentoStr());
+        this.dataNascimento = FormataData.parseData(getDataNascimentoStr());
     }
     
     public String getDataNascimentoStr() {
@@ -74,14 +73,6 @@ public class Pessoa implements Serializable{
     public int getIdade() {
         if(dataNascimento == null) return 0;
         return Period.between(dataNascimento, LocalDate.now()).getYears();
-    }
-
-    private LocalDate validarEParseData(String dataStr) {
-        try {
-            return FormataData.parseData(dataStr);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Data de nascimento inválida. Use o formato dd/MM/yyyy.", e);
-        }
     }
 
     public String getCpf() {

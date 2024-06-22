@@ -6,11 +6,11 @@ public class ValidarCpfCnpj {
         cpf = cpf.replaceAll("\\D", "");
 
         if (cpf.length() != 11) {
-            return false;
+            throw new IllegalArgumentException("CPF inválido (Tamanho incopatível)");
         }
 
         if (todosDigitosIguais(cpf)) {
-            return false;
+            throw new IllegalArgumentException("CPF inválido (todos os dígitos são iguais)");
         }
 
         try {
@@ -40,7 +40,7 @@ public class ValidarCpfCnpj {
             return digitoVerificador1 == digitos[9] && digitoVerificador2 == digitos[10];
 
         } catch (NumberFormatException e) {
-            return false;
+            throw new IllegalArgumentException("CPF inválido");
         }
     }
 
@@ -48,11 +48,11 @@ public class ValidarCpfCnpj {
         cnpj = cnpj.replaceAll("\\D", "");
 
         if (cnpj.length() != 14) {
-            return false;
+            throw new IllegalArgumentException("CNPJ inválido (Tamanho incopatível)");
         }
 
         if (todosDigitosIguais(cnpj)) {
-            return false;
+            throw new IllegalArgumentException("CNPJ inválido (todos os dígitos são iguais)");
         }
 
         try {
@@ -84,7 +84,7 @@ public class ValidarCpfCnpj {
             return digitoVerificador1 == digitos[12] && digitoVerificador2 == digitos[13];
 
         } catch (NumberFormatException e) {
-            return false;
+            throw new IllegalArgumentException("CNPJ inválido");
         }
     }
 
