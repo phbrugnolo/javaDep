@@ -1,11 +1,10 @@
 package model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fornecedor extends Pessoa implements Serializable{
+public class Fornecedor extends Pessoa {
     private static final long serialVersionUID = 1L;
 
     private String nomeEmpresa;	
@@ -66,6 +65,6 @@ public class Fornecedor extends Pessoa implements Serializable{
 
     @Override
     public String exibiPessoa() {
-        return super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + (produtosFornecidos == null ? " Nenhum produto Fornecido" : produtosFornecidos)  + ", Data do Último Fornecimento: " + dataUltimoFornecimento + ", ID: " + id + ".";
+        return "ID: " + id + super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + (produtosFornecidos == null || produtosFornecidos.isEmpty() ? "Nenhum produto Fornecido" : produtosFornecidos)  + ", Data do Último Fornecimento: " + (dataUltimoFornecimento == null ? "Nenhuma data Constada" : dataUltimoFornecimento) + ".";
     }
 }

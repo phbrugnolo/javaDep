@@ -53,7 +53,6 @@ public class FornecedorView {
     }
 
     public static void buscaFornecedor(FornecedorController fController, Scanner scanner) {
-        System.out.println("Buscar Fornecedor:");
         System.out.print("Nome do fornecedor: ");
         String nome = scanner.nextLine();
         try {

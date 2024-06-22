@@ -6,29 +6,29 @@ import controller.Empresa;
 
 public class EmpresaView {
     public static void listaGeral(Empresa empresa){
-        System.out.println(empresa.listaGeral());
+        System.out.println("\n" + empresa.listaGeral());
     }
 
     public static void listaDepartamento(Empresa empresa){
-        System.out.println(empresa.listarDepartamentos());
+        System.out.println("\n" + empresa.listarDepartamentos());
     }
 
     public static void listaFuncionariosEmUmDepartamento(Empresa empresa, Scanner scanner){
-        System.out.println("Digite o nome do departamento: ");
+        System.out.print("Digite o nome do departamento: ");
         String nome = scanner.nextLine();
 
-        System.out.println(empresa.listarFuncionariosEmDepartamento(nome));
+        System.out.println("\n" + empresa.listarFuncionariosEmDepartamento(nome));
     }
 
     public static void folhaSalarial(Empresa empresa){
-        System.out.println(empresa.calcularFolhaSalarial());
+        System.out.println("\n" + empresa.calcularFolhaSalarial());
     }
 
     public static void listaFuncionarios(Empresa empresa){
-        System.out.println(empresa.listarFuncionarios());
+        System.out.println("\n" + empresa.listarFuncionarios());
     }
 
     public static void listaFornecedores(Empresa empresa){
-        System.out.println(empresa.listarFornecedores());
+        System.out.println("\n" + empresa.listarFornecedores());
     }
 }

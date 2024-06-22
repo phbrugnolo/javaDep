@@ -1,9 +1,8 @@
 package model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Funcionario extends Pessoa implements Serializable, Comparable<Funcionario> {
+public class Funcionario extends Pessoa implements Comparable<Funcionario> {
     private static final long serialVersionUID = 1L;
 
     private String cargo;
@@ -60,7 +59,7 @@ public class Funcionario extends Pessoa implements Serializable, Comparable<Func
 
     @Override
     public String exibiPessoa() {
-        return super.exibiPessoa() + " Email: " + email + ", Cargo: " + cargo + ", Salário: " + salario + ", ID: " + id + ".";
+        return "ID: " + id + super.exibiPessoa() + " Email: " + email + ", Cargo: " + cargo + ", Salário: " + salario + ".";
     }
 
     @Override

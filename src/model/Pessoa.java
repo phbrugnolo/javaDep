@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Pessoa {
+public class Pessoa implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     private String nome;
     private String sobrenome;
     private LocalDate dataNasc;
@@ -47,6 +50,7 @@ public class Pessoa {
     }
 
     public int getIdade() {
+        if(dataNasc == null) return 0;
         return Period.between(dataNasc, LocalDate.now()).getYears();
     }
 

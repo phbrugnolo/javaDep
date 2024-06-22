@@ -96,3 +96,11 @@ Departamento cadastrado TI com sucesso
 Funcionário cadastrado Pedro com sucesso
 Pedro adicionado no TI com sucesso
 Fornecedor Nicolas cadastrado com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Laura com sucesso
+Laura adicionado no TI com sucesso
+Fornecedor Nicolas cadastrado com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Fornecedor Nicolas cadastrado com sucesso
