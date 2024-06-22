@@ -106,3 +106,9 @@ Pedro adicionado no TI com sucesso
 Fornecedor Nicolas cadastrado com sucesso
 Fornecimento registrado para o fornecedor Nicolas com produtos: Monitor, Mouse, Nootebok, Fone e Teclado
 Fornecedor Nicolas forneceu os seguintes produtos: Headset, Bateria
+Fornecedor teste cadastrado com sucesso
+Fornecedor teste2 editado com sucesso
+Departamento cadastrado teste com sucesso
+Departamento removido teste com sucesso
+Fornecedor teste cadastrado com sucesso
+Fornecedor teste editado com sucesso

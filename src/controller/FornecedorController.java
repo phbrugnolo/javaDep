@@ -1,7 +1,8 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
+// import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public class FornecedorController implements Serializable{
         try {
             carregarDados();
         } catch (Exception e) {
-            System.err.println("ERRO AO CARREGAR DADOS");
+            System.err.println("Erro ao carregar os dados: " + e.getMessage());
         }
     }
 
@@ -40,19 +41,35 @@ public class FornecedorController implements Serializable{
                 .findFirst();
     }
 
-    public void editaFornecedor(String nome, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novaEmpresa) throws Exception {
+    public void editaFornecedor(String nome, String novoNome, String novoSobrenome, String novaDataNascimentoStr, String novoCnpj, String novaEmpresa) throws Exception {
         Fornecedor fornecedor = buscaFornecedor(nome).orElseThrow(() -> new NoSuchElementException("Fornecedor não encontrado"));
+
+        if(novoNome == null || novoNome.trim().isEmpty()) throw new IllegalArgumentException("Nome do fornecedor não pode ser vazio.");
+        if(novoSobrenome == null || novoSobrenome.trim().isEmpty()) throw new IllegalArgumentException("Sobrenome do fornecedor não pode ser vazio.");
+        if(novaDataNascimentoStr == null || novaDataNascimentoStr.trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
+        if(novoCnpj == null || novoCnpj.trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
+        if(novaEmpresa == null || novaEmpresa.trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
+        if(!ValidarCpfCnpj.validarCNPJ(novoCnpj.trim())) throw new IllegalArgumentException("CNPJ inválido.");
+     
+
         fornecedor.setNome(novoNome);
         fornecedor.setSobrenome(novoSobrenome);
-        fornecedor.setDataNasc(novaDataNasc);
-        fornecedor.setCpf(novoCpf);
+        fornecedor.setDataNascimentoStr(novaDataNascimentoStr);
+        fornecedor.setCnpj(novoCnpj);
         fornecedor.setNomeEmpresa(novaEmpresa);
+
         Log.escreverNoLog("Fornecedor " + fornecedor.getNome() + " editado com sucesso");
         salvarDados();
     }
 
     public void adicionaFornecedor(Fornecedor fornecedor) throws Exception {
-        if (buscaFornecedor(fornecedor.getNome()).isPresent()) throw new IllegalArgumentException("Fornecedor já cadastrado no sistema");
+        if(fornecedor.getNome() == null || fornecedor.getNome().trim().isEmpty()) throw new IllegalArgumentException("Nome do fornecedor não pode ser vazio.");
+        if(fornecedor.getSobrenome() == null || fornecedor.getSobrenome().trim().isEmpty()) throw new IllegalArgumentException("Sobrenome do fornecedor não pode ser vazio.");
+        if(fornecedor.getDataNascimentoStr() == null || fornecedor.getDataNascimentoStr().trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
+        if(fornecedor.getCnpj() == null || fornecedor.getCnpj().trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
+        if(fornecedor.getNomeEmpresa() == null || fornecedor.getNomeEmpresa().trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
+        if(!ValidarCpfCnpj.validarCNPJ(fornecedor.getCnpj().trim())) throw new IllegalArgumentException("CNPJ inválido.");
+        if(buscaFornecedor(fornecedor.getNome()).isPresent()) throw new IllegalArgumentException("Fornecedor já cadastrado no sistema");
 
         fornecedores.add(fornecedor);
         fornecedor.setId(criarId());
@@ -68,8 +85,24 @@ public class FornecedorController implements Serializable{
     }
 
     public void registrarFornecimento(String nomeFornecedor, List<String> produtos) throws Exception {
-        Fornecedor fornecedor = buscaFornecedor(nomeFornecedor).orElseThrow(() -> new NoSuchElementException("Fornecedor não encontrado"));
-    
+        if (nomeFornecedor == null || nomeFornecedor.isEmpty()) {
+            throw new IllegalArgumentException("Nome do fornecedor não pode ser vazio.");
+        }
+
+        if (produtos == null || produtos.isEmpty()) {
+            throw new IllegalArgumentException("Lista de produtos não pode ser vazia.");
+        }
+
+        produtos.stream()
+            .filter(produto -> produto.trim().isEmpty())
+            .findAny()
+            .ifPresent(produto -> {
+                throw new IllegalArgumentException("Produto inválido na lista.");
+            });
+
+        Fornecedor fornecedor = buscaFornecedor(nomeFornecedor)
+            .orElseThrow(() -> new NoSuchElementException("Fornecedor não encontrado"));
+        
         fornecedor.registrarFornecimento(produtos);
         Log.escreverNoLog(String.format("Fornecedor %s forneceu os seguintes produtos: %s", fornecedor.getNome(), String.join(", ", produtos)));
         salvarDados();
@@ -83,7 +116,11 @@ public class FornecedorController implements Serializable{
     private void carregarDados() {
         try {
             fornecedores = Ser.lerFornecedores();
-        } catch (Exception e) {
+        } catch (InvalidFileException e) {
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
+        } catch (Exception e){
             System.out.println("Erro ao carregar dados: " + e.getMessage());
         }
     }

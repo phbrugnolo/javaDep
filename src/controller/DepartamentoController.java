@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,14 +38,15 @@ public class DepartamentoController implements Serializable {
     }
 
     public void adicionaDepartamento(Departamento departamento) throws Exception {
+        if (departamento.getNome() == null || departamento.getNome().trim().isEmpty()) throw new IllegalArgumentException("Todos os campos devem ser preenchidos.");
         if (buscaDepartamento(departamento.getNome()).isPresent()) throw new IllegalArgumentException("Departamento já cadastrado");
-
         departamentos.add(departamento);
         Log.escreverNoLog("Departamento cadastrado " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
 
     public void editaDepartamento(String nome, String novoNome) throws Exception {
+        if (novoNome == null || novoNome.trim().isEmpty()) throw new IllegalArgumentException("Todos os campos devem ser preenchidos.");
         Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new NoSuchElementException("Departamento não encontrado"));
         departamento.setNome(novoNome);
         Log.escreverNoLog("Departamento editado " + departamento.getNome() + " com sucesso");
@@ -72,7 +74,11 @@ public class DepartamentoController implements Serializable {
     private void carregarDados() {
         try {
             departamentos = Ser.lerDepartamentos();
-        } catch (Exception e) {
+        }  catch (InvalidFileException e) {
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
+        } catch (Exception e){
             System.out.println("Erro ao carregar dados: " + e.getMessage());
         }
     }

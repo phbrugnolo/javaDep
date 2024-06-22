@@ -1,13 +1,10 @@
 package view;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
-
 import controller.*;
 import model.*;
-import util.ValidarCPF;
 
 public class FuncionarioView {
 
@@ -28,41 +25,20 @@ public class FuncionarioView {
         System.out.print("Nome do Departamento: ");
         String nomeDepartamento = scanner.nextLine().trim();
 
-        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || nomeDepartamento.isEmpty()) {
-            System.out.println("Todos os campos devem ser preenchidos.");
-            return;
-        }
-
-        if(salario < 0){
-            System.out.println("O salário deve ser maior que 0.");
-            return;
-        }
-
-        if (!ValidarCPF.validarCPF(cpf)) {
-            System.out.println("CPF inválido.");
-            return;
-        }
-
-        LocalDate dataNascimento;
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Data de nascimento no formato inválido.");
-            return;
-        }
-
         String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
         
         try {
-            Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
+            Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimentoStr, cpf, cargo, salario, email);
             fController.adicionaFuncionario(funcionario);
             dController.adicionarFuncionario(funcionario, nomeDepartamento);
             System.out.println("Funcionário cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
+            return;
+        } catch (DateTimeParseException e) {
+            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
         }
     }
 
@@ -93,7 +69,7 @@ public class FuncionarioView {
                     fController.buscaFuncionario(id).ifPresentOrElse(
                         funcionario -> System.out.println("Funcionário encontrado: " + funcionario.exibiPessoa()),
                         () -> System.out.println("Funcionário não encontrado."));
-                } catch (Exception e) {
+                } catch (NoSuchElementException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
@@ -133,37 +109,11 @@ public class FuncionarioView {
         System.out.print("Salário: ");
         double salario = scanner.nextDouble();
         scanner.nextLine();
-        System.out.print("Nome do Departamento: ");
-        String nomeDepartamento = scanner.nextLine().trim();
-
-        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || cargo.isEmpty() || nomeDepartamento.isEmpty()) {
-            System.out.println("Todos os campos devem ser preenchidos.");
-            return;
-        }
-
-        if(salario < 0){
-            System.out.println("O salário deve ser maior que 0.");
-            return;
-        }
-
-        if (!ValidarCPF.validarCPF(cpf)) {
-            System.out.println("CPF inválido.");
-            return;
-        }
-
-        LocalDate dataNascimento;
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Data de nascimento no formato inválido.");
-            return;
-        }
 
         String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
 
         try {
-            fController.editaFuncionario(id, nome, sobrenome, dataNascimento, cpf, cargo, salario, email);
+            fController.editaFuncionario(id, nome, sobrenome, dataNascimentoStr, cpf, cargo, salario, email);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {

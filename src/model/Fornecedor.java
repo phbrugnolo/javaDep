@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import util.FormataData;
 
 public class Fornecedor extends Pessoa {
     private static final long serialVersionUID = 1L;
@@ -12,8 +13,8 @@ public class Fornecedor extends Pessoa {
     private List<String> produtosFornecidos;
     private LocalDate dataUltimoFornecimento;
 
-    public Fornecedor(String nome, String sobrenome, LocalDate dataNasc, String cpf, String nomeEmpresa) {
-        super(nome, sobrenome, dataNasc, cpf);
+    public Fornecedor(String nome, String sobrenome, String dataNascimentoStr, String cnpj, boolean isCnpj, String nomeEmpresa) {
+        super(nome, sobrenome, dataNascimentoStr, cnpj, isCnpj);
         this.nomeEmpresa = nomeEmpresa;
         this.produtosFornecidos = new ArrayList<>();
     }
@@ -22,8 +23,8 @@ public class Fornecedor extends Pessoa {
         super();
     }
 
-    public static Fornecedor criarFornecedor(String nome, String sobrenome, LocalDate dataNasc, String cpf, String nomeEmpresa) {
-        return new Fornecedor(nome, sobrenome, dataNasc, cpf, nomeEmpresa);
+    public static Fornecedor criarFornecedor(String nome, String sobrenome, String dataNascimentoStr, String cnpj, String nomeEmpresa) {
+        return new Fornecedor(nome, sobrenome, dataNascimentoStr, cnpj, true, nomeEmpresa);
     }
 
     public String getNomeEmpresa() {
@@ -65,6 +66,6 @@ public class Fornecedor extends Pessoa {
 
     @Override
     public String exibiPessoa() {
-        return "ID: " + id + " " + super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + (produtosFornecidos == null || produtosFornecidos.isEmpty() ? "Nenhum produto Fornecido" : produtosFornecidos)  + ", Data do Último Fornecimento: " + (dataUltimoFornecimento == null ? "Nenhuma data Constada" : dataUltimoFornecimento) + ".";
+        return "ID: " + id + " " + super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + (produtosFornecidos == null || produtosFornecidos.isEmpty() ? "Nenhum produto Fornecido" : produtosFornecidos)  + ", Data do Último Fornecimento: " + (dataUltimoFornecimento == null ? "Nenhuma data Constada" : FormataData.formatData(dataUltimoFornecimento)) + ".";
     }
 }

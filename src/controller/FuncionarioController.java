@@ -1,7 +1,7 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -47,7 +47,14 @@ public class FuncionarioController implements Serializable {
     }
 
     public void adicionaFuncionario(Funcionario funcionario) throws Exception {
-        if (buscaFuncionario(funcionario.getId()).isPresent()) throw new IllegalArgumentException("Funcionário já cadastrado no sistema");
+        if(funcionario.getNome() == null || funcionario.getNome().trim().isEmpty()) throw new IllegalArgumentException("Nome do funcionário não pode ser vazio.");
+        if(funcionario.getSobrenome() == null || funcionario.getSobrenome().trim().isEmpty()) throw new IllegalArgumentException("Sobrenome do funcionário não pode ser vazio.");
+        if(funcionario.getDataNascimentoStr() == null || funcionario.getDataNascimentoStr().trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do funcionário não pode ser vazia.");
+        if(funcionario.getCpf() == null || funcionario.getCpf().trim().isEmpty()) throw new IllegalArgumentException("CPF do funcionário não pode ser vazio.");
+        if(funcionario.getCargo() == null || funcionario.getCargo().trim().isEmpty()) throw new IllegalArgumentException("Cargo do funcionário não pode ser vazio.");
+        if(funcionario.getSalario() <= 0) throw new IllegalArgumentException("Salário do funcionário não pode ser menor ou igual a zero.");
+        if(!ValidarCpfCnpj.validarCPF(funcionario.getCpf().trim())) throw new IllegalArgumentException("CPF inválido.");
+        if(buscaFuncionario(funcionario.getId()).isPresent()) throw new IllegalArgumentException("Funcionário já cadastrado no sistema");
 
         funcionario.setId(criarId());
         funcionarios.add(funcionario);
@@ -62,15 +69,28 @@ public class FuncionarioController implements Serializable {
         salvarDados();
     }
 
-    public void editaFuncionario(int id, String novoNome, String novoSobrenome, LocalDate novaDataNasc, String novoCpf, String novoCargo, double novoSalario, String novoEmail) throws Exception {
-        Funcionario funcionario = buscaFuncionario(id).orElseThrow(() -> new NoSuchElementException("Funcionário não encontrado"));
+    public void editaFuncionario(int id, String novoNome, String novoSobrenome, String novaDataNascimentoStr, String novoCpf, String novoCargo, double novoSalario, String novoEmail) throws Exception {
+        
+        Funcionario funcionario = buscaFuncionario(id).orElseThrow(() -> new NoSuchElementException("Fornecedor não encontrado"));
+
+        if(novoNome == null || novoNome.trim().isEmpty()) throw new IllegalArgumentException("Nome do fornecedor não pode ser vazio.");
+        if(novoSobrenome == null || novoSobrenome.trim().isEmpty()) throw new IllegalArgumentException("Sobrenome do fornecedor não pode ser vazio.");
+        if(novaDataNascimentoStr == null || novaDataNascimentoStr.trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
+        if(novoCpf == null || novoCpf.trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
+        if(novoCargo == null || novoCargo.trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
+        if(novoSalario <= 0) throw new IllegalArgumentException("Salário do fornecedor não pode ser menor ou igual a zero.");
+        if(!ValidarCpfCnpj.validarCPF(novoCpf.trim())) throw new IllegalArgumentException("CNPJ inválido.");
+     
+
         funcionario.setNome(novoNome);
         funcionario.setSobrenome(novoSobrenome);
-        funcionario.setDataNasc(novaDataNasc);
+        funcionario.setDataNascimentoStr(novaDataNascimentoStr);
         funcionario.setCpf(novoCpf);
+        funcionario.setEmail(novoEmail);
         funcionario.setCargo(novoCargo);
         funcionario.setSalario(novoSalario);
-        funcionario.setEmail(novoEmail);
+
+
         Log.escreverNoLog("Funcionário editado " + funcionario.getNome() + " com sucesso");
         salvarDados();
     }
@@ -82,7 +102,11 @@ public class FuncionarioController implements Serializable {
     private void carregarDados() {
         try {
             funcionarios = Ser.lerFuncionarios();
-        } catch (Exception e) {
+        } catch (InvalidFileException e) {
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
+        } catch (Exception e){
             System.out.println("Erro ao carregar dados: " + e.getMessage());
         }
     }

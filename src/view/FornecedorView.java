@@ -1,13 +1,11 @@
 package view;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import controller.*;
 import model.*;
-import util.ValidarCPF;
 
 public class FornecedorView {
 
@@ -18,37 +16,23 @@ public class FornecedorView {
         String sobrenome = scanner.nextLine().trim();
         System.out.print("Data de Nascimento (dd/MM/yyyy): ");
         String dataNascimentoStr = scanner.nextLine().trim();
-        System.out.print("CPF: ");
-        String cpf = scanner.nextLine().trim();
+        System.out.print("CNPJ: ");
+        String cnpj = scanner.nextLine().trim();
         System.out.print("Empresa: ");
         String empresa = scanner.nextLine().trim();
 
-        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || empresa.isEmpty()) {
-            System.out.println("Todos os campos devem ser preenchidos.");
-            return;
-        }
-
-        LocalDate dataNascimento;
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Data de nascimento no formato inválido.");
-            return;
-        }
-
-        if(!ValidarCPF.validarCPF(cpf)){
-            System.out.println("CPF inválido.");
-            return;
-        }
-
-        Fornecedor fornecedor = new Fornecedor(nome, sobrenome, dataNascimento, cpf, empresa);
+        Fornecedor fornecedor = Fornecedor.criarFornecedor(nome, sobrenome, dataNascimentoStr, cnpj, empresa);
 
         try {
             fController.adicionaFornecedor(fornecedor);
             System.out.println("Fornecedor cadastrado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
+            return;
+        } catch (DateTimeParseException e) {
+            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
         }
     }
 
@@ -59,8 +43,10 @@ public class FornecedorView {
             fController.buscaFornecedor(nome).ifPresentOrElse(
                 fornecedor -> System.out.println("Fornecedor encontrado: " + fornecedor.exibiPessoa()),
                 () -> System.out.println("Fornecedor não encontrado."));
+        } catch (NoSuchElementException e) {
+            System.out.println("Ocorreu um erro ao buscar o fornecedor: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao buscar o fornecedor: " + e.getMessage());
         }
     }
 
@@ -70,8 +56,10 @@ public class FornecedorView {
         try {
             fController.removeFornecedor(nome);
             System.out.println("Fornecedor removido com sucesso!");
+        } catch (NoSuchElementException e) {
+            System.out.println("Ocorreu um erro ao remover o fornecedor: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao remover o fornecedor: " + e.getMessage());
         }
     }
 
@@ -85,35 +73,21 @@ public class FornecedorView {
         String novoSobrenome = scanner.nextLine().trim();
         System.out.print("Nova Data de Nascimento (dd/MM/yyyy): ");
         String novaDataNascimentoStr = scanner.nextLine().trim();
-        System.out.print("Novo CPF: ");
+        System.out.print("Novo CNPJ: ");
         String novoCpf = scanner.nextLine().trim();
         System.out.print("Nova Empresa: ");
         String novaEmpresa = scanner.nextLine().trim();
 
-        if (novoNome.isEmpty() || novoSobrenome.isEmpty() || novoCpf.isEmpty() || novaEmpresa.isEmpty()) {
-            System.out.println("Todos os campos devem ser preenchidos.");
-            return;
-        }
-
-        if(!ValidarCPF.validarCPF(novoCpf)){
-            System.out.println("CPF inválido.");
-            return;
-        }
-
-        LocalDate novaDataNascimento;
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            novaDataNascimento = LocalDate.parse(novaDataNascimentoStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Data de nascimento no formato inválido.");
-            return;
-        }
 
         try {
-            fController.editaFornecedor(nome, novoNome, novoSobrenome, novaDataNascimento, novoCpf, novaEmpresa);
+            fController.editaFornecedor(nome, novoNome, novoSobrenome, novaDataNascimentoStr, novoCpf, novaEmpresa);
             System.out.println("Fornecedor editado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ocorreu um erro ao editar o fornecedor: " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            System.out.println("Ocorreu um erro ao editar o fornecedor: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao editar o fornecedor: " + e.getMessage());
         }
     }
 
@@ -128,8 +102,10 @@ public class FornecedorView {
         try {
             fController.registrarFornecimento(nomeFornecedor, produtos);
             System.out.println("Fornecimento registrado com sucesso!");
+        } catch (NoSuchElementException e) {
+            System.out.println("Ocorreu um erro ao registrar o fornecimento: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ocorreu um erro ao registrar o fornecimento: " + e.getMessage());
         }
     }
 }
