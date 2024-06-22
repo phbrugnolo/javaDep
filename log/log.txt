@@ -104,3 +104,5 @@ Departamento cadastrado TI com sucesso
 Funcionário cadastrado Pedro com sucesso
 Pedro adicionado no TI com sucesso
 Fornecedor Nicolas cadastrado com sucesso
+Fornecimento registrado para o fornecedor Nicolas com produtos: Monitor, Mouse, Nootebok, Fone e Teclado
+Fornecedor Nicolas forneceu os seguintes produtos: Headset, Bateria

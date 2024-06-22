@@ -148,6 +148,7 @@ public class App {
                                 FornecedorView.removeFornecedor(fornecedorController, scanner);
                                 break;
                             case 5:
+                                FornecedorView.registrarFornecimento(fornecedorController, scanner);
                                 break;
                             case 0:
                                 System.out.println("Voltando ao menu principal...");

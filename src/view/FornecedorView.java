@@ -120,11 +120,11 @@ public class FornecedorView {
     public static void registrarFornecimento(FornecedorController fController, Scanner scanner) {
         System.out.print("Nome do fornecedor: ");
         String nomeFornecedor = scanner.nextLine().trim();
-
+    
         System.out.println("Digite os produtos fornecidos separados por vírgula:");
         String produtosStr = scanner.nextLine().trim();
         List<String> produtos = List.of(produtosStr.split("\\s*,\\s*"));
-
+    
         try {
             fController.registrarFornecimento(nomeFornecedor, produtos);
             System.out.println("Fornecimento registrado com sucesso!");

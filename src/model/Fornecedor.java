@@ -65,6 +65,6 @@ public class Fornecedor extends Pessoa {
 
     @Override
     public String exibiPessoa() {
-        return "ID: " + id + super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + (produtosFornecidos == null || produtosFornecidos.isEmpty() ? "Nenhum produto Fornecido" : produtosFornecidos)  + ", Data do Último Fornecimento: " + (dataUltimoFornecimento == null ? "Nenhuma data Constada" : dataUltimoFornecimento) + ".";
+        return "ID: " + id + " " + super.exibiPessoa() + " Empresa: " + nomeEmpresa + ", Produtos Fornecidos: " + (produtosFornecidos == null || produtosFornecidos.isEmpty() ? "Nenhum produto Fornecido" : produtosFornecidos)  + ", Data do Último Fornecimento: " + (dataUltimoFornecimento == null ? "Nenhuma data Constada" : dataUltimoFornecimento) + ".";
     }
 }

@@ -68,10 +68,12 @@ public class FornecedorController implements Serializable{
 
     public void registrarFornecimento(String nomeFornecedor, List<String> produtos) throws Exception {
         Fornecedor fornecedor = buscaFornecedor(nomeFornecedor).orElseThrow(() -> new Exception("Fornecedor não encontrado"));
+    
         fornecedor.registrarFornecimento(produtos);
-        Log.escreverNoLog("Fornecimento registrado para o fornecedor " + fornecedor.getNome() + " com produtos: " + produtos);
+        Log.escreverNoLog(String.format("Fornecedor %s forneceu os seguintes produtos: %s", fornecedor.getNome(), String.join(", ", produtos)));
         salvarDados();
     }
+    
 
     public void salvarDados() throws Exception {
         Ser.salvarFornecedor(fornecedores);
