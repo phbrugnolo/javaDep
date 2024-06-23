@@ -20,10 +20,13 @@ public class App {
         int option = -1;
         int subOption = -1;
 
-        DepartamentoController departamentoController = new DepartamentoController(CriarLista.criarListaDepartamento());
         FuncionarioController funcionarioController = new FuncionarioController(CriarLista.criarListaFuncionario());
+        DepartamentoController departamentoController = new DepartamentoController(CriarLista.criarListaDepartamento());
         FornecedorController fornecedorController = new FornecedorController(CriarLista.criarListaFornecedor());
         Empresa empresa = new Empresa("NoxEnterprises", departamentoController, funcionarioController, fornecedorController);
+
+        departamentoController.setFuncionarioController(funcionarioController);
+        funcionarioController.setDepartamentoController(departamentoController);
 
         do {
             System.out.println("Menu Principal:");

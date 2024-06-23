@@ -20,7 +20,7 @@ public class FuncionarioView {
         String cpf = scanner.nextLine().trim();
         System.out.print("Cargo: ");
         String cargo = scanner.nextLine().trim();
-
+    
         double salario = 0;
         try {
             System.out.print("Salário: ");
@@ -34,7 +34,7 @@ public class FuncionarioView {
         
         System.out.print("Nome do Departamento: ");
         String nomeDepartamento = scanner.nextLine().trim();
-
+    
         String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
         
         try {

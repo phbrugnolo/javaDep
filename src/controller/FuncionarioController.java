@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import model.Departamento;
 import model.Funcionario;
 import util.*;
 
@@ -12,6 +13,7 @@ public class FuncionarioController implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private List<Funcionario> funcionarios;
+    private DepartamentoController departamentoController;
 
     public FuncionarioController(List<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
@@ -28,6 +30,10 @@ public class FuncionarioController implements Serializable {
 
     public void setFuncionarios(List<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
+    }
+
+    public void setDepartamentoController(DepartamentoController departamentoController) {
+        this.departamentoController = departamentoController;
     }
 
     private int criarId() {
@@ -53,8 +59,8 @@ public class FuncionarioController implements Serializable {
         if(funcionario.getCpf() == null || funcionario.getCpf().trim().isEmpty()) throw new IllegalArgumentException("CPF do funcionário não pode ser vazio.");
         if(funcionario.getCargo() == null || funcionario.getCargo().trim().isEmpty()) throw new IllegalArgumentException("Cargo do funcionário não pode ser vazio.");
         if(funcionario.getSalario() <= 0) throw new IllegalArgumentException("Salário do funcionário não pode ser menor ou igual a zero.");
-        if(!ValidarCpfCnpj.validarCPF(funcionario.getCpf().trim())) throw new IllegalArgumentException("CPF inválido.");
         if(!FormataData.validarFormato(funcionario.getDataNascimentoStr()))
+        if(!ValidarCpfCnpj.validarCPF(funcionario.getCpf().trim())) throw new IllegalArgumentException("CPF inválido.");
         if(buscaFuncionario(funcionario.getId()).isPresent()) throw new IllegalArgumentException("Funcionário já cadastrado no sistema");
 
         funcionario.setId(criarId());
@@ -65,9 +71,19 @@ public class FuncionarioController implements Serializable {
 
     public void removeFuncionario(int id) throws Exception {
         Funcionario funcionario = buscaFuncionario(id).orElseThrow(() -> new NoSuchElementException("Funcionário não encontrado"));
+        removerFuncionarioDoDepartamento(funcionario);
         funcionarios.remove(funcionario);
         Log.escreverNoLog("Funcionário removido " + funcionario.getNome() + " com sucesso");
         salvarDados();
+    }
+
+    private void removerFuncionarioDoDepartamento(Funcionario funcionario) throws Exception {
+        for (Departamento departamento : departamentoController.getDepartamentos()) {
+            if (departamento.getFuncionarios().contains(funcionario)) {
+                departamento.getFuncionarios().remove(funcionario);
+                break;
+            }
+        }
     }
 
     public void editaFuncionario(int id, String novoNome, String novoSobrenome, String novaDataNascimentoStr, String novoCpf, String novoCargo, double novoSalario, String novoEmail) throws Exception {
@@ -80,8 +96,8 @@ public class FuncionarioController implements Serializable {
         if(novoCpf == null || novoCpf.trim().isEmpty()) throw new IllegalArgumentException("CNPJ do funcionário não pode ser vazio.");
         if(novoCargo == null || novoCargo.trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do funcionário não pode ser vazio.");
         if(novoSalario <= 0) throw new IllegalArgumentException("Salário do funcionário não pode ser menor ou igual a zero.");
-        if(!ValidarCpfCnpj.validarCPF(novoCpf.trim()))
         if(!FormataData.validarFormato(novaDataNascimentoStr))
+        if(!ValidarCpfCnpj.validarCPF(novoCpf.trim())) throw new IllegalArgumentException("CPF inválido.");
      
         funcionario.setNome(novoNome);
         funcionario.setSobrenome(novoSobrenome);
@@ -91,7 +107,6 @@ public class FuncionarioController implements Serializable {
         funcionario.setEmail(novoEmail);
         funcionario.setCargo(novoCargo);
         funcionario.setSalario(novoSalario);
-
 
         Log.escreverNoLog("Funcionário editado " + funcionario.getNome() + " com sucesso");
         salvarDados();
@@ -111,5 +126,5 @@ public class FuncionarioController implements Serializable {
         } catch (Exception e){
             System.out.println("Erro ao carregar dados: " + e.getMessage());
         }
-    }
+    }    
 }

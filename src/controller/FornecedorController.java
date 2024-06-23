@@ -48,8 +48,8 @@ public class FornecedorController implements Serializable{
         if(novaDataNascimentoStr == null || novaDataNascimentoStr.trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
         if(novoCnpj == null || novoCnpj.trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
         if(novaEmpresa == null || novaEmpresa.trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
+        if(!FormataData.validarFormato(novaDataNascimentoStr)) throw new IllegalArgumentException("Formato de data inválido. Use o formato dd/MM/yyyy.");
         if(!ValidarCpfCnpj.validarCNPJ(novoCnpj.trim())) throw new IllegalArgumentException("CNPJ inválido.");
-        if(!FormataData.validarFormato(novaDataNascimentoStr)) 
 
         fornecedor.setNome(novoNome);
         fornecedor.setSobrenome(novoSobrenome);
@@ -68,8 +68,8 @@ public class FornecedorController implements Serializable{
         if(fornecedor.getDataNascimentoStr() == null || fornecedor.getDataNascimentoStr().trim().isEmpty()) throw new IllegalArgumentException("Data de nascimento do fornecedor não pode ser vazia.");
         if(fornecedor.getCnpj() == null || fornecedor.getCnpj().trim().isEmpty()) throw new IllegalArgumentException("CNPJ do fornecedor não pode ser vazio.");
         if(fornecedor.getNomeEmpresa() == null || fornecedor.getNomeEmpresa().trim().isEmpty()) throw new IllegalArgumentException("Nome da empresa do fornecedor não pode ser vazio.");
-        if(!ValidarCpfCnpj.validarCNPJ(fornecedor.getCnpj().trim()))
-        if(!FormataData.validarFormato(fornecedor.getDataNascimentoStr()))
+        if(!ValidarCpfCnpj.validarCNPJ(fornecedor.getCnpj().trim())) throw new IllegalArgumentException("CNPJ inválido.");
+        if(!FormataData.validarFormato(fornecedor.getDataNascimentoStr())) throw new IllegalArgumentException("Formato de data inválido. Use o formato dd/MM/yyyy.");
         if(buscaFornecedor(fornecedor.getNome()).isPresent()) throw new IllegalArgumentException("Fornecedor já cadastrado no sistema");
 
         fornecedores.add(fornecedor);

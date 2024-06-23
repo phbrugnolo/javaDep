@@ -141,3 +141,52 @@ Funcionário cadastrado Teste com sucesso
 Teste adicionado no Comercial com sucesso
 Funcionário removido Teste com sucesso
 Funcionário removido teste com sucesso
+Departamento removido Comercial com sucesso
+Departamento cadastrado TI com sucesso
+Departamento cadastrado Comercial com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Funcionário cadastrado Cesar com sucesso
+Cesar adicionado no Comercial com sucesso
+Departamento cadastrado Infra com sucesso
+Funcionário cadastrado Henrique com sucesso
+Henrique adicionado no Infra com sucesso
+Fornecedor Weslley cadastrado com sucesso
+Fornecedor Weslley forneceu os seguintes produtos: Teclado, Mouse, Monitor, Notebook
+Departamento removido Comercial com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Fornecedor Weslley cadastrado com sucesso
+Fornecedor Weslley forneceu os seguintes produtos: Fone, Mouse, Teclado
+Departamento cadastrado Comercial com sucesso
+Funcionário cadastrado teste com sucesso
+teste adicionado no Comercial com sucesso
+Funcionário removido teste com sucesso
+Funcionário cadastrado teste com sucesso
+teste adicionado no Comercial com sucesso
+Funcionário removido teste com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado TESTE com sucesso
+TESTE adicionado no TI com sucesso
+Funcionário removido TESTE com sucesso
+Departamento removido TI com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Fornecedor teste cadastrado com sucesso
+Fornecedor teste removido com sucesso
+Fornecedor teste cadastrado com sucesso
+Fornecedor teste removido com sucesso
+Fornecedor teste cadastrado com sucesso
+Fornecedor teste cadastrado com sucesso
+Fornecedor Nicolas cadastrado com sucesso
+Departamento cadastrado TI com sucesso
+Funcionário cadastrado Pedro com sucesso
+Pedro adicionado no TI com sucesso
+Funcionário cadastrado Cesar com sucesso
+Cesar adicionado no TI com sucesso
+Departamento cadastrado Infra com sucesso
+Funcionário cadastrado Henrique com sucesso
+Henrique adicionado no Infra com sucesso
+Fornecedor Nicolas forneceu os seguintes produtos: Teclado, Mouse

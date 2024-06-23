@@ -21,22 +21,22 @@ public class FornecedorView {
         System.out.print("Empresa: ");
         String empresa = scanner.nextLine().trim();
 
-        Fornecedor fornecedor = Fornecedor.criarFornecedor(nome, sobrenome, dataNascimentoStr, cnpj, empresa);
-
         try {
+            Fornecedor fornecedor = Fornecedor.criarFornecedor(nome, sobrenome, dataNascimentoStr, cnpj, empresa);
             fController.adicionaFornecedor(fornecedor);
-            System.out.println("Fornecedor cadastrado com sucesso!");
-        } catch (IllegalArgumentException | DateTimeParseException e) {
-            System.out.println("Ocorreu um erro ao cadastrar o fornecedor: " + e.getMessage());
+            System.out.println("Forncedor cadastrado com sucesso!");
+        } catch (IllegalArgumentException | DateTimeParseException | IllegalStateException e) {
+            System.out.println("Ocorreu um erro ao cadastrar o forncedor: " + e.getMessage());
             return;
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro inesperado ao cadastrar o fornecedor: " + e.getMessage());
+            System.out.println("Ocorreu um erro inesperado ao cadastrar o forncedor: " + e.getMessage());
         }
     }
 
     public static void buscaFornecedor(FornecedorController fController, Scanner scanner) {
         System.out.print("Nome do fornecedor: ");
         String nome = scanner.nextLine();
+
         try {
             fController.buscaFornecedor(nome).ifPresentOrElse(
                 fornecedor -> System.out.println("Fornecedor encontrado: " + fornecedor.exibiPessoa()),
@@ -51,6 +51,7 @@ public class FornecedorView {
     public static void removeFornecedor(FornecedorController fController, Scanner scanner) {
         System.out.print("Nome do fornecedor: ");
         String nome = scanner.nextLine();
+        
         try {
             fController.removeFornecedor(nome);
             System.out.println("Fornecedor removido com sucesso!");
@@ -80,7 +81,7 @@ public class FornecedorView {
         try {
             fController.editaFornecedor(nome, novoNome, novoSobrenome, novaDataNascimentoStr, novoCpf, novaEmpresa);
             System.out.println("Fornecedor editado com sucesso!");
-        } catch (IllegalArgumentException | NoSuchElementException e) {
+        } catch (IllegalArgumentException | DateTimeParseException e) {
             System.out.println("Ocorreu um erro ao editar o fornecedor: " + e.getMessage());
             return;
         } catch (Exception e) {

@@ -13,6 +13,7 @@ public class DepartamentoController implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private List<Departamento> departamentos;
+    private FuncionarioController funcionarioController;
 
     public DepartamentoController(List<Departamento> departamentos) {
         this.departamentos = departamentos;
@@ -29,6 +30,10 @@ public class DepartamentoController implements Serializable {
 
     public void setDepartamentos(List<Departamento> departamentos) {
         this.departamentos = departamentos;
+    }
+
+    public void setFuncionarioController(FuncionarioController funcionarioController) {
+        this.funcionarioController = funcionarioController;
     }
 
     public Optional<Departamento> buscaDepartamento(String nome) {
@@ -56,6 +61,7 @@ public class DepartamentoController implements Serializable {
     public void removeDepartamento(String nome) throws Exception {
         Departamento departamento = buscaDepartamento(nome).orElseThrow(() -> new NoSuchElementException("Departamento não encontrado"));
         departamentos.remove(departamento);
+        removerFuncionariosDoDepartamento(departamento);
         Log.escreverNoLog("Departamento removido " + departamento.getNome() + " com sucesso");
         salvarDados();
     }
@@ -65,6 +71,13 @@ public class DepartamentoController implements Serializable {
         departamento.adicionarFuncionario(funcionario);
         Log.escreverNoLog(funcionario.getNome() + " adicionado no " + nomeDepartamento + " com sucesso");
         salvarDados();
+    }
+    
+    private void removerFuncionariosDoDepartamento(Departamento departamento) throws Exception {
+        for (Funcionario funcionario : departamento.getFuncionarios()) {
+            funcionarioController.removeFuncionario(funcionario.getId());
+        }
+        departamento.getFuncionarios().clear();
     }
 
     public void salvarDados() throws Exception {
