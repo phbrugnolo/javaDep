@@ -39,8 +39,8 @@ public class FuncionarioView {
         
         try {
             Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimentoStr, cpf, cargo, salario, email);
-            fController.adicionaFuncionario(funcionario);
             dController.adicionarFuncionario(funcionario, nomeDepartamento);
+            fController.adicionaFuncionario(funcionario);
             System.out.println("Funcionário cadastrado com sucesso!");
         } catch (IllegalArgumentException | DateTimeParseException | IllegalStateException e) {
             System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e.getMessage());
