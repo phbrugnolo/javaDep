@@ -36,10 +36,16 @@ public class FuncionarioView {
         String nomeDepartamento = scanner.nextLine().trim();
     
         String email = nome.toLowerCase() + "." + sobrenome.toLowerCase() + "@" + empresa.getNome().toLowerCase() + ".com";
+
+        try {
+            dController.adicionarFuncionario(funcionario, nomeDepartamento);
+        } catch (IllegalArgumentException | DateTimeParseException | IllegalStateException e) {
+            System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e.getMessage());
+            return;
+        }
         
         try {
             Funcionario funcionario = Funcionario.criarFuncionario(nome, sobrenome, dataNascimentoStr, cpf, cargo, salario, email);
-            dController.adicionarFuncionario(funcionario, nomeDepartamento);
             fController.adicionaFuncionario(funcionario);
             System.out.println("Funcionário cadastrado com sucesso!");
         } catch (IllegalArgumentException | DateTimeParseException | IllegalStateException e) {
